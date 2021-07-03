@@ -742,11 +742,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\chitr\\source\\repos\\GeeksBakery\\GeeksBakery\\GeeksBakery.csproj",
-      "projectName": "GeeksBakery",
-      "projectPath": "C:\\Users\\chitr\\source\\repos\\GeeksBakery\\GeeksBakery\\GeeksBakery.csproj",
+      "projectUniqueName": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery\\GeeksBakery.Webapp.csproj",
+      "projectName": "GeeksBakery.Webapp",
+      "projectPath": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery\\GeeksBakery.Webapp.csproj",
       "packagesPath": "C:\\Users\\chitr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\chitr\\source\\repos\\GeeksBakery\\GeeksBakery\\obj\\",
+      "outputPath": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
