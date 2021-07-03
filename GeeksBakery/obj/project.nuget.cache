@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KtP0R6ZRl5S7Dwrx5h4bcx/DrrFDmpJyUpXlbkBaxKMGm+CYkHi9QaiZe1JqDYebyZZid34NZcJ9dmLT1PSKEw==",
+  "dgSpecHash": "dEgcz+TREPXQbV7LriSVNFl16OQSSlEbnXWd1VtiBTVamlxQp5769rHuIUWsVmy49j0/ibXPKL0enGqD7/0fdQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\chitr\\source\\repos\\GeeksBakery\\GeeksBakery\\GeeksBakery.csproj",
+  "projectFilePath": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery\\GeeksBakery.WebApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chitr\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\5.0.7\\microsoft.aspnetcore.mvc.razor.extensions.5.0.7.nupkg.sha512",
     "C:\\Users\\chitr\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\5.0.7\\microsoft.aspnetcore.mvc.razor.runtimecompilation.5.0.7.nupkg.sha512",

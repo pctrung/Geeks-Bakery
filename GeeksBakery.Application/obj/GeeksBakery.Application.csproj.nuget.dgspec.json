@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery\\GeeksBakery.csproj": {}
+    "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery.Application\\GeeksBakery.Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery\\GeeksBakery.csproj": {
+    "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery.Application\\GeeksBakery.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery\\GeeksBakery.csproj",
-        "projectName": "GeeksBakery",
-        "projectPath": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery\\GeeksBakery.csproj",
+        "projectUniqueName": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery.Application\\GeeksBakery.Application.csproj",
+        "projectName": "GeeksBakery.Application",
+        "projectPath": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery.Application\\GeeksBakery.Application.csproj",
         "packagesPath": "C:\\Users\\chitr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery\\obj\\",
+        "outputPath": "C:\\Users\\chitr\\source\\repos\\TrungXiIT\\Geeks-Bakery\\GeeksBakery.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -42,12 +42,6 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "dependencies": {
-            "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
-              "target": "Package",
-              "version": "[5.0.7, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -59,9 +53,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
