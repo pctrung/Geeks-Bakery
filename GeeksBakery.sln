@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeksBakery", "GeeksBakery\GeeksBakery.csproj", "{81832388-FF32-4F74-A847-351CEFF1B1DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.WebApp", "GeeksBakery\GeeksBakery.WebApp.csproj", "{81832388-FF32-4F74-A847-351CEFF1B1DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeksBakery.Data", "GeeksBakery.Data\GeeksBakery.Data.csproj", "{FEAFB7B0-0FA2-4208-B15B-8DCC1E6B66A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeksBakery.Application", "GeeksBakery.Application\GeeksBakery.Application.csproj", "{C964A93E-DF6D-4792-94ED-7D0C77D3DB69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{81832388-FF32-4F74-A847-351CEFF1B1DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81832388-FF32-4F74-A847-351CEFF1B1DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81832388-FF32-4F74-A847-351CEFF1B1DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEAFB7B0-0FA2-4208-B15B-8DCC1E6B66A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEAFB7B0-0FA2-4208-B15B-8DCC1E6B66A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEAFB7B0-0FA2-4208-B15B-8DCC1E6B66A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEAFB7B0-0FA2-4208-B15B-8DCC1E6B66A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C964A93E-DF6D-4792-94ED-7D0C77D3DB69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C964A93E-DF6D-4792-94ED-7D0C77D3DB69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C964A93E-DF6D-4792-94ED-7D0C77D3DB69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C964A93E-DF6D-4792-94ED-7D0C77D3DB69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
