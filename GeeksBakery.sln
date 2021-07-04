@@ -5,9 +5,15 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.WebApp", "GeeksBakery\GeeksBakery.WebApp.csproj", "{81832388-FF32-4F74-A847-351CEFF1B1DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeksBakery.Data", "GeeksBakery.Data\GeeksBakery.Data.csproj", "{FEAFB7B0-0FA2-4208-B15B-8DCC1E6B66A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.Data", "GeeksBakery.Data\GeeksBakery.Data.csproj", "{FEAFB7B0-0FA2-4208-B15B-8DCC1E6B66A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeksBakery.Application", "GeeksBakery.Application\GeeksBakery.Application.csproj", "{C964A93E-DF6D-4792-94ED-7D0C77D3DB69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.Application", "GeeksBakery.Application\GeeksBakery.Application.csproj", "{C964A93E-DF6D-4792-94ED-7D0C77D3DB69}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{025AE5A2-0F98-4C88-BBA6-0D1FFE609D96}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
