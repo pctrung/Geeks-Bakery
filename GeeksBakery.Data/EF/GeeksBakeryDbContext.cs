@@ -25,8 +25,8 @@ namespace GeeksBakery.Data.EF
                 .ApplyConfiguration(new CakeConfiguration())
                 .ApplyConfiguration(new OrderConfiguration())
                 .ApplyConfiguration(new CartConfiguration())
-                .ApplyConfiguration(new OrderDetailConfiguration());
-            //    .ApplyConfiguration(new AppUserConfiguration())
+                .ApplyConfiguration(new OrderDetailConfiguration())
+                .ApplyConfiguration(new AppUserConfiguration());
             //    .ApplyConfiguration(new AppRoleConfiguration())
             //    .ApplyConfiguration(new CategoryConfiguration())
 

@@ -13,7 +13,7 @@ namespace GeeksBakery.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-            throw new NotImplementedException();
+            builder.Property(p => p.Avatar).HasDefaultValue("default-avatar.png");
         }
     }
 }
