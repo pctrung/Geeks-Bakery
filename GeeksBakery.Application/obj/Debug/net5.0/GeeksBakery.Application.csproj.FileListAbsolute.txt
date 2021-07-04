@@ -1,0 +1,12 @@
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\bin\Debug\net5.0\GeeksBakery.Application.deps.json
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\bin\Debug\net5.0\GeeksBakery.Application.dll
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\bin\Debug\net5.0\ref\GeeksBakery.Application.dll
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\bin\Debug\net5.0\GeeksBakery.Application.pdb
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\obj\Debug\net5.0\GeeksBakery.Application.csproj.AssemblyReference.cache
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\obj\Debug\net5.0\GeeksBakery.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\obj\Debug\net5.0\GeeksBakery.Application.AssemblyInfoInputs.cache
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\obj\Debug\net5.0\GeeksBakery.Application.AssemblyInfo.cs
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\obj\Debug\net5.0\GeeksBakery.Application.csproj.CoreCompileInputs.cache
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\obj\Debug\net5.0\GeeksBakery.Application.dll
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\obj\Debug\net5.0\ref\GeeksBakery.Application.dll
+C:\Users\chitr\source\repos\TrungXiIT\Geeks-Bakery\GeeksBakery.Application\obj\Debug\net5.0\GeeksBakery.Application.pdb
