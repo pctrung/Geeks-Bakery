@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace GeeksBakery.Data.Configurations
 {
-    public class CartConfiguration : IEntityTypeConfiguration<Cart>
+    public class AppRoleConfiguration : IEntityTypeConfiguration<AppRole>
     {
-        public void Configure(EntityTypeBuilder<Cart> builder)
+        public void Configure(EntityTypeBuilder<AppRole> builder)
         {
-            builder.HasKey(c => new { c.CakeId, c.UserId });
+            throw new NotImplementedException();
         }
     }
 }

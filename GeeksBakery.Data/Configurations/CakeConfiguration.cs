@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace GeeksBakery.Data.Configurations
 {
-    public class CartConfiguration : IEntityTypeConfiguration<Cart>
+    public class CakeConfiguration : IEntityTypeConfiguration<Cake>
     {
-        public void Configure(EntityTypeBuilder<Cart> builder)
+        public void Configure(EntityTypeBuilder<Cake> builder)
         {
-            builder.HasKey(c => new { c.CakeId, c.UserId });
+            builder.Property(p => p.DateCreated).HasDefaultValue(DateTime.Now);
         }
     }
 }
