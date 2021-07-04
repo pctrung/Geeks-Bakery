@@ -113,7 +113,7 @@ namespace GeeksBakery.Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "default-avatar.png"),
                     DoB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -144,6 +144,7 @@ namespace GeeksBakery.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "default-cake.png"),
                     SEOAlias = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Stock = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -151,7 +152,7 @@ namespace GeeksBakery.Data.Migrations
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateDeleted = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 4, 23, 38, 58, 411, DateTimeKind.Local).AddTicks(383))
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 5, 0, 13, 2, 82, DateTimeKind.Local).AddTicks(7927))
                 },
                 constraints: table =>
                 {
@@ -175,7 +176,7 @@ namespace GeeksBakery.Data.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateDeleted = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 4, 23, 38, 58, 417, DateTimeKind.Local).AddTicks(2525))
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 5, 0, 13, 2, 92, DateTimeKind.Local).AddTicks(5706))
                 },
                 constraints: table =>
                 {
@@ -264,18 +265,18 @@ namespace GeeksBakery.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "548f307a-7ecf-46a6-a3b8-3a6829f1e783", "Administrator role", "admin", "admin" },
-                    { new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"), "6258b7a3-86ab-48e6-bd09-5d07aa350cb3", "Customer role", "customer", "customer" }
+                    { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "978aa1c3-1f2b-41f7-a703-2497e87fd381", "Administrator role", "admin", "admin" },
+                    { new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"), "f91a8bb5-90a3-4ce7-8b38-c2be508fb859", "Customer role", "customer", "customer" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "AccessFailedCount", "Address", "Avatar", "ConcurrencyStamp", "DoB", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "DoB", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, null, null, "6863b2b5-2210-44f2-8416-bcfb848b7e2d", new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "trung@gmail.com", true, false, null, "Pham Chi Trung", "trung@gmail.com", "admin", "AQAAAAEAACcQAAAAEBwTxqttmC8X4dZJ9fyqH/3guV7Mz3jlP9lvIyzwBveqsewe5zUsDHcGfOFcJLj8lw==", null, false, "", false, "admin" },
-                    { new Guid("bff91064-dc92-421e-a233-d1080f630928"), 0, null, null, "d26fecd9-b16b-4b1c-8b18-b1753f07edfe", new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer1@gmail.com", true, false, null, "Pham Chi Trung Customer", "customer1@gmail.com", "customer", "AQAAAAEAACcQAAAAEGvhtYfOZGQ6apzaDzOl/KZnjpJdIDXSOqDQbCvfGOl2ylkLOexVWSlbXYHY8/FsTQ==", null, false, "", false, "customer 1" },
-                    { new Guid("bff91054-dc92-421e-a233-d1080f630928"), 0, null, null, "64fb0aac-457e-44dd-bde6-ea4a48c3bd93", new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer2@gmail.com", true, false, null, "David", "customer2@gmail.com", "customer", "AQAAAAEAACcQAAAAEMNZg5x2Qg1npFKPBk2C31a8tXZxhl6rGJVUbgqCXZFssd8w3LaJRCTx5wtr78stvg==", null, false, "", false, "customer 2" }
+                    { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, null, "433e7efe-5d87-416c-bd07-269301ea7fbe", new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "trung@gmail.com", true, false, null, "Pham Chi Trung", "trung@gmail.com", "admin", "AQAAAAEAACcQAAAAEMqeOAOtXQfe9ETfSdXWX1Lf1KK8vG5ANWzqffVt/TVFUvkomeKVWVUeVJVTKV850A==", null, false, "", false, "admin" },
+                    { new Guid("bff91064-dc92-421e-a233-d1080f630928"), 0, null, "91ea369d-f62f-4bd3-b0a8-0975dcfdaa42", new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer1@gmail.com", true, false, null, "Pham Chi Trung Customer", "customer1@gmail.com", "customer", "AQAAAAEAACcQAAAAEJFveFitO2XgQ8lb27vIv8UrHO8g4XlDHM8qOeAcRZrZToZmzP3dUXQ2D/mW/KIiYw==", null, false, "", false, "customer 1" },
+                    { new Guid("bff91054-dc92-421e-a233-d1080f630928"), 0, null, "5c862301-0420-4fdf-9557-83da4f2e8b30", new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer2@gmail.com", true, false, null, "David", "customer2@gmail.com", "customer", "AQAAAAEAACcQAAAAELKfONU/3Adg4GGc9Rwp0BMFYl3YeG3aOeRgwcBHCrkY1PaRqJzfLt/fDPEI4NjGrg==", null, false, "", false, "customer 2" }
                 });
 
             migrationBuilder.InsertData(

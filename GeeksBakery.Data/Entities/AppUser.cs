@@ -11,7 +11,6 @@ namespace GeeksBakery.Data.Entities
 
         public string Address { get; set; }
 
-        [DefaultValue("default.png")]
         public string Avatar { get; set; }
 
         public DateTime DoB { get; set; }
