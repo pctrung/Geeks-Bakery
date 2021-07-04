@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeeksBakery.Data.Migrations
 {
     [DbContext(typeof(GeeksBakeryDbContext))]
-    [Migration("20210704163859_Initial")]
+    [Migration("20210704171302_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,7 +47,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "548f307a-7ecf-46a6-a3b8-3a6829f1e783",
+                            ConcurrencyStamp = "978aa1c3-1f2b-41f7-a703-2497e87fd381",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -55,7 +55,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"),
-                            ConcurrencyStamp = "6258b7a3-86ab-48e6-bd09-5d07aa350cb3",
+                            ConcurrencyStamp = "f91a8bb5-90a3-4ce7-8b38-c2be508fb859",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -75,7 +75,9 @@ namespace GeeksBakery.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Avatar")
-                        .HasColumnType("nvarchar(max)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("default-avatar.png");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
@@ -131,7 +133,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6863b2b5-2210-44f2-8416-bcfb848b7e2d",
+                            ConcurrencyStamp = "433e7efe-5d87-416c-bd07-269301ea7fbe",
                             DoB = new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trung@gmail.com",
                             EmailConfirmed = true,
@@ -139,7 +141,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung",
                             NormalizedEmail = "trung@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBwTxqttmC8X4dZJ9fyqH/3guV7Mz3jlP9lvIyzwBveqsewe5zUsDHcGfOFcJLj8lw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMqeOAOtXQfe9ETfSdXWX1Lf1KK8vG5ANWzqffVt/TVFUvkomeKVWVUeVJVTKV850A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -149,7 +151,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91064-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d26fecd9-b16b-4b1c-8b18-b1753f07edfe",
+                            ConcurrencyStamp = "91ea369d-f62f-4bd3-b0a8-0975dcfdaa42",
                             DoB = new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer1@gmail.com",
                             EmailConfirmed = true,
@@ -157,7 +159,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung Customer",
                             NormalizedEmail = "customer1@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGvhtYfOZGQ6apzaDzOl/KZnjpJdIDXSOqDQbCvfGOl2ylkLOexVWSlbXYHY8/FsTQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJFveFitO2XgQ8lb27vIv8UrHO8g4XlDHM8qOeAcRZrZToZmzP3dUXQ2D/mW/KIiYw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -167,7 +169,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91054-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "64fb0aac-457e-44dd-bde6-ea4a48c3bd93",
+                            ConcurrencyStamp = "5c862301-0420-4fdf-9557-83da4f2e8b30",
                             DoB = new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer2@gmail.com",
                             EmailConfirmed = true,
@@ -175,7 +177,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "David",
                             NormalizedEmail = "customer2@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMNZg5x2Qg1npFKPBk2C31a8tXZxhl6rGJVUbgqCXZFssd8w3LaJRCTx5wtr78stvg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELKfONU/3Adg4GGc9Rwp0BMFYl3YeG3aOeRgwcBHCrkY1PaRqJzfLt/fDPEI4NjGrg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -196,7 +198,7 @@ namespace GeeksBakery.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 4, 23, 38, 58, 411, DateTimeKind.Local).AddTicks(383));
+                        .HasDefaultValue(new DateTime(2021, 7, 5, 0, 13, 2, 82, DateTimeKind.Local).AddTicks(7927));
 
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("datetime2");
@@ -206,6 +208,11 @@ namespace GeeksBakery.Data.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("default-cake.png");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -401,7 +408,7 @@ namespace GeeksBakery.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 4, 23, 38, 58, 417, DateTimeKind.Local).AddTicks(2525));
+                        .HasDefaultValue(new DateTime(2021, 7, 5, 0, 13, 2, 92, DateTimeKind.Local).AddTicks(5706));
 
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("datetime2");
