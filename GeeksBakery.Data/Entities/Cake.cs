@@ -15,10 +15,7 @@ namespace GeeksBakery.Data.Entities
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Size { get; set; }
-        [DefaultValue("default-cake.png")]
-        public string Image { get; set; }
 
-        
         #nullable enable
         public string? SEOAlias { get; set; }
         public int? Stock { get; set; }

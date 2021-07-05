@@ -13,7 +13,7 @@ namespace GeeksBakery.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.Property(p => p.DateCreated).HasDefaultValue(DateTime.Now);
+            
         }
     }
 }

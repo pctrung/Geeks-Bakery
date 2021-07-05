@@ -13,8 +13,7 @@ namespace GeeksBakery.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Cake> builder)
         {
-            builder.Property(p => p.DateCreated).HasDefaultValue(DateTime.Now);
-            builder.Property(p => p.Image).HasDefaultValue("default-cake.png");
+            
         }
     }
 }

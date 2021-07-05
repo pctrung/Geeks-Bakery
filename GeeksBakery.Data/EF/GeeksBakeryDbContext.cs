@@ -22,13 +22,14 @@ namespace GeeksBakery.Data.EF
         {
             // This project will use some Annotation and some Fluent API in config file
             modelBuilder
-                .ApplyConfiguration(new CakeConfiguration())
                 .ApplyConfiguration(new OrderConfiguration())
                 .ApplyConfiguration(new CartConfiguration())
                 .ApplyConfiguration(new OrderDetailConfiguration())
                 .ApplyConfiguration(new AppUserConfiguration());
+            //    .ApplyConfiguration(new CakeConfiguration())
             //    .ApplyConfiguration(new AppRoleConfiguration())
             //    .ApplyConfiguration(new CategoryConfiguration())
+            //    .ApplyConfiguration(new CakeImageConfiguration())
 
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");

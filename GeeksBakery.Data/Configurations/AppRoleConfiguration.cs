@@ -13,7 +13,7 @@ namespace GeeksBakery.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AppRole> builder)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
