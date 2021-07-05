@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Catalog\" />
+    <ProjectReference Include="..\GeeksBakery.Data\GeeksBakery.Data.csproj" />
+    <ProjectReference Include="..\GeeksBakery.Utilities\GeeksBakery.Utilities.csproj" />
+    <ProjectReference Include="..\GeeksBakery.ViewModels\GeeksBakery.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

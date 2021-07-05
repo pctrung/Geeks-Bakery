@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace GeeksBakery.Data.Configurations
 {
-    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+    public class CakeImageConfiguration : IEntityTypeConfiguration<CakeImage>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<CakeImage> builder)
         {
             
         }
