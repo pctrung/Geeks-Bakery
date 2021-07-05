@@ -29,5 +29,7 @@ namespace GeeksBakery.Data.Entities
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
+        public List<CakeImage> CakeImages { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeeksBakery.Data.Migrations
 {
     [DbContext(typeof(GeeksBakeryDbContext))]
-    [Migration("20210705125324_AddCakeImageTable")]
+    [Migration("20210705144012_AddCakeImageTable")]
     partial class AddCakeImageTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,7 +47,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "7972345a-8823-41fc-aab1-35450c41b14f",
+                            ConcurrencyStamp = "77ee34d2-e8bf-4e38-8055-0b59ca4e8281",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -55,7 +55,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"),
-                            ConcurrencyStamp = "256bcbfa-47e3-423d-94f4-8e42b9c2fd90",
+                            ConcurrencyStamp = "063fd6a1-78f1-4c13-8453-66a287e3561e",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -133,7 +133,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "35cac859-f5f9-46fe-8fb2-06295ee87cb2",
+                            ConcurrencyStamp = "ce7a84aa-03d9-4fac-a7eb-790f70960f12",
                             DoB = new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trung@gmail.com",
                             EmailConfirmed = true,
@@ -141,7 +141,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung",
                             NormalizedEmail = "trung@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGqJBwhd8AfBuQ1JtOKjd8uGnT8RZMo7EQwhMpwXKMOS9qVyry+gjqA6W0GAalJN/g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENGFpGukVtca+n5GX6wOOR93cP2OtdtQQQvg3UaWgysKShoaqv5ru9wBz7AB+Cj/Pg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -151,7 +151,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91064-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b46d6535-a0a0-4bda-ac31-13c3f5fb7011",
+                            ConcurrencyStamp = "1d0067e3-f093-430c-9d05-489d43563eef",
                             DoB = new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer1@gmail.com",
                             EmailConfirmed = true,
@@ -159,7 +159,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung Customer",
                             NormalizedEmail = "customer1@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGZXFZK0jf2uQCrecRFdpTGFc/+jIvmrRU/h071zzkEE4V1Y93eg5+IB1CmiF3X9+A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJB+cbAg6bgPNap7g/FOKu2bIyNy/ulFykqec1AXlya7cxzzpEdmk54zNwJSCarUMg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -169,7 +169,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91054-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "85d7bc04-cc23-46fd-9731-4e02c3c9d169",
+                            ConcurrencyStamp = "92c3a48c-49ae-4976-b755-0d0daac7d082",
                             DoB = new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer2@gmail.com",
                             EmailConfirmed = true,
@@ -177,7 +177,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "David",
                             NormalizedEmail = "customer2@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAECpkM4rIPPWcKkE7fuGpri0u0v5BZJf6FmEQN6lX2kOIwWlqRFCyP1BytiOssp7AKA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHtslppEfsreCKZJnAIxRKUPqS9yEwspc+Pq4nQwMm7xTAgtFMhb3IN1s4GYOVUsbg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -319,6 +319,41 @@ namespace GeeksBakery.Data.Migrations
                             Price = 160000m,
                             Size = 21
                         });
+                });
+
+            modelBuilder.Entity("GeeksBakery.Data.Entities.CakeImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CakeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Caption")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CakeId");
+
+                    b.ToTable("CakeImages");
                 });
 
             modelBuilder.Entity("GeeksBakery.Data.Entities.Cart", b =>
@@ -643,6 +678,17 @@ namespace GeeksBakery.Data.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("GeeksBakery.Data.Entities.CakeImage", b =>
+                {
+                    b.HasOne("GeeksBakery.Data.Entities.Cake", "Cake")
+                        .WithMany("CakeImages")
+                        .HasForeignKey("CakeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cake");
+                });
+
             modelBuilder.Entity("GeeksBakery.Data.Entities.Cart", b =>
                 {
                     b.HasOne("GeeksBakery.Data.Entities.Cake", "Cake")
@@ -697,6 +743,11 @@ namespace GeeksBakery.Data.Migrations
                     b.Navigation("Carts");
 
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("GeeksBakery.Data.Entities.Cake", b =>
+                {
+                    b.Navigation("CakeImages");
                 });
 
             modelBuilder.Entity("GeeksBakery.Data.Entities.Category", b =>

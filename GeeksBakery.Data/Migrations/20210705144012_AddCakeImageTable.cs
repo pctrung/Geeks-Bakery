@@ -19,44 +19,77 @@ namespace GeeksBakery.Data.Migrations
                 name: "Image",
                 table: "Cakes");
 
+            migrationBuilder.CreateTable(
+                name: "CakeImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CakeId = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Caption = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
+                    FileSize = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CakeImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CakeImages_Cakes_CakeId",
+                        column: x => x.CakeId,
+                        principalTable: "Cakes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.UpdateData(
                 table: "Roles",
                 keyColumn: "Id",
                 keyValue: new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"),
                 column: "ConcurrencyStamp",
-                value: "256bcbfa-47e3-423d-94f4-8e42b9c2fd90");
+                value: "063fd6a1-78f1-4c13-8453-66a287e3561e");
 
             migrationBuilder.UpdateData(
                 table: "Roles",
                 keyColumn: "Id",
                 keyValue: new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
                 column: "ConcurrencyStamp",
-                value: "7972345a-8823-41fc-aab1-35450c41b14f");
+                value: "77ee34d2-e8bf-4e38-8055-0b59ca4e8281");
 
             migrationBuilder.UpdateData(
                 table: "Users",
                 keyColumn: "Id",
                 keyValue: new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "35cac859-f5f9-46fe-8fb2-06295ee87cb2", "AQAAAAEAACcQAAAAEGqJBwhd8AfBuQ1JtOKjd8uGnT8RZMo7EQwhMpwXKMOS9qVyry+gjqA6W0GAalJN/g==" });
+                values: new object[] { "ce7a84aa-03d9-4fac-a7eb-790f70960f12", "AQAAAAEAACcQAAAAENGFpGukVtca+n5GX6wOOR93cP2OtdtQQQvg3UaWgysKShoaqv5ru9wBz7AB+Cj/Pg==" });
 
             migrationBuilder.UpdateData(
                 table: "Users",
                 keyColumn: "Id",
                 keyValue: new Guid("bff91054-dc92-421e-a233-d1080f630928"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "85d7bc04-cc23-46fd-9731-4e02c3c9d169", "AQAAAAEAACcQAAAAECpkM4rIPPWcKkE7fuGpri0u0v5BZJf6FmEQN6lX2kOIwWlqRFCyP1BytiOssp7AKA==" });
+                values: new object[] { "92c3a48c-49ae-4976-b755-0d0daac7d082", "AQAAAAEAACcQAAAAEHtslppEfsreCKZJnAIxRKUPqS9yEwspc+Pq4nQwMm7xTAgtFMhb3IN1s4GYOVUsbg==" });
 
             migrationBuilder.UpdateData(
                 table: "Users",
                 keyColumn: "Id",
                 keyValue: new Guid("bff91064-dc92-421e-a233-d1080f630928"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "b46d6535-a0a0-4bda-ac31-13c3f5fb7011", "AQAAAAEAACcQAAAAEGZXFZK0jf2uQCrecRFdpTGFc/+jIvmrRU/h071zzkEE4V1Y93eg5+IB1CmiF3X9+A==" });
+                values: new object[] { "1d0067e3-f093-430c-9d05-489d43563eef", "AQAAAAEAACcQAAAAEJB+cbAg6bgPNap7g/FOKu2bIyNy/ulFykqec1AXlya7cxzzpEdmk54zNwJSCarUMg==" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CakeImages_CakeId",
+                table: "CakeImages",
+                column: "CakeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CakeImages");
+
             migrationBuilder.AddColumn<DateTime>(
                 name: "DateCreated",
                 table: "Orders",

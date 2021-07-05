@@ -45,7 +45,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "978aa1c3-1f2b-41f7-a703-2497e87fd381",
+                            ConcurrencyStamp = "77ee34d2-e8bf-4e38-8055-0b59ca4e8281",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -53,7 +53,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"),
-                            ConcurrencyStamp = "f91a8bb5-90a3-4ce7-8b38-c2be508fb859",
+                            ConcurrencyStamp = "063fd6a1-78f1-4c13-8453-66a287e3561e",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -131,7 +131,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "433e7efe-5d87-416c-bd07-269301ea7fbe",
+                            ConcurrencyStamp = "ce7a84aa-03d9-4fac-a7eb-790f70960f12",
                             DoB = new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trung@gmail.com",
                             EmailConfirmed = true,
@@ -139,7 +139,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung",
                             NormalizedEmail = "trung@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMqeOAOtXQfe9ETfSdXWX1Lf1KK8vG5ANWzqffVt/TVFUvkomeKVWVUeVJVTKV850A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENGFpGukVtca+n5GX6wOOR93cP2OtdtQQQvg3UaWgysKShoaqv5ru9wBz7AB+Cj/Pg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -149,7 +149,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91064-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "91ea369d-f62f-4bd3-b0a8-0975dcfdaa42",
+                            ConcurrencyStamp = "1d0067e3-f093-430c-9d05-489d43563eef",
                             DoB = new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer1@gmail.com",
                             EmailConfirmed = true,
@@ -157,7 +157,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung Customer",
                             NormalizedEmail = "customer1@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJFveFitO2XgQ8lb27vIv8UrHO8g4XlDHM8qOeAcRZrZToZmzP3dUXQ2D/mW/KIiYw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJB+cbAg6bgPNap7g/FOKu2bIyNy/ulFykqec1AXlya7cxzzpEdmk54zNwJSCarUMg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -167,7 +167,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91054-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5c862301-0420-4fdf-9557-83da4f2e8b30",
+                            ConcurrencyStamp = "92c3a48c-49ae-4976-b755-0d0daac7d082",
                             DoB = new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer2@gmail.com",
                             EmailConfirmed = true,
@@ -175,7 +175,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "David",
                             NormalizedEmail = "customer2@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAELKfONU/3Adg4GGc9Rwp0BMFYl3YeG3aOeRgwcBHCrkY1PaRqJzfLt/fDPEI4NjGrg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHtslppEfsreCKZJnAIxRKUPqS9yEwspc+Pq4nQwMm7xTAgtFMhb3IN1s4GYOVUsbg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -193,11 +193,6 @@ namespace GeeksBakery.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 5, 0, 13, 2, 82, DateTimeKind.Local).AddTicks(7927));
-
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("datetime2");
 
@@ -206,11 +201,6 @@ namespace GeeksBakery.Data.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("default-cake.png");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -241,7 +231,6 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 3,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Blueberry, Kem cheese, Kem tươi.",
                             Name = "Blue bery mousse",
                             OriginalPrice = 300000m,
@@ -252,7 +241,6 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 3,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Caramel, Socola",
                             Name = "Caramel mousse",
                             OriginalPrice = 250000m,
@@ -263,7 +251,6 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 3,
                             CategoryId = 3,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Cherry, Kem cheese ,Kem tươi.",
                             Name = "Cherry cheese mousse",
                             OriginalPrice = 150000m,
@@ -274,7 +261,6 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 4,
                             CategoryId = 3,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Kem tươi, Socola,Trà xanh.",
                             Name = "Red chocolate mousse",
                             OriginalPrice = 200000m,
@@ -285,7 +271,6 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 5,
                             CategoryId = 1,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Gato, kem bơ vị rượu rum, socola.",
                             Name = "Dark chocolate cake",
                             OriginalPrice = 150000m,
@@ -296,7 +281,6 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 6,
                             CategoryId = 1,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Gato, kem bơ vị rượu rum, socola bào trắng, dừa sấy.",
                             Name = "White chocolate and coconut cake",
                             OriginalPrice = 300000m,
@@ -307,7 +291,6 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 7,
                             CategoryId = 2,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Gato, kem, có phụ kiện trên mặt bánh",
                             Name = "Car dollar cake",
                             OriginalPrice = 290000m,
@@ -318,7 +301,6 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Gato, kem vị trà xanh.",
                             Name = "Green tea four love",
                             OriginalPrice = 170000m,
@@ -329,13 +311,47 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 9,
                             CategoryId = 4,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Gato, kem tươi vị coffee",
                             Name = "Tiramisu",
                             OriginalPrice = 160000m,
                             Price = 160000m,
                             Size = 21
                         });
+                });
+
+            modelBuilder.Entity("GeeksBakery.Data.Entities.CakeImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CakeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Caption")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CakeId");
+
+                    b.ToTable("CakeImages");
                 });
 
             modelBuilder.Entity("GeeksBakery.Data.Entities.Cart", b =>
@@ -403,11 +419,6 @@ namespace GeeksBakery.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 5, 0, 13, 2, 92, DateTimeKind.Local).AddTicks(5706));
-
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("datetime2");
 
@@ -433,7 +444,6 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 5, 21, 12, 45, 0, 0, DateTimeKind.Unspecified),
                             DeliveryDate = new DateTime(2021, 5, 21, 12, 45, 0, 0, DateTimeKind.Unspecified),
                             Status = 4,
                             UserId = new Guid("bff91064-dc92-421e-a233-d1080f630928")
@@ -441,7 +451,6 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2021, 5, 22, 13, 41, 0, 0, DateTimeKind.Unspecified),
                             DeliveryDate = new DateTime(2021, 5, 22, 10, 50, 0, 0, DateTimeKind.Unspecified),
                             Status = 4,
                             UserId = new Guid("bff91064-dc92-421e-a233-d1080f630928")
@@ -449,7 +458,6 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2021, 5, 22, 15, 23, 0, 0, DateTimeKind.Unspecified),
                             DeliveryDate = new DateTime(2021, 5, 23, 9, 34, 0, 0, DateTimeKind.Unspecified),
                             Status = 4,
                             UserId = new Guid("bff91064-dc92-421e-a233-d1080f630928")
@@ -457,7 +465,6 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2021, 5, 23, 12, 11, 0, 0, DateTimeKind.Unspecified),
                             DeliveryDate = new DateTime(2021, 5, 23, 16, 23, 0, 0, DateTimeKind.Unspecified),
                             Status = 4,
                             UserId = new Guid("bff91054-dc92-421e-a233-d1080f630928")
@@ -465,7 +472,6 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = 5,
-                            DateCreated = new DateTime(2021, 5, 24, 12, 11, 0, 0, DateTimeKind.Unspecified),
                             DeliveryDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 2,
                             UserId = new Guid("bff91064-dc92-421e-a233-d1080f630928")
@@ -473,7 +479,6 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = 6,
-                            DateCreated = new DateTime(2021, 5, 24, 12, 30, 0, 0, DateTimeKind.Unspecified),
                             DeliveryDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             UserId = new Guid("bff91054-dc92-421e-a233-d1080f630928")
@@ -671,6 +676,17 @@ namespace GeeksBakery.Data.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("GeeksBakery.Data.Entities.CakeImage", b =>
+                {
+                    b.HasOne("GeeksBakery.Data.Entities.Cake", "Cake")
+                        .WithMany("CakeImages")
+                        .HasForeignKey("CakeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cake");
+                });
+
             modelBuilder.Entity("GeeksBakery.Data.Entities.Cart", b =>
                 {
                     b.HasOne("GeeksBakery.Data.Entities.Cake", "Cake")
@@ -725,6 +741,11 @@ namespace GeeksBakery.Data.Migrations
                     b.Navigation("Carts");
 
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("GeeksBakery.Data.Entities.Cake", b =>
+                {
+                    b.Navigation("CakeImages");
                 });
 
             modelBuilder.Entity("GeeksBakery.Data.Entities.Category", b =>

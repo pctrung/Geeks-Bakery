@@ -42,6 +42,7 @@ namespace GeeksBakery.Data.EF
             modelBuilder.Seed();
         }
         public DbSet<Cake> Cakes { get; set; }
+        public DbSet<CakeImage> CakeImages { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
