@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GeeksBakery.ViewModels.Catalog.Cakes.Dtos
+﻿namespace GeeksBakery.ViewModels.Catalog.Cakes.Dtos
 {
     public class CakeUpdateRequest
     {

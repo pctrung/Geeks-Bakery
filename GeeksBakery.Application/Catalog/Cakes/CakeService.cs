@@ -84,7 +84,7 @@ namespace GeeksBakery.Application.Catalog.Cakes
         }
 
         public async Task<int> Delete(int cakeId)
-        { 
+        {
             var cake = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.CakeImages).FirstOrDefaultAsync();
 
             if (cake == null)
@@ -116,7 +116,8 @@ namespace GeeksBakery.Application.Catalog.Cakes
                     Size = cake.Size,
                     Stock = cake.Stock,
                     CakeImages = cake.CakeImages.Select(
-                        image => new CakeImageViewModel() {
+                        image => new CakeImageViewModel()
+                        {
                             Caption = image.Caption,
                             Id = image.Id,
                             FileName = image.FileName,
@@ -131,18 +132,18 @@ namespace GeeksBakery.Application.Catalog.Cakes
         {
             //get all
             var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Select(cake => new CakeViewModel()
-                {
-                    CategoryId = cake.Category.Id,
-                    CategoryName = cake.Category.Name,
-                    Id = cake.Id,
-                    Name = cake.Name,
-                    Description = cake.Description,
-                    Price = cake.Price,
-                    OriginalPrice = cake.OriginalPrice,
-                    SEOAlias = cake.SEOAlias,
-                    Size = cake.Size,
-                    Stock = cake.Stock,
-                    CakeImages = cake.CakeImages.Select(
+            {
+                CategoryId = cake.Category.Id,
+                CategoryName = cake.Category.Name,
+                Id = cake.Id,
+                Name = cake.Name,
+                Description = cake.Description,
+                Price = cake.Price,
+                OriginalPrice = cake.OriginalPrice,
+                SEOAlias = cake.SEOAlias,
+                Size = cake.Size,
+                Stock = cake.Stock,
+                CakeImages = cake.CakeImages.Select(
                         image => new CakeImageViewModel()
                         {
                             Caption = image.Caption,
@@ -165,7 +166,7 @@ namespace GeeksBakery.Application.Catalog.Cakes
 
             int totalRow = await result.CountAsync();
 
-            if(request.PageSize > 0)
+            if (request.PageSize > 0)
             {
                 request.PageIndex = request.PageIndex > 0 ? request.PageIndex : 1;
 

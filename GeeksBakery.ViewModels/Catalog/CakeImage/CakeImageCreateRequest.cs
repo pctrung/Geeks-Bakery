@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace GeeksBakery.ViewModels.Catalog.CakeImage
 {
@@ -15,5 +12,6 @@ namespace GeeksBakery.ViewModels.Catalog.CakeImage
         public DateTime DateCreated { get; set; }
         public int SortOrder { get; set; }
         public long FileSize { get; set; }
+        IFormFile ImageFile { get; set; }
     }
 }

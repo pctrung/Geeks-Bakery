@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace GeeksBakery.ViewModels.Catalog.CakeImage
 {
@@ -14,5 +10,6 @@ namespace GeeksBakery.ViewModels.Catalog.CakeImage
         public bool IsDefault { get; set; }
         public int SortOrder { get; set; }
         public long FileSize { get; set; }
+        IFormFile ImageFile { get; set; }
     }
 }

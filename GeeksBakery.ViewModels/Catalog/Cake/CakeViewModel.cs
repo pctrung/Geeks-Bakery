@@ -1,10 +1,5 @@
-﻿using GeeksBakery.Data.Entities;
-using GeeksBakery.ViewModels.Catalog.CakeImage;
-using System;
+﻿using GeeksBakery.ViewModels.Catalog.CakeImage;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeeksBakery.ViewModels.Catalog.Cakes.Dtos
 {
