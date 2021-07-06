@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeeksBakery.Application.Catalog.Common
+namespace GeeksBakery.Application.Common
 {
     public interface IStorageService
     {
