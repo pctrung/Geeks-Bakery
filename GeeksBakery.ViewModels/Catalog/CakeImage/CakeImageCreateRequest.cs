@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace GeeksBakery.Data.Entities
+namespace GeeksBakery.ViewModels.Catalog.CakeImage
 {
-    public class CakeImage
+    public class CakeImageCreateRequest
     {
-        public int Id { get; set; }
         public int CakeId { get; set; }
         public string FileName { get; set; }
         public string Caption { get; set; }
@@ -12,6 +15,5 @@ namespace GeeksBakery.Data.Entities
         public DateTime DateCreated { get; set; }
         public int SortOrder { get; set; }
         public long FileSize { get; set; }
-        public Cake Cake { get; set; }
     }
 }

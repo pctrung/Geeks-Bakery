@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeeksBakery.Application\GeeksBakery.Application.csproj" />
+    <ProjectReference Include="..\GeeksBakery.Data\GeeksBakery.Data.csproj" />
+    <ProjectReference Include="..\GeeksBakery.Utilities\GeeksBakery.Utilities.csproj" />
+    <ProjectReference Include="..\GeeksBakery.ViewModels\GeeksBakery.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\user-content\" />
+  </ItemGroup>
+
+</Project>

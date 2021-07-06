@@ -111,7 +111,7 @@ namespace GeeksBakery.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "default-avatar.png"),
                     DoB = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -144,15 +144,13 @@ namespace GeeksBakery.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "default-cake.png"),
                     SEOAlias = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Stock = table.Column<int>(type: "int", nullable: true),
+                    Stock = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OriginalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    OriginalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateDeleted = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 5, 0, 13, 2, 82, DateTimeKind.Local).AddTicks(7927))
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -175,8 +173,7 @@ namespace GeeksBakery.Data.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateDeleted = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 5, 0, 13, 2, 92, DateTimeKind.Local).AddTicks(5706))
+                    DateDeleted = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -185,6 +182,31 @@ namespace GeeksBakery.Data.Migrations
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CakeImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CakeId = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Caption = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
+                    FileSize = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CakeImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CakeImages_Cakes_CakeId",
+                        column: x => x.CakeId,
+                        principalTable: "Cakes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -265,8 +287,8 @@ namespace GeeksBakery.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "978aa1c3-1f2b-41f7-a703-2497e87fd381", "Administrator role", "admin", "admin" },
-                    { new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"), "f91a8bb5-90a3-4ce7-8b38-c2be508fb859", "Customer role", "customer", "customer" }
+                    { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "1e0044b1-177a-4887-b420-1d2612650cb1", "Administrator role", "admin", "admin" },
+                    { new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"), "6ffe1469-6e31-4fa6-93c4-570fbe40f3e4", "Customer role", "customer", "customer" }
                 });
 
             migrationBuilder.InsertData(
@@ -274,9 +296,9 @@ namespace GeeksBakery.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "DoB", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, null, "433e7efe-5d87-416c-bd07-269301ea7fbe", new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "trung@gmail.com", true, false, null, "Pham Chi Trung", "trung@gmail.com", "admin", "AQAAAAEAACcQAAAAEMqeOAOtXQfe9ETfSdXWX1Lf1KK8vG5ANWzqffVt/TVFUvkomeKVWVUeVJVTKV850A==", null, false, "", false, "admin" },
-                    { new Guid("bff91064-dc92-421e-a233-d1080f630928"), 0, null, "91ea369d-f62f-4bd3-b0a8-0975dcfdaa42", new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer1@gmail.com", true, false, null, "Pham Chi Trung Customer", "customer1@gmail.com", "customer", "AQAAAAEAACcQAAAAEJFveFitO2XgQ8lb27vIv8UrHO8g4XlDHM8qOeAcRZrZToZmzP3dUXQ2D/mW/KIiYw==", null, false, "", false, "customer 1" },
-                    { new Guid("bff91054-dc92-421e-a233-d1080f630928"), 0, null, "5c862301-0420-4fdf-9557-83da4f2e8b30", new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer2@gmail.com", true, false, null, "David", "customer2@gmail.com", "customer", "AQAAAAEAACcQAAAAELKfONU/3Adg4GGc9Rwp0BMFYl3YeG3aOeRgwcBHCrkY1PaRqJzfLt/fDPEI4NjGrg==", null, false, "", false, "customer 2" }
+                    { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, null, "45baddd5-768c-418e-929d-6ee3c0c056a1", new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "trung@gmail.com", true, false, null, "Pham Chi Trung", "trung@gmail.com", "admin", "AQAAAAEAACcQAAAAECNBhHCEX7z6GMuZ74YwJ0dv9KwDAn44rVZgAxXvvIScae3WPM8l0mlCEiB9YlsJ5g==", null, false, "", false, "admin" },
+                    { new Guid("bff91064-dc92-421e-a233-d1080f630928"), 0, null, "d48b193e-a622-4c07-89de-5b1d4a982b59", new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer1@gmail.com", true, false, null, "Pham Chi Trung Customer", "customer1@gmail.com", "customer", "AQAAAAEAACcQAAAAEIy9PXWX2Enhv8m6lmm6HVnq1RkQ932i8Jl8UwD3V8Ejk2xrq98Iq7X37M5F6uViCw==", null, false, "", false, "customer 1" },
+                    { new Guid("bff91054-dc92-421e-a233-d1080f630928"), 0, null, "6aa5e3b1-bb94-4b74-8ce7-c84b22b6a805", new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "customer2@gmail.com", true, false, null, "David", "customer2@gmail.com", "customer", "AQAAAAEAACcQAAAAEJ2WKOT4natBGglCWDPkv2ezDtY9w8z34I85kZV9ziDe6g5aH7XJUwm0rDB8MvmZDw==", null, false, "", false, "customer 2" }
                 });
 
             migrationBuilder.InsertData(
@@ -284,28 +306,28 @@ namespace GeeksBakery.Data.Migrations
                 columns: new[] { "Id", "CategoryId", "DateDeleted", "DateModified", "Description", "Name", "OriginalPrice", "Price", "SEOAlias", "Size", "Stock" },
                 values: new object[,]
                 {
-                    { 5, 1, null, null, "Gato, kem bơ vị rượu rum, socola.", "Dark chocolate cake", 150000m, 150000m, null, 20, null },
-                    { 6, 1, null, null, "Gato, kem bơ vị rượu rum, socola bào trắng, dừa sấy.", "White chocolate and coconut cake", 300000m, 300000m, null, 19, null },
-                    { 7, 2, null, null, "Gato, kem, có phụ kiện trên mặt bánh", "Car dollar cake", 290000m, 290000m, null, 21, null },
-                    { 8, 2, null, null, "Gato, kem vị trà xanh.", "Green tea four love", 170000m, 170000m, null, 20, null },
-                    { 1, 3, null, null, "Blueberry, Kem cheese, Kem tươi.", "Blue bery mousse", 300000m, 300000m, null, 19, null },
-                    { 2, 3, null, null, "Caramel, Socola", "Caramel mousse", 250000m, 250000m, null, 21, null },
-                    { 3, 3, null, null, "Cherry, Kem cheese ,Kem tươi.", "Cherry cheese mousse", 150000m, 150000m, null, 20, null },
-                    { 4, 3, null, null, "Kem tươi, Socola,Trà xanh.", "Red chocolate mousse", 200000m, 200000m, null, 19, null },
-                    { 9, 4, null, null, "Gato, kem tươi vị coffee", "Tiramisu", 160000m, 160000m, null, 21, null }
+                    { 5, 1, null, null, "Gato, kem bơ vị rượu rum, socola.", "Dark chocolate cake", 150000m, 150000m, null, 20, 0 },
+                    { 6, 1, null, null, "Gato, kem bơ vị rượu rum, socola bào trắng, dừa sấy.", "White chocolate and coconut cake", 300000m, 300000m, null, 19, 0 },
+                    { 7, 2, null, null, "Gato, kem, có phụ kiện trên mặt bánh", "Car dollar cake", 290000m, 290000m, null, 21, 0 },
+                    { 8, 2, null, null, "Gato, kem vị trà xanh.", "Green tea four love", 170000m, 170000m, null, 20, 0 },
+                    { 1, 3, null, null, "Blueberry, Kem cheese, Kem tươi.", "Blue bery mousse", 300000m, 300000m, null, 19, 0 },
+                    { 2, 3, null, null, "Caramel, Socola", "Caramel mousse", 250000m, 250000m, null, 21, 0 },
+                    { 3, 3, null, null, "Cherry, Kem cheese ,Kem tươi.", "Cherry cheese mousse", 150000m, 150000m, null, 20, 0 },
+                    { 4, 3, null, null, "Kem tươi, Socola,Trà xanh.", "Red chocolate mousse", 200000m, 200000m, null, 19, 0 },
+                    { 9, 4, null, null, "Gato, kem tươi vị coffee", "Tiramisu", 160000m, 160000m, null, 21, 0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "DateCreated", "DateDeleted", "DateModified", "DeliveryDate", "Status", "UserId" },
+                columns: new[] { "Id", "DateDeleted", "DateModified", "DeliveryDate", "Status", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2021, 5, 21, 12, 45, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 5, 21, 12, 45, 0, 0, DateTimeKind.Unspecified), 4, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
-                    { 2, new DateTime(2021, 5, 22, 13, 41, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 5, 22, 10, 50, 0, 0, DateTimeKind.Unspecified), 4, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
-                    { 3, new DateTime(2021, 5, 22, 15, 23, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 5, 23, 9, 34, 0, 0, DateTimeKind.Unspecified), 4, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
-                    { 5, new DateTime(2021, 5, 24, 12, 11, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
-                    { 4, new DateTime(2021, 5, 23, 12, 11, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(2021, 5, 23, 16, 23, 0, 0, DateTimeKind.Unspecified), 4, new Guid("bff91054-dc92-421e-a233-d1080f630928") },
-                    { 6, new DateTime(2021, 5, 24, 12, 30, 0, 0, DateTimeKind.Unspecified), null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new Guid("bff91054-dc92-421e-a233-d1080f630928") }
+                    { 1, null, null, new DateTime(2021, 5, 21, 12, 45, 0, 0, DateTimeKind.Unspecified), 4, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
+                    { 2, null, null, new DateTime(2021, 5, 22, 10, 50, 0, 0, DateTimeKind.Unspecified), 4, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
+                    { 3, null, null, new DateTime(2021, 5, 23, 9, 34, 0, 0, DateTimeKind.Unspecified), 4, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
+                    { 5, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
+                    { 4, null, null, new DateTime(2021, 5, 23, 16, 23, 0, 0, DateTimeKind.Unspecified), 4, new Guid("bff91054-dc92-421e-a233-d1080f630928") },
+                    { 6, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, new Guid("bff91054-dc92-421e-a233-d1080f630928") }
                 });
 
             migrationBuilder.InsertData(
@@ -322,6 +344,11 @@ namespace GeeksBakery.Data.Migrations
                     { 3, 5, 1 },
                     { 4, 6, 1 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CakeImages_CakeId",
+                table: "CakeImages",
+                column: "CakeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cakes_CategoryId",
@@ -360,6 +387,9 @@ namespace GeeksBakery.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "CakeImages");
 
             migrationBuilder.DropTable(
                 name: "Carts");

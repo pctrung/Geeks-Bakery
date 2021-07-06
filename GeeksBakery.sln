@@ -9,15 +9,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.Data", "GeeksBa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.Application", "GeeksBakery.Application\GeeksBakery.Application.csproj", "{C964A93E-DF6D-4792-94ED-7D0C77D3DB69}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{025AE5A2-0F98-4C88-BBA6-0D1FFE609D96}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Solution Items", "{025AE5A2-0F98-4C88-BBA6-0D1FFE609D96}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeksBakery.Utilities", "GeeksBakery.Utilities\GeeksBakery.Utilities.csproj", "{248B3123-D121-467C-9160-42BF080A278C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.Utilities", "GeeksBakery.Utilities\GeeksBakery.Utilities.csproj", "{248B3123-D121-467C-9160-42BF080A278C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeksBakery.ViewModels", "GeeksBakery.ViewModels\GeeksBakery.ViewModels.csproj", "{92F2124D-9F79-4D06-8846-94381DD5E577}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.ViewModels", "GeeksBakery.ViewModels\GeeksBakery.ViewModels.csproj", "{92F2124D-9F79-4D06-8846-94381DD5E577}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeeksBakery.BackendApi", "GeeksBakery.BackendApi\GeeksBakery.BackendApi.csproj", "{49081C11-7E64-46DB-BEC5-06520790FE56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Infrastructure", "1. Infrastructure", "{60E408C1-C959-4428-AB06-EB6289C011DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domain", "2. Domain", "{788C188F-041C-44F3-9574-0F362CCB08CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Hosts", "3. Hosts", "{ECB73195-A6A7-4126-9849-D4749F1196D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +53,21 @@ Global
 		{92F2124D-9F79-4D06-8846-94381DD5E577}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92F2124D-9F79-4D06-8846-94381DD5E577}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92F2124D-9F79-4D06-8846-94381DD5E577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49081C11-7E64-46DB-BEC5-06520790FE56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49081C11-7E64-46DB-BEC5-06520790FE56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49081C11-7E64-46DB-BEC5-06520790FE56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49081C11-7E64-46DB-BEC5-06520790FE56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{81832388-FF32-4F74-A847-351CEFF1B1DA} = {ECB73195-A6A7-4126-9849-D4749F1196D0}
+		{FEAFB7B0-0FA2-4208-B15B-8DCC1E6B66A4} = {788C188F-041C-44F3-9574-0F362CCB08CA}
+		{C964A93E-DF6D-4792-94ED-7D0C77D3DB69} = {788C188F-041C-44F3-9574-0F362CCB08CA}
+		{248B3123-D121-467C-9160-42BF080A278C} = {60E408C1-C959-4428-AB06-EB6289C011DA}
+		{92F2124D-9F79-4D06-8846-94381DD5E577} = {60E408C1-C959-4428-AB06-EB6289C011DA}
+		{49081C11-7E64-46DB-BEC5-06520790FE56} = {ECB73195-A6A7-4126-9849-D4749F1196D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6CC478D0-ACD3-4674-A5A5-067D582E0749}

@@ -4,14 +4,16 @@ using GeeksBakery.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GeeksBakery.Data.Migrations
 {
     [DbContext(typeof(GeeksBakeryDbContext))]
-    partial class GeeksBakeryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210706132738_editCategoryType")]
+    partial class editCategoryType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +47,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "8b7068cc-6a0d-4340-ac32-1ee9b73d91a6",
+                            ConcurrencyStamp = "cd6a8b69-2588-4daa-9dfd-4ba4ac3a9172",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -53,7 +55,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"),
-                            ConcurrencyStamp = "18145669-3ab6-4bf4-9a0c-f430bfc29095",
+                            ConcurrencyStamp = "be6a9e02-6768-4c95-9fa4-be03ceb7e45a",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -132,7 +134,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9662acc4-1c57-47ae-a8ac-ef3696296359",
+                            ConcurrencyStamp = "c56ca71c-21db-4875-beff-54fc6dd59095",
                             DoB = new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trung@gmail.com",
                             EmailConfirmed = true,
@@ -140,7 +142,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung",
                             NormalizedEmail = "trung@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPOexrHBCtJtIuojLvwWnopAlMhjQ/eIdiXawdWcPIUwaHh+TblFfCS686l6EYHtog==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO33dqVj9hp73ixCxhx8W7P+ox/E/z/jmKNn4mimRwc4YrJZTpXs1T5fbejQOwjTmQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -150,7 +152,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91064-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "361f62ef-0ca8-4bc2-aea1-3e962c6adaea",
+                            ConcurrencyStamp = "96bb88be-ce05-45e9-86c7-fa130d177777",
                             DoB = new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer1@gmail.com",
                             EmailConfirmed = true,
@@ -158,7 +160,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung Customer",
                             NormalizedEmail = "customer1@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI6sAp229ACtqjHxK+vunyqapgYtuhTZTVvfTCbhMhUIZocGIrbbSoeEsz155xux2g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENe0U2rGYxtp6Kek/zosUoDPjKzVckvIjuY/dC/9VdHQx2Oy0LZGaET+uohxjFc3cg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -168,7 +170,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91054-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c5708f88-7dc2-4261-b10f-cf6762a20eac",
+                            ConcurrencyStamp = "77c2da27-5ed5-4741-8f42-835390de4da3",
                             DoB = new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer2@gmail.com",
                             EmailConfirmed = true,
@@ -176,7 +178,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "David",
                             NormalizedEmail = "customer2@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAtkR2o3z/ZV1P/8BpRuMOiRV8FYTvRz5FEXfWEvWL/JUfJpjV87vhSWyHwiKPtYkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBPpjtHshP72bA/cFkSxPqPL5PXowY0r7lisDlXxw93YYFuMENmpfyh0wZcsE1fPjA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -345,11 +347,11 @@ namespace GeeksBakery.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long>("FileSize")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");

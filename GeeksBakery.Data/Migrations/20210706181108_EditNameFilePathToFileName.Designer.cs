@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeeksBakery.Data.Migrations
 {
     [DbContext(typeof(GeeksBakeryDbContext))]
-    [Migration("20210705144012_AddCakeImageTable")]
-    partial class AddCakeImageTable
+    [Migration("20210706181108_EditNameFilePathToFileName")]
+    partial class EditNameFilePathToFileName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "77ee34d2-e8bf-4e38-8055-0b59ca4e8281",
+                            ConcurrencyStamp = "8b7068cc-6a0d-4340-ac32-1ee9b73d91a6",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -55,7 +55,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"),
-                            ConcurrencyStamp = "063fd6a1-78f1-4c13-8453-66a287e3561e",
+                            ConcurrencyStamp = "18145669-3ab6-4bf4-9a0c-f430bfc29095",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -98,6 +98,7 @@ namespace GeeksBakery.Data.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -133,7 +134,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce7a84aa-03d9-4fac-a7eb-790f70960f12",
+                            ConcurrencyStamp = "9662acc4-1c57-47ae-a8ac-ef3696296359",
                             DoB = new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trung@gmail.com",
                             EmailConfirmed = true,
@@ -141,7 +142,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung",
                             NormalizedEmail = "trung@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAENGFpGukVtca+n5GX6wOOR93cP2OtdtQQQvg3UaWgysKShoaqv5ru9wBz7AB+Cj/Pg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPOexrHBCtJtIuojLvwWnopAlMhjQ/eIdiXawdWcPIUwaHh+TblFfCS686l6EYHtog==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -151,7 +152,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91064-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1d0067e3-f093-430c-9d05-489d43563eef",
+                            ConcurrencyStamp = "361f62ef-0ca8-4bc2-aea1-3e962c6adaea",
                             DoB = new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer1@gmail.com",
                             EmailConfirmed = true,
@@ -159,7 +160,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung Customer",
                             NormalizedEmail = "customer1@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJB+cbAg6bgPNap7g/FOKu2bIyNy/ulFykqec1AXlya7cxzzpEdmk54zNwJSCarUMg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI6sAp229ACtqjHxK+vunyqapgYtuhTZTVvfTCbhMhUIZocGIrbbSoeEsz155xux2g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -169,7 +170,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91054-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "92c3a48c-49ae-4976-b755-0d0daac7d082",
+                            ConcurrencyStamp = "c5708f88-7dc2-4261-b10f-cf6762a20eac",
                             DoB = new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer2@gmail.com",
                             EmailConfirmed = true,
@@ -177,7 +178,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "David",
                             NormalizedEmail = "customer2@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHtslppEfsreCKZJnAIxRKUPqS9yEwspc+Pq4nQwMm7xTAgtFMhb3IN1s4GYOVUsbg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAtkR2o3z/ZV1P/8BpRuMOiRV8FYTvRz5FEXfWEvWL/JUfJpjV87vhSWyHwiKPtYkA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -207,7 +208,7 @@ namespace GeeksBakery.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("OriginalPrice")
+                    b.Property<decimal>("OriginalPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Price")
@@ -219,7 +220,7 @@ namespace GeeksBakery.Data.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Stock")
+                    b.Property<int>("Stock")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -237,7 +238,8 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Blue bery mousse",
                             OriginalPrice = 300000m,
                             Price = 300000m,
-                            Size = 19
+                            Size = 19,
+                            Stock = 0
                         },
                         new
                         {
@@ -247,7 +249,8 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Caramel mousse",
                             OriginalPrice = 250000m,
                             Price = 250000m,
-                            Size = 21
+                            Size = 21,
+                            Stock = 0
                         },
                         new
                         {
@@ -257,7 +260,8 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Cherry cheese mousse",
                             OriginalPrice = 150000m,
                             Price = 150000m,
-                            Size = 20
+                            Size = 20,
+                            Stock = 0
                         },
                         new
                         {
@@ -267,7 +271,8 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Red chocolate mousse",
                             OriginalPrice = 200000m,
                             Price = 200000m,
-                            Size = 19
+                            Size = 19,
+                            Stock = 0
                         },
                         new
                         {
@@ -277,7 +282,8 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Dark chocolate cake",
                             OriginalPrice = 150000m,
                             Price = 150000m,
-                            Size = 20
+                            Size = 20,
+                            Stock = 0
                         },
                         new
                         {
@@ -287,7 +293,8 @@ namespace GeeksBakery.Data.Migrations
                             Name = "White chocolate and coconut cake",
                             OriginalPrice = 300000m,
                             Price = 300000m,
-                            Size = 19
+                            Size = 19,
+                            Stock = 0
                         },
                         new
                         {
@@ -297,7 +304,8 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Car dollar cake",
                             OriginalPrice = 290000m,
                             Price = 290000m,
-                            Size = 21
+                            Size = 21,
+                            Stock = 0
                         },
                         new
                         {
@@ -307,7 +315,8 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Green tea four love",
                             OriginalPrice = 170000m,
                             Price = 170000m,
-                            Size = 20
+                            Size = 20,
+                            Stock = 0
                         },
                         new
                         {
@@ -317,7 +326,8 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Tiramisu",
                             OriginalPrice = 160000m,
                             Price = 160000m,
-                            Size = 21
+                            Size = 21,
+                            Stock = 0
                         });
                 });
 
@@ -337,11 +347,11 @@ namespace GeeksBakery.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("FileSize")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");

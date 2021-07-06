@@ -16,6 +16,6 @@ namespace GeeksBakery.Application.Catalog.Cakes
         Task<int> Update(CakeUpdateRequest request);
         Task<int> Delete(int cakeId);
         Task<PagedResult<CakeViewModel>> GetAllPaging(GetCakePagingRequest request);
-        
+        Task<CakeViewModel> GetById(int cakeId);
     }
 }

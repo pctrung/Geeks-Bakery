@@ -9,7 +9,9 @@ namespace GeeksBakery.ViewModels.Catalog.Dtos
 {
     public class GetCakePagingRequest : PagingRequestBase
     {
-        public string Keyword{ get; set; }
-        public List<int> CategoryIds { get; set; }
+#nullable enable
+        public string? Keyword { get; set; }
+        public List<int>? CategoryIds { get; set; }
+#nullable disable
     }
 }

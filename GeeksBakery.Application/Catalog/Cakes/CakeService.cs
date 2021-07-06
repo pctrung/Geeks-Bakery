@@ -1,7 +1,8 @@
-﻿using GeeksBakery.Application.Catalog.Common;
+﻿using GeeksBakery.Application.Common;
 using GeeksBakery.Data.EF;
 using GeeksBakery.Data.Entities;
 using GeeksBakery.Utilities.Exceptions;
+using GeeksBakery.ViewModels.Catalog.CakeImage;
 using GeeksBakery.ViewModels.Catalog.Cakes.Dtos;
 using GeeksBakery.ViewModels.Catalog.Dtos;
 using GeeksBakery.ViewModels.Common;
@@ -20,7 +21,7 @@ namespace GeeksBakery.Application.Catalog.Cakes
     {
         private readonly GeeksBakeryDbContext _context;
         private readonly IStorageService _storageService;
-        private const string USER_CONTENT_FOLDER_NAME = "user-content";
+
         public CakeService(GeeksBakeryDbContext context, IStorageService storageService)
         {
             _context = context;
@@ -40,7 +41,7 @@ namespace GeeksBakery.Application.Catalog.Cakes
                 Stock = request.Stock,
                 SEOAlias = request.SEOAlias
             };
-            if(request.Thumbnail != null)
+            if (request.Thumbnail != null)
             {
                 cake.CakeImages = new List<CakeImage>()
                 {
@@ -49,14 +50,15 @@ namespace GeeksBakery.Application.Catalog.Cakes
                         Caption = "Thumbnail image",
                         DateCreated = DateTime.Now,
                         FileSize = request.Thumbnail.Length,
-                        ImagePath = await SaveFile(request.Thumbnail),
+                        FileName = await SaveFile(request.Thumbnail),
                         IsDefault = true,
                         SortOrder = 1
                     }
                 };
             }
             _context.Cakes.Add(cake);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return cake.Id;
         }
 
         public async Task<int> Update(CakeUpdateRequest request)
@@ -67,6 +69,7 @@ namespace GeeksBakery.Application.Catalog.Cakes
             {
                 throw new GeeksBakeryException($"Cannot find cake with Id = {request.Id}");
             }
+
             cake.Name = request.Name;
             cake.Price = request.Price;
             cake.OriginalPrice = request.OriginalPrice;
@@ -75,60 +78,101 @@ namespace GeeksBakery.Application.Catalog.Cakes
             cake.Stock = request.Stock;
             cake.Description = request.Description;
             cake.CategoryId = request.CategoryId;
-
             cake.DateModified = DateTime.Now;
 
             return await _context.SaveChangesAsync();
         }
 
         public async Task<int> Delete(int cakeId)
-        {
-            var cake = await _context.Cakes.FindAsync(cakeId);
+        { 
+            var cake = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.CakeImages).FirstOrDefaultAsync();
+
             if (cake == null)
             {
                 throw new GeeksBakeryException($"Cannot find cake with Id: {cakeId}");
             }
 
+            cake.CakeImages.ForEach(async image => await _storageService.DeleteFileAsync(image.FileName));
+
             _context.Cakes.Remove(cake);
 
             return await _context.SaveChangesAsync();
         }
-
-        public async Task<PagedResult<CakeViewModel>> GetAllPaging(GetCakePagingRequest request)
+        public async Task<CakeViewModel> GetById(int cakeId)
         {
+
             //get all
-            var result = _context.Cakes.Join(
-                _context.Categories,
-                cake => cake.CategoryId,
-                category => category.Id,
-                (cake, category) => new CakeViewModel()
+            var result = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.Category).Include(x => x.CakeImages).Select(
+                cake => new CakeViewModel()
                 {
-                    CategoryName = category.Name,
-                    CategoryId = category.Id,
+                    CategoryId = cake.Category.Id,
+                    CategoryName = cake.Category.Name,
                     Id = cake.Id,
                     Name = cake.Name,
                     Description = cake.Description,
                     Price = cake.Price,
-                    OriginalPrice = (decimal)cake.OriginalPrice,
+                    OriginalPrice = cake.OriginalPrice,
                     SEOAlias = cake.SEOAlias,
                     Size = cake.Size,
-                    Stock = (int)cake.Stock
-                });
+                    Stock = cake.Stock,
+                    CakeImages = cake.CakeImages.Select(
+                        image => new CakeImageViewModel() {
+                            Caption = image.Caption,
+                            Id = image.Id,
+                            FileName = image.FileName,
+                            IsDefault = image.IsDefault,
+                            SortOrder = image.SortOrder
+                        }).ToList()
+                }).FirstOrDefaultAsync();
+
+            return result;
+        }
+        public async Task<PagedResult<CakeViewModel>> GetAllPaging(GetCakePagingRequest request)
+        {
+            //get all
+            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Select(cake => new CakeViewModel()
+                {
+                    CategoryId = cake.Category.Id,
+                    CategoryName = cake.Category.Name,
+                    Id = cake.Id,
+                    Name = cake.Name,
+                    Description = cake.Description,
+                    Price = cake.Price,
+                    OriginalPrice = cake.OriginalPrice,
+                    SEOAlias = cake.SEOAlias,
+                    Size = cake.Size,
+                    Stock = cake.Stock,
+                    CakeImages = cake.CakeImages.Select(
+                        image => new CakeImageViewModel()
+                        {
+                            Caption = image.Caption,
+                            Id = image.Id,
+                            FileName = image.FileName,
+                            IsDefault = image.IsDefault,
+                            SortOrder = image.SortOrder
+                        }).ToList()
+            });
 
             // filter
             if (!string.IsNullOrEmpty(request.Keyword))
             {
                 result = result.Where(p => p.Name.Contains(request.Keyword));
             }
-            if (request.CategoryIds.Count > 0)
+            if (request.CategoryIds?.Count > 0)
             {
                 result = result.Where(p => request.CategoryIds.Contains(p.CategoryId));
             }
 
-            //paging
             int totalRow = await result.CountAsync();
 
-            var data = await result.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).ToListAsync();
+            if(request.PageSize > 0)
+            {
+                request.PageIndex = request.PageIndex > 0 ? request.PageIndex : 1;
+
+                result = result.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
+            }
+
+            var data = await result.ToListAsync();
 
             var pagedResult = new PagedResult<CakeViewModel>()
             {
@@ -139,13 +183,12 @@ namespace GeeksBakery.Application.Catalog.Cakes
             return pagedResult;
         }
 
-
         private async Task<string> SaveFile(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
-            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
+            return fileName;
         }
     }
 }
