@@ -1,7 +1,7 @@
 ﻿using GeeksBakery.ViewModels.Catalog.CakeImage;
 using System.Collections.Generic;
 
-namespace GeeksBakery.ViewModels.Catalog.Cakes.Dtos
+namespace GeeksBakery.ViewModels.ViewModels
 {
     public class CakeViewModel
     {

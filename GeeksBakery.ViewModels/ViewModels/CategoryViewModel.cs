@@ -1,7 +1,6 @@
-﻿using GeeksBakery.ViewModels.Catalog.Cakes.Dtos;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace GeeksBakery.ViewModels.Catalog.Category
+namespace GeeksBakery.ViewModels.ViewModels
 {
     public class CategoryViewModel
     {

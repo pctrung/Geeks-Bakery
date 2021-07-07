@@ -84,7 +84,7 @@ namespace GeeksBakery.Data.Extensions
                 new AppUser
                 {
                     Id = customerId,
-                    UserName = "customer 1",
+                    UserName = "customer1",
                     NormalizedUserName = "customer",
                     Email = "customer1@gmail.com",
                     NormalizedEmail = "customer1@gmail.com",
@@ -97,7 +97,7 @@ namespace GeeksBakery.Data.Extensions
                 new AppUser
                 {
                     Id = customerId2,
-                    UserName = "customer 2",
+                    UserName = "customer2",
                     NormalizedUserName = "customer",
                     Email = "customer2@gmail.com",
                     NormalizedEmail = "customer2@gmail.com",

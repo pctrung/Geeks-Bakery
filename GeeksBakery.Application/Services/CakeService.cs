@@ -1,11 +1,12 @@
-﻿using GeeksBakery.Application.Common;
+﻿using GeeksBakery.Application.Interfaces;
 using GeeksBakery.Data.EF;
 using GeeksBakery.Data.Entities;
 using GeeksBakery.Utilities.Exceptions;
+using GeeksBakery.Utilities.Extensions;
 using GeeksBakery.ViewModels.Catalog.CakeImage;
-using GeeksBakery.ViewModels.Catalog.Cakes.Dtos;
-using GeeksBakery.ViewModels.Catalog.Dtos;
 using GeeksBakery.ViewModels.Common;
+using GeeksBakery.ViewModels.Requests.Cake;
+using GeeksBakery.ViewModels.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,7 +16,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace GeeksBakery.Application.Catalog.Cakes
+namespace GeeksBakery.Application.Services
 {
     public class CakeService : ICakeService
     {
@@ -27,7 +28,8 @@ namespace GeeksBakery.Application.Catalog.Cakes
             _context = context;
             _storageService = storageService;
         }
-        public async Task<int> Create(CakeCreateRequest request)
+
+        public async Task<int> CreateAsync(CakeCreateRequest request)
         {
             var cake = new Cake()
             {
@@ -50,7 +52,7 @@ namespace GeeksBakery.Application.Catalog.Cakes
                         Caption = "Thumbnail image",
                         DateCreated = DateTime.Now,
                         FileSize = request.Thumbnail.Length,
-                        FileName = await SaveFile(request.Thumbnail),
+                        FileName = await SaveFileAsync(request.Thumbnail),
                         IsDefault = true,
                         SortOrder = 1
                     }
@@ -61,7 +63,7 @@ namespace GeeksBakery.Application.Catalog.Cakes
             return cake.Id;
         }
 
-        public async Task<int> Update(CakeUpdateRequest request)
+        public async Task<int> UpdateAsync(CakeUpdateRequest request)
         {
             var cake = await _context.Cakes.FindAsync(request.Id);
 
@@ -83,7 +85,7 @@ namespace GeeksBakery.Application.Catalog.Cakes
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> Delete(int cakeId)
+        public async Task<int> DeleteAsync(int cakeId)
         {
             var cake = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.CakeImages).FirstOrDefaultAsync();
 
@@ -98,9 +100,9 @@ namespace GeeksBakery.Application.Catalog.Cakes
 
             return await _context.SaveChangesAsync();
         }
-        public async Task<CakeViewModel> GetById(int cakeId)
-        {
 
+        public async Task<CakeViewModel> GetByIdAsync(int cakeId)
+        {
             //get all
             var result = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.Category).Include(x => x.CakeImages).Select(
                 cake => new CakeViewModel()
@@ -128,7 +130,8 @@ namespace GeeksBakery.Application.Catalog.Cakes
 
             return result;
         }
-        public async Task<PagedResult<CakeViewModel>> GetAllPaging(GetCakePagingRequest request)
+
+        public async Task<PagedResult<CakeViewModel>> GetAllPagingAsync(GetCakePagingRequest request)
         {
             //get all
             var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Select(cake => new CakeViewModel()
@@ -170,7 +173,8 @@ namespace GeeksBakery.Application.Catalog.Cakes
             {
                 request.PageIndex = request.PageIndex > 0 ? request.PageIndex : 1;
 
-                result = result.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
+                //result = result.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
+                result = result.Paged(request.PageIndex, request.PageSize);
             }
 
             var data = await result.ToListAsync();
@@ -184,7 +188,7 @@ namespace GeeksBakery.Application.Catalog.Cakes
             return pagedResult;
         }
 
-        private async Task<string> SaveFile(IFormFile file)
+        private async Task<string> SaveFileAsync(IFormFile file)
         {
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";

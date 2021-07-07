@@ -1,7 +1,7 @@
 ﻿using GeeksBakery.ViewModels.Common;
 using System.Collections.Generic;
 
-namespace GeeksBakery.ViewModels.Catalog.Dtos
+namespace GeeksBakery.ViewModels.Requests.Cake
 {
     public class GetCakePagingRequest : PagingRequestBase
     {

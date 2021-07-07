@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using GeeksBakery.Application.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace GeeksBakery.Application.Common
+namespace GeeksBakery.Application.Services
 {
     public class StorageService : IStorageService
     {
