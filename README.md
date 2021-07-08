@@ -11,4 +11,4 @@
  - Entity Framework Core Tools 5.0.7
 
  ## Design
-![Design show 1x](https://user-images.githubusercontent.com/44517184/124891722-71944c00-e003-11eb-98f4-ff0b2c456dad.png)
+![Design show](https://user-images.githubusercontent.com/44517184/124892792-6130a100-e004-11eb-8eba-d5b8e0012433.png)
