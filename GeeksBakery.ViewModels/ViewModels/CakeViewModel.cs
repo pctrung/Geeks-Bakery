@@ -10,11 +10,9 @@ namespace GeeksBakery.ViewModels.ViewModels
         public decimal Price { get; set; }
         public decimal OriginalPrice { get; set; }
         public int Size { get; set; }
-
         public string SEOAlias { get; set; }
         public int Stock { get; set; }
         public string Description { get; set; }
-
         public string CategoryName { get; set; }
         public int CategoryId { get; set; }
         public List<CakeImageViewModel> CakeImages { get; set; }

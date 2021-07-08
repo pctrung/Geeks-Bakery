@@ -45,7 +45,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "8b7068cc-6a0d-4340-ac32-1ee9b73d91a6",
+                            ConcurrencyStamp = "b2f7903a-b649-4854-897a-b74ae5c21613",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -53,7 +53,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"),
-                            ConcurrencyStamp = "18145669-3ab6-4bf4-9a0c-f430bfc29095",
+                            ConcurrencyStamp = "17c8004b-e9b2-4480-bcbd-23d44fdc9907",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -132,7 +132,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9662acc4-1c57-47ae-a8ac-ef3696296359",
+                            ConcurrencyStamp = "29bbfd10-546f-4f7e-b774-251cfd9c9a8f",
                             DoB = new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trung@gmail.com",
                             EmailConfirmed = true,
@@ -140,7 +140,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung",
                             NormalizedEmail = "trung@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPOexrHBCtJtIuojLvwWnopAlMhjQ/eIdiXawdWcPIUwaHh+TblFfCS686l6EYHtog==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENUheXGskMt9vItnwxmbFPTDNK5tU2W71RIF/JNZapvdxgBLnKfX7xLLnCECawSC3g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -150,7 +150,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91064-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "361f62ef-0ca8-4bc2-aea1-3e962c6adaea",
+                            ConcurrencyStamp = "470f4772-9eae-4b27-af10-1a37e6de2060",
                             DoB = new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer1@gmail.com",
                             EmailConfirmed = true,
@@ -158,17 +158,17 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung Customer",
                             NormalizedEmail = "customer1@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI6sAp229ACtqjHxK+vunyqapgYtuhTZTVvfTCbhMhUIZocGIrbbSoeEsz155xux2g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMtcwPLuZO4owdUA9L6/07EszqMxUbFuvZat0jip+N3I17XXh4sqxLQn+J1JL3Fdjw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UserName = "customer 1"
+                            UserName = "customer1"
                         },
                         new
                         {
                             Id = new Guid("bff91054-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c5708f88-7dc2-4261-b10f-cf6762a20eac",
+                            ConcurrencyStamp = "8d36fd17-063f-48e9-8308-52a3601de07b",
                             DoB = new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer2@gmail.com",
                             EmailConfirmed = true,
@@ -176,11 +176,11 @@ namespace GeeksBakery.Data.Migrations
                             Name = "David",
                             NormalizedEmail = "customer2@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAtkR2o3z/ZV1P/8BpRuMOiRV8FYTvRz5FEXfWEvWL/JUfJpjV87vhSWyHwiKPtYkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP34WT55OI3V04fb0OelAcW1QfUaz/YqKNYJbWLf4kXN0P1Yvd0y01U/O+uTPJFLeg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UserName = "customer 2"
+                            UserName = "customer2"
                         });
                 });
 
@@ -193,6 +193,9 @@ namespace GeeksBakery.Data.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("datetime2");
@@ -231,101 +234,194 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryId = 3,
-                            Description = "Blueberry, Kem cheese, Kem tươi.",
-                            Name = "Blue bery mousse",
-                            OriginalPrice = 300000m,
-                            Price = 300000m,
-                            Size = 19,
-                            Stock = 0
+                            CategoryId = 4,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 457, DateTimeKind.Local).AddTicks(8397),
+                            Description = "We kept this Classic cake untouched and unblemished because we feel it's perfect as it is. Baked with the richness of cocoa and lusciousness of fresh vanilla cream, topped with soft chocolate shavings and fresh cherries, this delicious cake will make you surrender to the zest forces of Sweet Indulgence. Savour the original taste of the all time classic- The Black Forest.",
+                            Name = "Blackforest Cake With Cherries",
+                            OriginalPrice = 200000m,
+                            Price = 150000m,
+                            Size = 20,
+                            Stock = 1
                         },
                         new
                         {
                             Id = 2,
-                            CategoryId = 3,
-                            Description = "Caramel, Socola",
-                            Name = "Caramel mousse",
+                            CategoryId = 1,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2123),
+                            Description = "Award yourself with this rich chocolate cake wonderfully crammed with Cadbury Fuse and white chocolate chunks and draped lusciously with molten chocolate.This perfect work of art hides in every bite, the scrumptious flavours of heavily whipped chocolate cream and nutty bits of chocolate that is a little nutty and a lot of tasty! ",
+                            Name = "Snicker Fuse Chocolate Cake",
                             OriginalPrice = 250000m,
-                            Price = 250000m,
-                            Size = 21,
-                            Stock = 0
+                            Price = 200000m,
+                            Size = 20,
+                            Stock = 1
                         },
                         new
                         {
                             Id = 3,
-                            CategoryId = 3,
-                            Description = "Cherry, Kem cheese ,Kem tươi.",
-                            Name = "Cherry cheese mousse",
-                            OriginalPrice = 150000m,
-                            Price = 150000m,
+                            CategoryId = 2,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2172),
+                            Description = "An exceptionally creamy Open - layered Red Velvet cake with a topping that tastes like a MASH UP between the tropical fruits is truly a luxurious treat.Experience the richness and smoothness in this delicacy which is laden with kiwis, cherries,apples, dragon fruits and black grapes.Who said healthy and delicious are poles apart ?",
+                            Name = "Red Velvet Fruit Layer Cake",
+                            OriginalPrice = 260000m,
+                            Price = 180000m,
                             Size = 20,
-                            Stock = 0
+                            Stock = 1
                         },
                         new
                         {
                             Id = 4,
-                            CategoryId = 3,
-                            Description = "Kem tươi, Socola,Trà xanh.",
-                            Name = "Red chocolate mousse",
-                            OriginalPrice = 200000m,
-                            Price = 200000m,
-                            Size = 19,
-                            Stock = 0
+                            CategoryId = 1,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2176),
+                            Description = "This round chocolaty cake is the perfect treat for someone who is absolutely in love with chocolate cakes.This cake covered in rich chocolate ganache and decorated with chocolate shavings is the best gift one can have on their special day. ",
+                            Name = "Chocolaty Creamy Round Cake",
+                            OriginalPrice = 310000m,
+                            Price = 290000m,
+                            Size = 20,
+                            Stock = 1
                         },
                         new
                         {
                             Id = 5,
-                            CategoryId = 1,
-                            Description = "Gato, kem bơ vị rượu rum, socola.",
-                            Name = "Dark chocolate cake",
-                            OriginalPrice = 150000m,
-                            Price = 150000m,
+                            CategoryId = 6,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2179),
+                            Description = "Any celebration is incomplete without this funfetti cake. Pipped with beautiful creamy decorations, this towering beauty is a grandiose deliciousness is sure to sweep everyone off their feet.And not just this, along with this beautify their day with extra sweetness and some extra colors with each bite topped with sumptuous confetti. ",
+                            Name = "Rainbow Sprinkles Cake",
+                            OriginalPrice = 400000m,
+                            Price = 350000m,
                             Size = 20,
-                            Stock = 0
+                            Stock = 1
                         },
                         new
                         {
                             Id = 6,
                             CategoryId = 1,
-                            Description = "Gato, kem bơ vị rượu rum, socola bào trắng, dừa sấy.",
-                            Name = "White chocolate and coconut cake",
-                            OriginalPrice = 300000m,
-                            Price = 300000m,
-                            Size = 19,
-                            Stock = 0
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2182),
+                            Description = "A toothsome treat for the sugar lovers who are just passionate about chocolate and relish the mushiness of cake.Made of two layers of impossibly moist chocolate filled with mushy rich cream, this cake carries the enticing aroma of Vanilla and sumptuousness of chocolate.On top of it, the cake is garnished with handcrafted white and brown chocolate.Need I say more ? ",
+                            Name = "Half Chocolate Half Vanilla Cake",
+                            OriginalPrice = 170000m,
+                            Price = 150000m,
+                            Size = 20,
+                            Stock = 1
                         },
                         new
                         {
                             Id = 7,
-                            CategoryId = 2,
-                            Description = "Gato, kem, có phụ kiện trên mặt bánh",
-                            Name = "Car dollar cake",
-                            OriginalPrice = 290000m,
-                            Price = 290000m,
-                            Size = 21,
-                            Stock = 0
+                            CategoryId = 1,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2185),
+                            Description = "This heart-shaped cake is nicely decorated with pink vanilla flavoured glazing and edible gems of vibrant colours like yellow, gold, red, blue, and white. The bonus of Cadbury chocolates and more gems comes when the hearty vanilla cake’s sweet crust is smashed.Note = Hammer will be given with the cake. ",
+                            Name = "Hearty Choco Gems Pinata Cake",
+                            OriginalPrice = 250000m,
+                            Price = 200000m,
+                            Size = 20,
+                            Stock = 1
                         },
                         new
                         {
                             Id = 8,
-                            CategoryId = 2,
-                            Description = "Gato, kem vị trà xanh.",
-                            Name = "Green tea four love",
-                            OriginalPrice = 170000m,
-                            Price = 170000m,
+                            CategoryId = 1,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2188),
+                            Description = "The heavenly taste of this Choco Truffle Cake will even leave the hardest-to - please chocolate addicts tranquil in every sense. Prepared with three layers of relishing chocolate cream filled in between the soft stacks of chocolate cake, and adorned with beautiful chocolate icing and rich glaze chocolate coating, this one is just irresistible. ",
+                            Name = "Round Chocolate Truffle Cake",
+                            OriginalPrice = 430000m,
+                            Price = 350000m,
                             Size = 20,
-                            Stock = 0
+                            Stock = 1
                         },
                         new
                         {
                             Id = 9,
-                            CategoryId = 4,
-                            Description = "Gato, kem tươi vị coffee",
-                            Name = "Tiramisu",
-                            OriginalPrice = 160000m,
-                            Price = 160000m,
-                            Size = 21,
-                            Stock = 0
+                            CategoryId = 2,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2190),
+                            Description = "End the wait, break the ball with this black forest pinata cake, the true taste of surprise and luxury.It is a ball - shaped cake with a ball made of chocolate and a hammer that helps you break it loose. Next, what you see inside is a delicious black forest cake with icing, frosting and sponge, all chocolaty and mouth savouring.Make it your choice for all coming occasions.Note = Hammer will be given with the cake. ",
+                            Name = "Birthday Black Forest Pinata Cake",
+                            OriginalPrice = 200000m,
+                            Price = 150000m,
+                            Size = 20,
+                            Stock = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 5,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2193),
+                            Description = "Always and Forever Delight!This three layered moist and smooth cake filled with butterscotch chips and Vanilla cream is something not to be missed! Topped with Butterscotch glaze and brown chocolate flakes, adorned with scrumptious caramel dressing on the sides, it's time to feel the crunch! ",
+                            Name = "Round Shape Butterscotch Cake",
+                            OriginalPrice = 370000m,
+                            Price = 290000m,
+                            Size = 20,
+                            Stock = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 1,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2195),
+                            Description = "The two celebratory flavours in a single cake--red velvet cake layers entirely covered in dark chocolate cream roses sprinkled with red velvet crumbs.A slice of the cake won't be enough to celebrate the fusion of flavours; you would need a whole cake. ",
+                            Name = "Heavenly Red Velvet Chocolate Cake",
+                            OriginalPrice = 400000m,
+                            Price = 350000m,
+                            Size = 20,
+                            Stock = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryId = 2,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2198),
+                            Description = "This cake is meant for all celebratory occasions! This three layered delicious pineapple flavoured cake filled with intensely whipped rich cream and pineapple fillings, perfectly defines simplicity at its best.Topped with pineapple slices, chocolate flakes and a further adorned with cherries, this cake is the perfect blend of sweetness and fluffiness. ",
+                            Name = "Pineapple Cream Cake",
+                            OriginalPrice = 230000m,
+                            Price = 150000m,
+                            Size = 20,
+                            Stock = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryId = 8,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2201),
+                            Description = "The deliciousness of red velvet has been baked into the shape of a heart that resembles your sheer love and affection for your sweetheart. Tender, moist, and fluffy in texture, this captivating red velvet cake is a perfect sweet to cast the spell of love. ",
+                            Name = "Heart Shape Red Velvet Cake",
+                            OriginalPrice = 200000m,
+                            Price = 180000m,
+                            Size = 20,
+                            Stock = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryId = 2,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2203),
+                            Description = "Freshly baked Vanilla cake, Whipped cream and bountiful tropical fruits come together to create a treat that is even tastier than it looks.This combination of whipped cream and fresh fruit is a perfect start for any celebration and an enticing end to any meal. ",
+                            Name = "Assorted Fruit and Almond Cake",
+                            OriginalPrice = 310000m,
+                            Price = 260000m,
+                            Size = 20,
+                            Stock = 1
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CategoryId = 3,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2206),
+                            Description = "Another winning treat in your list of favorite items, a delicious Red Velvet cake with vanilla cream and icing, bedded red velvet ruling like a crown along with fragrant bread, the richest baked good.Greedy much, do remember to share the delicious deity with your loved ones and send some across to those you direly miss. ",
+                            Name = "Red Velvet Buttercream Creamy Cake",
+                            OriginalPrice = 280000m,
+                            Price = 260000m,
+                            Size = 20,
+                            Stock = 1
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CategoryId = 2,
+                            DateCreated = new DateTime(2021, 7, 8, 3, 12, 24, 459, DateTimeKind.Local).AddTicks(2208),
+                            Description = "Both a joy to your sight as well as your taste buds, this pineapple flavoured scrumptious cake is a delight that you must indulge in every celebration!Frosted with pastel shades of buttercream, drizzling white chocolate ganache, and dollops of pink whipped cream on top, this delicious cake is loaded with copious amounts of gems in the center that spills out when you cut a slice! ",
+                            Name = "Pineapple Gems Pinata Cake",
+                            OriginalPrice = 250000m,
+                            Price = 150000m,
+                            Size = 20,
+                            Stock = 1
                         });
                 });
 
@@ -362,6 +458,602 @@ namespace GeeksBakery.Data.Migrations
                     b.HasIndex("CakeId");
 
                     b.ToTable("CakeImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CakeId = 1,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "1.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CakeId = 1,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "1.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CakeId = 1,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "1.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CakeId = 1,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "1.4.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CakeId = 2,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "2.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CakeId = 2,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "2.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CakeId = 2,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "2.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CakeId = 2,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "2.4.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CakeId = 3,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "3.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CakeId = 3,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "3.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CakeId = 3,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "3.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CakeId = 3,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "3.4.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CakeId = 4,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "4.1.jfif",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CakeId = 4,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "4.2.jfif",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CakeId = 4,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "4.3.jfif",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CakeId = 4,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "4.4.jfif",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CakeId = 5,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "5.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CakeId = 5,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "5.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CakeId = 5,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "5.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CakeId = 5,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "5.4.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CakeId = 6,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "6.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CakeId = 6,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "6.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CakeId = 6,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "6.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CakeId = 6,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "6.4.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CakeId = 7,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "7.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CakeId = 7,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "7.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CakeId = 8,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "8.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 28,
+                            CakeId = 8,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "8.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 29,
+                            CakeId = 8,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "8.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CakeId = 8,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "8.4.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CakeId = 9,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "9.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CakeId = 9,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "9.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CakeId = 9,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "9.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CakeId = 10,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "10.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CakeId = 10,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "10.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CakeId = 10,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "10.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CakeId = 11,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "11.1.jfif",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CakeId = 11,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "11.2.jfif",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CakeId = 11,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "11.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CakeId = 12,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "12.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CakeId = 12,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "12.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CakeId = 12,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "12.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CakeId = 12,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "12.4.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CakeId = 13,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "13.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CakeId = 13,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "13.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CakeId = 14,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "14.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 47,
+                            CakeId = 14,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "14.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 48,
+                            CakeId = 14,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "14.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 49,
+                            CakeId = 15,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "15.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CakeId = 15,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "15.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CakeId = 15,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "15.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CakeId = 16,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "16.1.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CakeId = 16,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "16.2.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        },
+                        new
+                        {
+                            Id = 54,
+                            CakeId = 16,
+                            Caption = "Cake Images",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FileName = "16.3.jpg",
+                            FileSize = 0L,
+                            IsDefault = true,
+                            SortOrder = 1
+                        });
                 });
 
             modelBuilder.Entity("GeeksBakery.Data.Entities.Cart", b =>
@@ -403,22 +1095,42 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Bread"
+                            Name = "Chocolate"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Mousse"
+                            Name = "Fruits"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Cookies"
+                            Name = "Exotic"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Donuts"
+                            Name = "Backforest"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Butterscotch"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Vanilla"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Coffee"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Strawberry"
                         });
                 });
 
