@@ -10,5 +10,5 @@
  - Entity Framework Core Sql Server 5.0.7
  - Entity Framework Core Tools 5.0.7
 
- ## Design
+ ## UI
 ![Design show](https://user-images.githubusercontent.com/44517184/124892792-6130a100-e004-11eb-8eba-d5b8e0012433.png)
