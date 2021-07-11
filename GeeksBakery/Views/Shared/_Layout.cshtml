@@ -1,48 +1,210 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - GeeksBakery</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+
+    <title>@ViewData["Title"] - Geek's Bakery</title>
+
+    <link rel="icon" href="~/icons/favio.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/reset.css" />
+    <link rel="stylesheet" href="~/css/base.css" />
+    <link rel="stylesheet" href="~/css/header.css" />
+    <link rel="stylesheet" href="~/css/footer.css" />
+
+    <link rel="stylesheet" href="~/css/home.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GeeksBakery</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div id="loading-screen">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
     </div>
-
-    <footer class="border-top footer text-muted">
+    <!-- wrapper header -->
+    <div class="wrapper">
         <div class="container">
-            &copy; 2021 - GeeksBakery - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <header class="header">
+                <a class="header__logo" href="#">
+                    <img src="~/img/logo.png" alt="Geek's Bakery Logo" />
+                </a>
+                <nav class="header__menu noselect">
+                    <a class="header__menu__item" href="#">Home</a>
+                    <a class="header__menu__item" href="#">Cakes</a>
+                    <a class="header__menu__item" href="#">About</a>
+                </nav>
+                <div class="header__search">
+                    <button class="header__search__button noselect">
+                        <img src="~/icons/search.png" alt="search icon" />
+                    </button>
+                    <input placeholder="Search..."
+                           type="text"
+                           name="search"
+                           id="search" />
+                </div>
+                <div class="header__info">
+                    <div class="header__cart noselect">
+                        <img src="~/icons/cart.svg" alt="cart icon" />
+                        <span class="header__cart__amount">2</span>
+                    </div>
+                    <div class="header__user noselect">
+                        <div class="header__user__avatar">
+                            <img src="~/img/user.png" alt="User Avatar" />
+                            <div class="header__user__dropdown">
+                                <ul>
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="#">Cart</a></li>
+                                    <li><a href="#">Sign out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="nav-mobile__button">
+                        <img class="nav-mobile__icon"
+                             src="~/icons/menu-mobile.svg"
+                             alt="menu bar" />
+                    </label>
+                </div>
+            </header>
+            <input hidden
+                   type="checkbox"
+                   name="nav"
+                   class="nav-mobile__button"
+                   id="nav-mobile__button" />
+            <nav class="nav-mobile noselect">
+                <label for="nav-mobile__button" class="nav-mobile__close">
+                    <svg version="1.1"
+                         id="Capa_1"
+                         xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         x="0px"
+                         y="0px"
+                         width="92.132px"
+                         height="92.132px"
+                         viewBox="0 0 92.132 92.132"
+                         style="enable-background: new 0 0 92.132 92.132"
+                         xml:space="preserve">
+                    <g>
+                    <g>
+                    <path fill="#f3455a"
+                          d="M2.141,89.13c1.425,1.429,3.299,2.142,5.167,2.142c1.869,0,3.742-0.713,5.167-2.142l33.591-33.592L79.657,89.13
+    c1.426,1.429,3.299,2.142,5.167,2.142c1.867,0,3.74-0.713,5.167-2.142c2.854-2.854,2.854-7.48,0-10.334L56.398,45.205
+    l31.869-31.869c2.855-2.853,2.855-7.481,0-10.334c-2.853-2.855-7.479-2.855-10.334,0L46.065,34.87L14.198,3.001
+    c-2.854-2.855-7.481-2.855-10.333,0c-2.855,2.853-2.855,7.481,0,10.334l31.868,31.869L2.143,78.795
+    C-0.714,81.648-0.714,86.274,2.141,89.13z" />
+                </g>
+              </g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+                    <g></g>
+            </svg>
+                </label>
+
+                <div class="nav-mobile__items__search">
+                    <button class="nav-mobile__items__search__button noselect">
+                        <img src="~/icons/search.png" alt="search icon" />
+                    </button>
+                    <input placeholder="Search..."
+                           type="text"
+                           name="search"
+                           id="search-mobile" />
+                </div>
+                <nav class="nav-mobile__items">
+                    <ul>
+                        <a href="#\">
+                        <li class="nav-mobile__link">Home</li></a>
+                        <a href="#\">
+                        <li class="nav-mobile__link">Cakes</li></a>
+                        <a href="#\">
+                        <li class="nav-mobile__link">About</li></a>
+                        <a href="#\">
+                        <li class="nav-mobile__link">Profile</li></a>
+                        <a href="#\">
+                        <li class="nav-mobile__link">Cart</li></a>
+                        <a href="#\">
+                        <li class="nav-mobile__link">Sign out</li></a>
+                    </ul>
+                </nav>
+            </nav>
+        </div>
+    </div>
+    <!-- end wrapper header-->
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- footer -->
+    <footer>
+        <div class="footer container">
+
+            <div class="footer__logo">
+                <img src="~/img/logo.png" alt="footer logo" />
+            </div>
+            <div class="footer__lists">
+                <ul class="footer__list">
+                    <h6>Categories</h6>
+                    <a href="#/">
+                    <li>Exotic</li></a>
+                    <a href="#/">
+                    <li>Fruits</li></a>
+                    <a href="#/">
+                    <li>Strawberry</li></a>
+                    <a href="#/">
+                    <li>Vanilla</li></a>
+                </ul>
+                <ul class="footer__list">
+                    <h6>About</h6>
+                    <li>Geek's Bakery</li>
+                    <li>Pham Chi Trung</li>
+                    <li>pctrung1102@gmail.com</li>
+                </ul>
+                <ul class="footer__list">
+                    <h6>Social</h6>
+                    <div class="footer__list__social">
+                        <a href="https://www.facebook.com/trungxi.it">
+                            <img src="~/icons/facebook.svg" alt="facebook icon" />
+                        </a>
+                        <a href="https://github.com/TrungXiIT">
+                            <img src="~/icons/github.svg" alt="github icon" />
+                        </a>
+                        <a href="https://www.linkedin.com/in/trung-ph%E1%BA%A1m-101b871a2/">
+                            <img src="~/icons/linkedin.svg" alt="linkedin icon" />
+                        </a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="container-fluid footer__copyright">
+            <p>Copyright © 2021 Pham Chi Trung</p>
         </div>
     </footer>
+    <!-- end footer -->
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script type="text/javascript" src="~/js/app.js"></script>
+    <script type="text/javascript" src="~/js/slider.js"></script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
