@@ -41,7 +41,7 @@ namespace GeeksBakery.Application.Services
                 Price = request.Price,
                 Size = request.Size,
                 Stock = request.Stock,
-                Slug = request.SEOAlias
+                Slug = request.Slug
             };
             if (request.CakeImages != null)
             {
@@ -50,7 +50,7 @@ namespace GeeksBakery.Application.Services
                     await _cakeImageService.CreateAsync(cakeImage);
                 }
             }
-            _context.Cakes.Add(cake);
+            await _context.Cakes.AddAsync(cake);
             await _context.SaveChangesAsync();
             return cake.Id;
         }
@@ -68,7 +68,7 @@ namespace GeeksBakery.Application.Services
             cake.Price = request.Price;
             cake.OriginalPrice = request.OriginalPrice;
             cake.Size = request.Size;
-            cake.Slug = request.SEOAlias;
+            cake.Slug = request.Slug;
             cake.Stock = request.Stock;
             cake.Description = request.Description;
             cake.CategoryId = request.CategoryId;

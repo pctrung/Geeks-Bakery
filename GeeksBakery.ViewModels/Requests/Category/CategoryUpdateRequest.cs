@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace GeeksBakery.ViewModels.Requests.Category
 {
-    public class CategoryCreateRequest
+    public class CategoryUpdateRequest
     {
+        [Display(Name = "ID")]
+        public int Id { get; set; }
+
         [Display(Name = "Name")]
         public string Name { get; set; }
 
