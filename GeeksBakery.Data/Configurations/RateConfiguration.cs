@@ -8,7 +8,7 @@ namespace GeeksBakery.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Rate> builder)
         {
-            builder.HasKey(c => new { c.UserId, c.CakeId });
+            builder.HasKey(c => c.Id);
 
             builder.Property(x => x.Comment).IsRequired();
             builder.Property(x => x.Star).IsRequired();

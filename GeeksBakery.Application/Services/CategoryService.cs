@@ -1,4 +1,5 @@
-﻿using GeeksBakery.Application.Interfaces;
+﻿using AutoMapper;
+using GeeksBakery.Application.Interfaces;
 using GeeksBakery.Data.EF;
 using GeeksBakery.Data.Entities;
 using GeeksBakery.Utilities.Exceptions;
@@ -14,20 +15,18 @@ namespace GeeksBakery.Application.Services
     public class CategoryService : ICategoryService
     {
         private readonly GeeksBakeryDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CategoryService(GeeksBakeryDbContext context)
+        public CategoryService(GeeksBakeryDbContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
         public async Task<int> CreateAsync(CategoryCreateRequest request)
         {
-            var category = new Category()
-            {
-                Name = request.Name,
-                ParentId = request.ParentId,
-                Description = request.Description
-            };
+            var category = _mapper.Map<Category>(request);
+
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
             return category.Id;
@@ -65,13 +64,7 @@ namespace GeeksBakery.Application.Services
 
         public async Task<List<CategoryViewModel>> GetAllAsync()
         {
-            return await _context.Categories.Select(category => new CategoryViewModel()
-            {
-                Id = category.Id,
-                Name = category.Name,
-                ParentId = category.ParentId,
-                Description = category.Description
-            }).ToListAsync();
+            return await _context.Categories.Select(category => _mapper.Map<CategoryViewModel>(category)).ToListAsync();
         }
 
         public async Task<CategoryViewModel> GetByIdAsync(int categoryId)
@@ -83,26 +76,7 @@ namespace GeeksBakery.Application.Services
                 throw new GeeksBakeryException($"Cannot find category with Id = {categoryId}");
             }
 
-            return new CategoryViewModel()
-            {
-                Id = category.Id,
-                Name = category.Name,
-                ParentId = category.ParentId,
-                Description = category.Description
-                //Cakes = category.Cakes.Select(cake => new CakeViewModel()
-                //{
-                //    CategoryId = cake.Category.Id,
-                //    CategoryName = cake.Category.Name,
-                //    Id = cake.Id,
-                //    Name = cake.Name,
-                //    Description = cake.Description,
-                //    Price = cake.Price,
-                //    OriginalPrice = cake.OriginalPrice,
-                //    SEOAlias = cake.Slug,
-                //    Size = cake.Size,
-                //    Stock = cake.Stock,
-                //}).ToList()
-            };
+            return _mapper.Map<CategoryViewModel>(category);
         }
     }
 }

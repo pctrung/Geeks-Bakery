@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GeeksBakery.Data.Migrations
 {
@@ -11,9 +11,10 @@ namespace GeeksBakery.Data.Migrations
                 name: "Rates",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CakeId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Star = table.Column<int>(type: "int", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -21,7 +22,7 @@ namespace GeeksBakery.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rates", x => new { x.UserId, x.CakeId });
+                    table.PrimaryKey("PK_Rates", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Rates_Cakes_CakeId",
                         column: x => x.CakeId,
@@ -41,152 +42,174 @@ namespace GeeksBakery.Data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 406, DateTimeKind.Local).AddTicks(460));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 551, DateTimeKind.Local).AddTicks(1617));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 2,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4744));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3528));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 3,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4768));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3612));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 4,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4771));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3615));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 5,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4777));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3618));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 6,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4781));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3621));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 7,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4784));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3623));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 8,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4787));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3625));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 9,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4790));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3628));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 10,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4794));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3631));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 11,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4797));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3633));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 12,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4800));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3635));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 13,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4802));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3637));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 14,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4806));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3640));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 15,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4809));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3642));
 
             migrationBuilder.UpdateData(
                 table: "Cakes",
                 keyColumn: "Id",
                 keyValue: 16,
                 column: "DateCreated",
-                value: new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4811));
+                value: new DateTime(2021, 7, 11, 20, 46, 33, 552, DateTimeKind.Local).AddTicks(3644));
+
+            migrationBuilder.InsertData(
+                table: "Rates",
+                columns: new[] { "Id", "CakeId", "Comment", "DateDeleted", "DateModified", "Star", "UserId" },
+                values: new object[,]
+                {
+                    { 10, 9, "Hương vị thật ngon", null, null, 5, new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 9, 8, "Màu sắc đẹp", null, null, 5, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
+                    { 8, 7, "Đây là comment", null, null, 4, new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 7, 3, "Yeah", null, null, 4, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
+                    { 6, 3, "Delicious", null, null, 5, new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 5, 6, "Ngon đó", null, null, 4, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
+                    { 4, 2, "Bánh không ngon", null, null, 3, new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 3, 2, "Bánh dở", null, null, 2, new Guid("bff91064-dc92-421e-a233-d1080f630928") },
+                    { 2, 1, "Bánh hơi ngon", null, null, 4, new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 1, 1, "Bánh ngon", null, null, 5, new Guid("bff91064-dc92-421e-a233-d1080f630928") }
+                });
 
             migrationBuilder.UpdateData(
                 table: "Roles",
                 keyColumn: "Id",
                 keyValue: new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"),
                 column: "ConcurrencyStamp",
-                value: "7752c827-e9e1-4eee-bef2-bdfa5a4fb35d");
+                value: "d86e09e4-6b0d-42f6-ab95-e4e354214a6b");
 
             migrationBuilder.UpdateData(
                 table: "Roles",
                 keyColumn: "Id",
                 keyValue: new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
                 column: "ConcurrencyStamp",
-                value: "96a7af9b-c7e4-4f97-a2f5-3389f6a2d814");
+                value: "8399fe23-ef27-4b8d-a0f9-52c6bb795191");
 
             migrationBuilder.UpdateData(
                 table: "Users",
                 keyColumn: "Id",
                 keyValue: new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "c9f5e759-8416-4957-bd8d-6ea65b502f34", "AQAAAAEAACcQAAAAEMMZh4afpErDUnxNqQcl59Uo4pgJTpBabOLYGlhKMDTkM48KCYH6NWP2SIuSESv1oA==" });
+                values: new object[] { "9ca611fe-7d36-4d19-9b5c-fbc578eb29c1", "AQAAAAEAACcQAAAAEPhuVHgYyXLaw5EA4N5ugmxnta/t8+B25dTtnYVupNIgJCp0SK4YJrszggEeOhOnMg==" });
 
             migrationBuilder.UpdateData(
                 table: "Users",
                 keyColumn: "Id",
                 keyValue: new Guid("bff91054-dc92-421e-a233-d1080f630928"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "e3add2b9-efad-4d0a-937e-6c2c06aeb484", "AQAAAAEAACcQAAAAEHk7txMdJuKv0hq+YSDQ9ZIBy8k+mIFfKP46FM2c+JmdD8WYHHLh3Oztm2bzq1wOxg==" });
+                values: new object[] { "fcaa66c4-ee43-452b-81eb-d41f1bab672e", "AQAAAAEAACcQAAAAEBaZR7k29SR/l/l3zREMaR1hZM7F3gOqQwhMA5T0oNU0RFrCS9AIq7NsjxS9zet6gA==" });
 
             migrationBuilder.UpdateData(
                 table: "Users",
                 keyColumn: "Id",
                 keyValue: new Guid("bff91064-dc92-421e-a233-d1080f630928"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "6e4fcf92-840b-47ad-b4ed-a0b01bcec654", "AQAAAAEAACcQAAAAEAXITaQYd2rKWO78+GgE1OAfcQkq/VYiakDarypJVDcs3qouaA/J71Oth+tOgnelow==" });
+                values: new object[] { "582ae877-e9d7-450b-8b36-8653d2d659d1", "AQAAAAEAACcQAAAAEIkcAeaJzu8Xyz4avq8l3OxP4W/l+nzVUtWDqDP2NLQTIYATFJzjWua3pEBsgbwdqQ==" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rates_CakeId",
                 table: "Rates",
                 column: "CakeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rates_UserId",
+                table: "Rates",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

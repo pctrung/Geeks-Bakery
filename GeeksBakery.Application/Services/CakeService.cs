@@ -1,4 +1,5 @@
-﻿using GeeksBakery.Application.Interfaces;
+﻿using AutoMapper;
+using GeeksBakery.Application.Interfaces;
 using GeeksBakery.Data.EF;
 using GeeksBakery.Data.Entities;
 using GeeksBakery.Utilities.Exceptions;
@@ -9,6 +10,7 @@ using GeeksBakery.ViewModels.Requests.Cake;
 using GeeksBakery.ViewModels.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,28 +19,21 @@ namespace GeeksBakery.Application.Services
     public class CakeService : ICakeService
     {
         private readonly GeeksBakeryDbContext _context;
+        private readonly IMapper _mapper;
         private readonly ICakeImageService _cakeImageService;
 
-        public CakeService(GeeksBakeryDbContext context, ICakeImageService cakeImageService)
+        public CakeService(GeeksBakeryDbContext context, ICakeImageService cakeImageService, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
             _cakeImageService = cakeImageService;
         }
 
         public async Task<int> CreateAsync(CakeCreateRequest request)
         {
-            var cake = new Cake()
-            {
-                Name = request.Name,
-                CategoryId = request.CategoryId,
-                DateCreated = DateTime.Now,
-                Description = request.Description,
-                OriginalPrice = request.OriginalPrice,
-                Price = request.Price,
-                Size = request.Size,
-                Stock = request.Stock,
-                Slug = request.Slug
-            };
+            var cake = _mapper.Map<Cake>(request);
+            cake.DateCreated = DateTime.Now;
+
             if (request.CakeImages != null)
             {
                 foreach (var cakeImage in request.CakeImages)
@@ -100,7 +95,7 @@ namespace GeeksBakery.Application.Services
         public async Task<CakeViewModel> GetByIdAsync(int cakeId)
         {
             //get all
-            var result = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.Category).Include(x => x.CakeImages).Select(
+            var result = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Rates).Select(
                 cake => new CakeViewModel()
                 {
                     CategoryId = cake.Category.Id,
@@ -113,15 +108,8 @@ namespace GeeksBakery.Application.Services
                     SEOAlias = cake.Slug,
                     Size = cake.Size,
                     Stock = cake.Stock,
-                    CakeImages = cake.CakeImages.Select(
-                        image => new CakeImageViewModel()
-                        {
-                            Caption = image.Caption,
-                            Id = image.Id,
-                            FileName = image.FileName,
-                            IsDefault = image.IsDefault,
-                            SortOrder = image.SortOrder
-                        }).ToList()
+                    CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
+                    Rates = _mapper.Map<List<RateViewModel>>(cake.Rates)
                 }).FirstOrDefaultAsync();
 
             return result;
@@ -142,15 +130,8 @@ namespace GeeksBakery.Application.Services
                 SEOAlias = cake.Slug,
                 Size = cake.Size,
                 Stock = cake.Stock,
-                CakeImages = cake.CakeImages.Select(
-                        image => new CakeImageViewModel()
-                        {
-                            Caption = image.Caption,
-                            Id = image.Id,
-                            FileName = image.FileName,
-                            IsDefault = image.IsDefault,
-                            SortOrder = image.SortOrder
-                        }).ToList()
+                CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
+                Rates = _mapper.Map<List<RateViewModel>>(cake.Rates)
             });
 
             // filter

@@ -34,6 +34,9 @@ namespace GeeksBakery.BackendApi
                 options => options.UseSqlServer(Configuration.GetConnectionString(SystemConstant.MAIN_CONNECTION_STRING)));
             services.AddControllers();
 
+            // automapper
+            services.AddAutoMapper(typeof(Startup).Assembly);
+
             // swagger config
             services.AddSwaggerGen(c =>
             {
@@ -79,6 +82,7 @@ namespace GeeksBakery.BackendApi
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IStorageService, StorageService>();
             services.AddTransient<ICakeImageService, CakeImageService>();
+            services.AddTransient<IRateService, RateService>();
 
             // DI for identity
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();

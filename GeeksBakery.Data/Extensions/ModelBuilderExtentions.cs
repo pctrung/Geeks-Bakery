@@ -223,6 +223,18 @@ namespace GeeksBakery.Data.Extensions
                 new Category { Id = 7, Name = "Coffee" },
                 new Category { Id = 8, Name = "Strawberry" }
                 );
+            modelBuilder.Entity<Rate>().HasData(
+                new Rate() { Id = 1, CakeId = 1, UserId = new Guid("BFF91064-DC92-421E-A233-D1080F630928"), Comment = "Bánh ngon", Star = 5, DateCreated = DateTime.Now },
+                new Rate() { Id = 2, CakeId = 1, UserId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE"), Comment = "Bánh hơi ngon", Star = 4, DateCreated = DateTime.Now },
+                new Rate() { Id = 3, CakeId = 2, UserId = new Guid("BFF91064-DC92-421E-A233-D1080F630928"), Comment = "Bánh dở", Star = 2, DateCreated = DateTime.Now },
+                new Rate() { Id = 4, CakeId = 2, UserId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE"), Comment = "Bánh không ngon", Star = 3, DateCreated = DateTime.Now },
+                new Rate() { Id = 5, CakeId = 6, UserId = new Guid("BFF91064-DC92-421E-A233-D1080F630928"), Comment = "Ngon đó", Star = 4, DateCreated = DateTime.Now },
+                new Rate() { Id = 6, CakeId = 3, UserId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE"), Comment = "Delicious", Star = 5, DateCreated = DateTime.Now },
+                new Rate() { Id = 7, CakeId = 3, UserId = new Guid("BFF91064-DC92-421E-A233-D1080F630928"), Comment = "Yeah", Star = 4, DateCreated = DateTime.Now },
+                new Rate() { Id = 8, CakeId = 7, UserId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE"), Comment = "Đây là comment", Star = 4, DateCreated = DateTime.Now },
+                new Rate() { Id = 9, CakeId = 8, UserId = new Guid("BFF91064-DC92-421E-A233-D1080F630928"), Comment = "Màu sắc đẹp", Star = 5, DateCreated = DateTime.Now },
+                new Rate() { Id = 10, CakeId = 9, UserId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE"), Comment = "Hương vị thật ngon", Star = 5, DateCreated = DateTime.Now }
+                );
 
             modelBuilder.Entity<Order>().HasData(
                 new Order { Id = 1, UserId = new Guid("BFF91064-DC92-421E-A233-D1080F630928"), DateCreated = new DateTime(2021, 5, 21, 12, 45, 0), DeliveryDate = new DateTime(2021, 5, 21, 12, 45, 0), Status = Enums.Status.Completed },

@@ -49,7 +49,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Get([FromForm] CategoryCreateRequest request)
+        public async Task<IActionResult> Create([FromForm] CategoryCreateRequest request)
         {
             try
             {
