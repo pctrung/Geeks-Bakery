@@ -5,7 +5,6 @@ using GeeksBakery.Data.EF;
 using GeeksBakery.Data.Entities;
 using GeeksBakery.Utilities.Constants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -15,10 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 
 namespace GeeksBakery.BackendApi
 {

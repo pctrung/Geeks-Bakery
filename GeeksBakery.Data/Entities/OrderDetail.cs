@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GeeksBakery.Data.Entities
+﻿namespace GeeksBakery.Data.Entities
 {
     public class OrderDetail
     {

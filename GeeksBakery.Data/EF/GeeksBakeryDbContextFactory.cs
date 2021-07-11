@@ -5,7 +5,7 @@ using System.IO;
 
 namespace GeeksBakery.Data.EF
 {
-    class GeeksBakeryDbContextFactory : IDesignTimeDbContextFactory<GeeksBakeryDbContext>
+    internal class GeeksBakeryDbContextFactory : IDesignTimeDbContextFactory<GeeksBakeryDbContext>
     {
         public GeeksBakeryDbContext CreateDbContext(string[] args)
         {
