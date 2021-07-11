@@ -12,12 +12,12 @@ namespace GeeksBakery.BackendApi.Controllers
     public class CakesController : ControllerBase
     {
         private readonly ICakeService _cakeService;
-        public readonly IRateService _rateService;
+        public readonly IReviewService _reviewService;
 
-        public CakesController(ICakeService cakeService, IRateService rateService)
+        public CakesController(ICakeService cakeService, IReviewService reviewService)
         {
             _cakeService = cakeService;
-            _rateService = rateService;
+            _reviewService = reviewService;
         }
 
         [HttpGet]
@@ -57,9 +57,9 @@ namespace GeeksBakery.BackendApi.Controllers
         {
             try
             {
-                var rates = await _rateService.GetByCakeIdAsync(cakeId);
+                var reviews = await _reviewService.GetByCakeIdAsync(cakeId);
 
-                return Ok(JsonConvert.SerializeObject(rates));
+                return Ok(JsonConvert.SerializeObject(reviews));
             }
             catch (Exception e)
             {

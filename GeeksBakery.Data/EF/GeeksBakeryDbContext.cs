@@ -25,7 +25,7 @@ namespace GeeksBakery.Data.EF
                 .ApplyConfiguration(new CakeConfiguration())
                 .ApplyConfiguration(new AppRoleConfiguration())
                 .ApplyConfiguration(new CategoryConfiguration())
-                .ApplyConfiguration(new RateConfiguration())
+                .ApplyConfiguration(new ReviewConfiguration())
                 .ApplyConfiguration(new CakeImageConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
@@ -42,7 +42,7 @@ namespace GeeksBakery.Data.EF
         public DbSet<CakeImage> CakeImages { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        public DbSet<Rate> Rates { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
 

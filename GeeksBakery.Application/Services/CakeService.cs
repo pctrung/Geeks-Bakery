@@ -95,7 +95,7 @@ namespace GeeksBakery.Application.Services
         public async Task<CakeViewModel> GetByIdAsync(int cakeId)
         {
             //get all
-            var result = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Rates).ThenInclude(rate => rate.User).Select(
+            var result = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).ThenInclude(review => review.User).Select(
                 cake => new CakeViewModel()
                 {
                     CategoryId = cake.Category.Id,
@@ -109,7 +109,7 @@ namespace GeeksBakery.Application.Services
                     Size = cake.Size,
                     Stock = cake.Stock,
                     CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
-                    Rates = _mapper.Map<List<RateViewModel>>(cake.Rates)
+                    Reviews = _mapper.Map<List<ReviewViewModel>>(cake.Reviews)
                 }).FirstOrDefaultAsync();
 
             return result;
@@ -118,7 +118,7 @@ namespace GeeksBakery.Application.Services
         public async Task<PagedResult<CakeViewModel>> GetAllPagingAsync(GetCakePagingRequest request)
         {
             //get all
-            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Rates).ThenInclude(rate => rate.User).Select(cake => new CakeViewModel()
+            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).ThenInclude(review => review.User).Select(cake => new CakeViewModel()
             {
                 CategoryId = cake.Category.Id,
                 CategoryName = cake.Category.Name,
@@ -131,7 +131,7 @@ namespace GeeksBakery.Application.Services
                 Size = cake.Size,
                 Stock = cake.Stock,
                 CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
-                Rates = cake.Rates.Select(rate => _mapper.Map<RateViewModel>(rate)).ToList()
+                Reviews = cake.Reviews.Select(review => _mapper.Map<ReviewViewModel>(review)).ToList()
             });
 
             // filter

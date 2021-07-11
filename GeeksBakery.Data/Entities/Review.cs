@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GeeksBakery.Data.Entities
 {
-    public class Rate
+    public class Review
     {
         public int Id { get; set; }
         public Guid UserId { get; set; }

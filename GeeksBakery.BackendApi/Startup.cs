@@ -82,7 +82,7 @@ namespace GeeksBakery.BackendApi
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IStorageService, StorageService>();
             services.AddTransient<ICakeImageService, CakeImageService>();
-            services.AddTransient<IRateService, RateService>();
+            services.AddTransient<IReviewService, ReviewService>();
 
             // DI for identity
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();

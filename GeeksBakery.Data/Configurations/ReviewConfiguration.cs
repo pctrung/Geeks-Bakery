@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GeeksBakery.Data.Configurations
 {
-    public class RateConfiguration : IEntityTypeConfiguration<Rate>
+    public class ReviewConfiguration : IEntityTypeConfiguration<Review>
     {
-        public void Configure(EntityTypeBuilder<Rate> builder)
+        public void Configure(EntityTypeBuilder<Review> builder)
         {
             builder.HasKey(c => c.Id);
 

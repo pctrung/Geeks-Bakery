@@ -1,6 +1,6 @@
 ﻿using GeeksBakery.Application.Interfaces;
 using GeeksBakery.ViewModels.Requests.Category;
-using GeeksBakery.ViewModels.Requests.Rate;
+using GeeksBakery.ViewModels.Requests.Review;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -10,23 +10,23 @@ namespace GeeksBakery.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     //    [Authorize]
-    public class RatesController : ControllerBase
+    public class ReviewsController : ControllerBase
     {
-        public readonly IRateService _rateService;
+        public readonly IReviewService _reviewService;
 
-        public RatesController(IRateService rateService)
+        public ReviewsController(IReviewService reviewService)
         {
-            _rateService = rateService;
+            _reviewService = reviewService;
         }
 
-        [HttpGet("{rateId}")]
-        public async Task<IActionResult> Get(int rateId)
+        [HttpGet("{reviewId}")]
+        public async Task<IActionResult> Get(int reviewId)
         {
             try
             {
-                var rate = await _rateService.GetByIdAsync(rateId);
+                var review = await _reviewService.GetByIdAsync(reviewId);
 
-                return Ok(JsonConvert.SerializeObject(rate));
+                return Ok(JsonConvert.SerializeObject(review));
             }
             catch (Exception e)
             {
@@ -35,7 +35,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] RateCreateRequest request)
+        public async Task<IActionResult> Create([FromForm] ReviewCreateRequest request)
         {
             try
             {
@@ -43,17 +43,17 @@ namespace GeeksBakery.BackendApi.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                var rateId = await _rateService.CreateAsync(request);
+                var reviewId = await _reviewService.CreateAsync(request);
 
-                if (rateId == 0)
+                if (reviewId == 0)
                 {
                     return BadRequest();
                 }
 
-                var data = await _rateService.GetByIdAsync(rateId);
+                var data = await _reviewService.GetByIdAsync(reviewId);
                 if (data == null)
                 {
-                    return NotFound($"Cannot find a rate with Id: {rateId}");
+                    return NotFound($"Cannot find a review with Id: {reviewId}");
                 }
                 return Ok(JsonConvert.SerializeObject(data));
             }
@@ -63,15 +63,15 @@ namespace GeeksBakery.BackendApi.Controllers
             }
         }
 
-        [HttpDelete("{rateId}")]
-        public async Task<IActionResult> Delete(int rateId)
+        [HttpDelete("{reviewId}")]
+        public async Task<IActionResult> Delete(int reviewId)
         {
             try
             {
-                var result = await _rateService.DeleteAsync(rateId);
+                var result = await _reviewService.DeleteAsync(reviewId);
                 if (result == 0)
                 {
-                    return NotFound($"Cannot find a rate with Id: {rateId}");
+                    return NotFound($"Cannot find a review with Id: {reviewId}");
                 }
 
                 return Ok(result);

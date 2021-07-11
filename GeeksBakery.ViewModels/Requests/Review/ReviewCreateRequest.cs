@@ -5,20 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeeksBakery.ViewModels.ViewModels
+namespace GeeksBakery.ViewModels.Requests.Review
 {
-    public class RateViewModel
+    public class ReviewCreateRequest
     {
-        public int Id { get; set; }
         public Guid UserId { get; set; }
-        public string Username { get; set; }
-        public string UserAvatar { get; set; }
         public int CakeId { get; set; }
 
         [Range(1, 5)]
         public int Star { get; set; }
 
         public string Comment { get; set; }
-        public DateTime DateCreated;
     }
 }

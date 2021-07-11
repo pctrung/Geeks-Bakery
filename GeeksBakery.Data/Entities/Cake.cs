@@ -23,6 +23,6 @@ namespace GeeksBakery.Data.Entities
         public Category Category { get; set; }
 
         public List<CakeImage> CakeImages { get; set; }
-        public List<Rate> Rates { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }
