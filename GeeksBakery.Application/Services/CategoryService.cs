@@ -5,10 +5,8 @@ using GeeksBakery.Utilities.Exceptions;
 using GeeksBakery.ViewModels.Requests.Category;
 using GeeksBakery.ViewModels.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GeeksBakery.Application.Services
@@ -31,7 +29,8 @@ namespace GeeksBakery.Application.Services
                 Description = request.Description
             };
             await _context.Categories.AddAsync(category);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return category.Id;
         }
 
         public async Task<int> UpdateAsync(CategoryUpdateRequest request)
@@ -70,7 +69,8 @@ namespace GeeksBakery.Application.Services
             {
                 Id = category.Id,
                 Name = category.Name,
-                ParentId = category.ParentId
+                ParentId = category.ParentId,
+                Description = category.Description
             }).ToListAsync();
         }
 
@@ -87,7 +87,8 @@ namespace GeeksBakery.Application.Services
             {
                 Id = category.Id,
                 Name = category.Name,
-                ParentId = category.ParentId
+                ParentId = category.ParentId,
+                Description = category.Description
                 //Cakes = category.Cakes.Select(cake => new CakeViewModel()
                 //{
                 //    CategoryId = cake.Category.Id,

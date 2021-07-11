@@ -76,6 +76,7 @@ namespace GeeksBakery.BackendApi
 
             // declare DI
             services.AddTransient<ICakeService, CakeService>();
+            services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IStorageService, StorageService>();
             services.AddTransient<ICakeImageService, CakeImageService>();
 
