@@ -21,12 +21,12 @@ namespace GeeksBakery.Application.Services
     public class CakeService : ICakeService
     {
         private readonly GeeksBakeryDbContext _context;
-        private readonly IStorageService _storageService;
+        private readonly ICakeImageService _cakeImageService;
 
-        public CakeService(GeeksBakeryDbContext context, IStorageService storageService)
+        public CakeService(GeeksBakeryDbContext context, ICakeImageService cakeImageService)
         {
             _context = context;
-            _storageService = storageService;
+            _cakeImageService = cakeImageService;
         }
 
         public async Task<int> CreateAsync(CakeCreateRequest request)
@@ -41,22 +41,14 @@ namespace GeeksBakery.Application.Services
                 Price = request.Price,
                 Size = request.Size,
                 Stock = request.Stock,
-                SEOAlias = request.SEOAlias
+                Slug = request.SEOAlias
             };
-            if (request.Thumbnail != null)
+            if (request.CakeImages != null)
             {
-                cake.CakeImages = new List<CakeImage>()
+                foreach (var cakeImage in request.CakeImages)
                 {
-                    new CakeImage
-                    {
-                        Caption = "Thumbnail image",
-                        DateCreated = DateTime.Now,
-                        FileSize = request.Thumbnail.Length,
-                        FileName = await SaveFileAsync(request.Thumbnail),
-                        IsDefault = true,
-                        SortOrder = 1
-                    }
-                };
+                    await _cakeImageService.CreateAsync(cakeImage);
+                }
             }
             _context.Cakes.Add(cake);
             await _context.SaveChangesAsync();
@@ -76,11 +68,19 @@ namespace GeeksBakery.Application.Services
             cake.Price = request.Price;
             cake.OriginalPrice = request.OriginalPrice;
             cake.Size = request.Size;
-            cake.SEOAlias = request.SEOAlias;
+            cake.Slug = request.SEOAlias;
             cake.Stock = request.Stock;
             cake.Description = request.Description;
             cake.CategoryId = request.CategoryId;
             cake.DateModified = DateTime.Now;
+
+            if (request.CakeImages != null)
+            {
+                foreach (var cakeImage in request.CakeImages)
+                {
+                    await _cakeImageService.UpdateAsync(cakeImage);
+                }
+            }
 
             return await _context.SaveChangesAsync();
         }
@@ -94,7 +94,7 @@ namespace GeeksBakery.Application.Services
                 throw new GeeksBakeryException($"Cannot find cake with Id: {cakeId}");
             }
 
-            cake.CakeImages.ForEach(async image => await _storageService.DeleteFileAsync(image.FileName));
+            cake.CakeImages.ForEach(async image => await _cakeImageService.DeleteAsync(image.Id));
 
             _context.Cakes.Remove(cake);
 
@@ -114,7 +114,7 @@ namespace GeeksBakery.Application.Services
                     Description = cake.Description,
                     Price = cake.Price,
                     OriginalPrice = cake.OriginalPrice,
-                    SEOAlias = cake.SEOAlias,
+                    SEOAlias = cake.Slug,
                     Size = cake.Size,
                     Stock = cake.Stock,
                     CakeImages = cake.CakeImages.Select(
@@ -143,7 +143,7 @@ namespace GeeksBakery.Application.Services
                 Description = cake.Description,
                 Price = cake.Price,
                 OriginalPrice = cake.OriginalPrice,
-                SEOAlias = cake.SEOAlias,
+                SEOAlias = cake.Slug,
                 Size = cake.Size,
                 Stock = cake.Stock,
                 CakeImages = cake.CakeImages.Select(
@@ -186,14 +186,6 @@ namespace GeeksBakery.Application.Services
             };
 
             return pagedResult;
-        }
-
-        private async Task<string> SaveFileAsync(IFormFile file)
-        {
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
-            return fileName;
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using GeeksBakery.Application.Interfaces;
 using GeeksBakery.ViewModels.Requests.Cake;
+using GeeksBakery.ViewModels.Requests.CakeImage;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GeeksBakery.BackendApi.Controllers
