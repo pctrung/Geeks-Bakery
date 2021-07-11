@@ -8,7 +8,10 @@ namespace GeeksBakery.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-
+            builder.Property(x => x.Status).IsRequired();
+            builder.Property(x => x.DateDeleted).IsRequired(false);
+            builder.Property(x => x.DateModified).IsRequired(false);
+            builder.Property(x => x.DeliveryDate).IsRequired(false);
         }
     }
 }

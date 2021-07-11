@@ -8,7 +8,7 @@ namespace GeeksBakery.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AppRole> builder)
         {
-
+            builder.Property(x => x.Description).IsRequired(false);
         }
     }
 }

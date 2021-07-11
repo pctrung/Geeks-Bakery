@@ -4,14 +4,16 @@ using GeeksBakery.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GeeksBakery.Data.Migrations
 {
     [DbContext(typeof(GeeksBakeryDbContext))]
-    partial class GeeksBakeryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210711095922_addEntityConfiguration")]
+    partial class addEntityConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +47,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "96a7af9b-c7e4-4f97-a2f5-3389f6a2d814",
+                            ConcurrencyStamp = "99e11e42-3d1d-4758-a206-82876c4a60cd",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -53,7 +55,7 @@ namespace GeeksBakery.Data.Migrations
                         new
                         {
                             Id = new Guid("54ba416f-6b89-4c53-873d-4fbd48506e6d"),
-                            ConcurrencyStamp = "7752c827-e9e1-4eee-bef2-bdfa5a4fb35d",
+                            ConcurrencyStamp = "3204a52e-7255-4d16-b803-226bb4edf788",
                             Description = "Customer role",
                             Name = "customer",
                             NormalizedName = "customer"
@@ -134,7 +136,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c9f5e759-8416-4957-bd8d-6ea65b502f34",
+                            ConcurrencyStamp = "0dc5610e-e007-4e70-b01a-d46e039bf53b",
                             DoB = new DateTime(2000, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "trung@gmail.com",
                             EmailConfirmed = true,
@@ -142,7 +144,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung",
                             NormalizedEmail = "trung@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMMZh4afpErDUnxNqQcl59Uo4pgJTpBabOLYGlhKMDTkM48KCYH6NWP2SIuSESv1oA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGRhXxxJlyoNWKby2leZXL3Nyz9nxcCZdjeHjsNAl7AYMVvObat3zimr04/6z1udLA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -152,7 +154,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91064-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6e4fcf92-840b-47ad-b4ed-a0b01bcec654",
+                            ConcurrencyStamp = "41c39126-1f7a-4456-a2fd-00a40d70f93e",
                             DoB = new DateTime(2000, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer1@gmail.com",
                             EmailConfirmed = true,
@@ -160,7 +162,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "Pham Chi Trung Customer",
                             NormalizedEmail = "customer1@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAXITaQYd2rKWO78+GgE1OAfcQkq/VYiakDarypJVDcs3qouaA/J71Oth+tOgnelow==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGmpNLDNzThqBCd7fxZJkVhVSqC0DFRTMhWGQv8B6hTH8A+aRoWeKASBvCIf3BG1Yw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -170,7 +172,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = new Guid("bff91054-dc92-421e-a233-d1080f630928"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e3add2b9-efad-4d0a-937e-6c2c06aeb484",
+                            ConcurrencyStamp = "1eefd838-92d6-4388-8cda-6817e8377219",
                             DoB = new DateTime(1996, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "customer2@gmail.com",
                             EmailConfirmed = true,
@@ -178,7 +180,7 @@ namespace GeeksBakery.Data.Migrations
                             Name = "David",
                             NormalizedEmail = "customer2@gmail.com",
                             NormalizedUserName = "customer",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHk7txMdJuKv0hq+YSDQ9ZIBy8k+mIFfKP46FM2c+JmdD8WYHHLh3Oztm2bzq1wOxg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDEuF3H619SlUMatVfl+0l8pyfUYDTzjTG8cpeLePqdXktW7BSCmLWZnCoOn7caf9g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -243,7 +245,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 4,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 406, DateTimeKind.Local).AddTicks(460),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 39, DateTimeKind.Local).AddTicks(5092),
                             Description = "We kept this Classic cake untouched and unblemished because we feel it's perfect as it is. Baked with the richness of cocoa and lusciousness of fresh vanilla cream, topped with soft chocolate shavings and fresh cherries, this delicious cake will make you surrender to the zest forces of Sweet Indulgence. Savour the original taste of the all time classic- The Black Forest.",
                             Name = "Blackforest Cake With Cherries",
                             OriginalPrice = 200000m,
@@ -255,7 +257,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4744),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6844),
                             Description = "Award yourself with this rich chocolate cake wonderfully crammed with Cadbury Fuse and white chocolate chunks and draped lusciously with molten chocolate.This perfect work of art hides in every bite, the scrumptious flavours of heavily whipped chocolate cream and nutty bits of chocolate that is a little nutty and a lot of tasty! ",
                             Name = "Snicker Fuse Chocolate Cake",
                             OriginalPrice = 250000m,
@@ -267,7 +269,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 3,
                             CategoryId = 2,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4768),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6866),
                             Description = "An exceptionally creamy Open - layered Red Velvet cake with a topping that tastes like a MASH UP between the tropical fruits is truly a luxurious treat.Experience the richness and smoothness in this delicacy which is laden with kiwis, cherries,apples, dragon fruits and black grapes.Who said healthy and delicious are poles apart ?",
                             Name = "Red Velvet Fruit Layer Cake",
                             OriginalPrice = 260000m,
@@ -279,7 +281,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4771),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6871),
                             Description = "This round chocolaty cake is the perfect treat for someone who is absolutely in love with chocolate cakes.This cake covered in rich chocolate ganache and decorated with chocolate shavings is the best gift one can have on their special day. ",
                             Name = "Chocolaty Creamy Round Cake",
                             OriginalPrice = 310000m,
@@ -291,7 +293,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 5,
                             CategoryId = 6,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4777),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6873),
                             Description = "Any celebration is incomplete without this funfetti cake. Pipped with beautiful creamy decorations, this towering beauty is a grandiose deliciousness is sure to sweep everyone off their feet.And not just this, along with this beautify their day with extra sweetness and some extra colors with each bite topped with sumptuous confetti. ",
                             Name = "Rainbow Sprinkles Cake",
                             OriginalPrice = 400000m,
@@ -303,7 +305,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 6,
                             CategoryId = 1,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4781),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6876),
                             Description = "A toothsome treat for the sugar lovers who are just passionate about chocolate and relish the mushiness of cake.Made of two layers of impossibly moist chocolate filled with mushy rich cream, this cake carries the enticing aroma of Vanilla and sumptuousness of chocolate.On top of it, the cake is garnished with handcrafted white and brown chocolate.Need I say more ? ",
                             Name = "Half Chocolate Half Vanilla Cake",
                             OriginalPrice = 170000m,
@@ -315,7 +317,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 7,
                             CategoryId = 1,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4784),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6880),
                             Description = "This heart-shaped cake is nicely decorated with pink vanilla flavoured glazing and edible gems of vibrant colours like yellow, gold, red, blue, and white. The bonus of Cadbury chocolates and more gems comes when the hearty vanilla cake’s sweet crust is smashed.Note = Hammer will be given with the cake. ",
                             Name = "Hearty Choco Gems Pinata Cake",
                             OriginalPrice = 250000m,
@@ -327,7 +329,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 8,
                             CategoryId = 1,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4787),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6882),
                             Description = "The heavenly taste of this Choco Truffle Cake will even leave the hardest-to - please chocolate addicts tranquil in every sense. Prepared with three layers of relishing chocolate cream filled in between the soft stacks of chocolate cake, and adorned with beautiful chocolate icing and rich glaze chocolate coating, this one is just irresistible. ",
                             Name = "Round Chocolate Truffle Cake",
                             OriginalPrice = 430000m,
@@ -339,7 +341,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 9,
                             CategoryId = 2,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4790),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6885),
                             Description = "End the wait, break the ball with this black forest pinata cake, the true taste of surprise and luxury.It is a ball - shaped cake with a ball made of chocolate and a hammer that helps you break it loose. Next, what you see inside is a delicious black forest cake with icing, frosting and sponge, all chocolaty and mouth savouring.Make it your choice for all coming occasions.Note = Hammer will be given with the cake. ",
                             Name = "Birthday Black Forest Pinata Cake",
                             OriginalPrice = 200000m,
@@ -351,7 +353,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 10,
                             CategoryId = 5,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4794),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6888),
                             Description = "Always and Forever Delight!This three layered moist and smooth cake filled with butterscotch chips and Vanilla cream is something not to be missed! Topped with Butterscotch glaze and brown chocolate flakes, adorned with scrumptious caramel dressing on the sides, it's time to feel the crunch! ",
                             Name = "Round Shape Butterscotch Cake",
                             OriginalPrice = 370000m,
@@ -363,7 +365,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 11,
                             CategoryId = 1,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4797),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6891),
                             Description = "The two celebratory flavours in a single cake--red velvet cake layers entirely covered in dark chocolate cream roses sprinkled with red velvet crumbs.A slice of the cake won't be enough to celebrate the fusion of flavours; you would need a whole cake. ",
                             Name = "Heavenly Red Velvet Chocolate Cake",
                             OriginalPrice = 400000m,
@@ -375,7 +377,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 12,
                             CategoryId = 2,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4800),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6893),
                             Description = "This cake is meant for all celebratory occasions! This three layered delicious pineapple flavoured cake filled with intensely whipped rich cream and pineapple fillings, perfectly defines simplicity at its best.Topped with pineapple slices, chocolate flakes and a further adorned with cherries, this cake is the perfect blend of sweetness and fluffiness. ",
                             Name = "Pineapple Cream Cake",
                             OriginalPrice = 230000m,
@@ -387,7 +389,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 13,
                             CategoryId = 8,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4802),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6896),
                             Description = "The deliciousness of red velvet has been baked into the shape of a heart that resembles your sheer love and affection for your sweetheart. Tender, moist, and fluffy in texture, this captivating red velvet cake is a perfect sweet to cast the spell of love. ",
                             Name = "Heart Shape Red Velvet Cake",
                             OriginalPrice = 200000m,
@@ -399,7 +401,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 14,
                             CategoryId = 2,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4806),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6898),
                             Description = "Freshly baked Vanilla cake, Whipped cream and bountiful tropical fruits come together to create a treat that is even tastier than it looks.This combination of whipped cream and fresh fruit is a perfect start for any celebration and an enticing end to any meal. ",
                             Name = "Assorted Fruit and Almond Cake",
                             OriginalPrice = 310000m,
@@ -411,7 +413,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 15,
                             CategoryId = 3,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4809),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6902),
                             Description = "Another winning treat in your list of favorite items, a delicious Red Velvet cake with vanilla cream and icing, bedded red velvet ruling like a crown along with fragrant bread, the richest baked good.Greedy much, do remember to share the delicious deity with your loved ones and send some across to those you direly miss. ",
                             Name = "Red Velvet Buttercream Creamy Cake",
                             OriginalPrice = 280000m,
@@ -423,7 +425,7 @@ namespace GeeksBakery.Data.Migrations
                         {
                             Id = 16,
                             CategoryId = 2,
-                            DateCreated = new DateTime(2021, 7, 11, 17, 8, 35, 407, DateTimeKind.Local).AddTicks(4811),
+                            DateCreated = new DateTime(2021, 7, 11, 16, 59, 21, 40, DateTimeKind.Local).AddTicks(6904),
                             Description = "Both a joy to your sight as well as your taste buds, this pineapple flavoured scrumptious cake is a delight that you must indulge in every celebration!Frosted with pastel shades of buttercream, drizzling white chocolate ganache, and dollops of pink whipped cream on top, this delicious cake is loaded with copious amounts of gems in the center that spills out when you cut a slice! ",
                             Name = "Pineapple Gems Pinata Cake",
                             OriginalPrice = 250000m,
@@ -1296,37 +1298,6 @@ namespace GeeksBakery.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GeeksBakery.Data.Entities.Rate", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("CakeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DateDeleted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Star")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "CakeId");
-
-                    b.HasIndex("CakeId");
-
-                    b.ToTable("Rates");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
@@ -1508,25 +1479,6 @@ namespace GeeksBakery.Data.Migrations
                     b.Navigation("Cake");
 
                     b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("GeeksBakery.Data.Entities.Rate", b =>
-                {
-                    b.HasOne("GeeksBakery.Data.Entities.Cake", "Cake")
-                        .WithMany()
-                        .HasForeignKey("CakeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GeeksBakery.Data.Entities.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cake");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GeeksBakery.Data.Entities.AppUser", b =>

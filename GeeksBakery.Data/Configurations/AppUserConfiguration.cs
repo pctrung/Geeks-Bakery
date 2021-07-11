@@ -8,6 +8,9 @@ namespace GeeksBakery.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(60);
+            builder.Property(x => x.Address).IsRequired(false).HasMaxLength(100);
+
             builder.Property(p => p.Avatar).HasDefaultValue("default-avatar.png");
         }
     }

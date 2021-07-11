@@ -12,8 +12,4 @@
     <ProjectReference Include="..\GeeksBakery.Data\GeeksBakery.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Requests\Category\" />
-  </ItemGroup>
-
 </Project>

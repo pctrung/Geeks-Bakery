@@ -9,6 +9,8 @@ namespace GeeksBakery.Data.Configurations
         public void Configure(EntityTypeBuilder<Cart> builder)
         {
             builder.HasKey(c => new { c.CakeId, c.UserId });
+
+            builder.Property(x => x.Amount).HasDefaultValue(1);
         }
     }
 }

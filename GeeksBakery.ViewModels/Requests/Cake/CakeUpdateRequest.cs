@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GeeksBakery.ViewModels.Requests.CakeImage;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GeeksBakery.ViewModels.Requests.Cake
 {
@@ -21,5 +23,6 @@ namespace GeeksBakery.ViewModels.Requests.Cake
         public string SEOAlias { get; set; }
         public int Stock { get; set; }
         public string Description { get; set; }
+        public List<CakeImageUpdateRequest> CakeImages { get; set; }
     }
 }

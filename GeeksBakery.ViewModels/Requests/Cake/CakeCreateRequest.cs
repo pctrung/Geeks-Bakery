@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GeeksBakery.ViewModels.Requests.CakeImage;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GeeksBakery.ViewModels.Requests.Cake
 {
     public class CakeCreateRequest
     {
-
         [Required(ErrorMessage = "Cake category is required.")]
         public int CategoryId { get; set; }
+
         [Required(ErrorMessage = "Cake name is required.")]
         public string Name { get; set; }
 
@@ -20,6 +22,6 @@ namespace GeeksBakery.ViewModels.Requests.Cake
         public int Stock { get; set; }
         public string Description { get; set; }
 
-        public IFormFile Thumbnail { get; set; }
+        public List<CakeImageCreateRequest> CakeImages { get; set; }
     }
 }
