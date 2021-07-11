@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace GeeksBakery
+namespace GeeksBakery.ClientSite
 {
     public class Program
     {

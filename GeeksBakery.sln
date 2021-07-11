@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.WebApp", "GeeksBakery\GeeksBakery.WebApp.csproj", "{81832388-FF32-4F74-A847-351CEFF1B1DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.ClientSite", "GeeksBakery\GeeksBakery.ClientSite.csproj", "{81832388-FF32-4F74-A847-351CEFF1B1DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeeksBakery.Data", "GeeksBakery.Data\GeeksBakery.Data.csproj", "{FEAFB7B0-0FA2-4208-B15B-8DCC1E6B66A4}"
 EndProject
