@@ -11,7 +11,7 @@ namespace GeeksBakery.Data.Entities
         public int CakeId { get; set; }
         public Cake Cake { get; set; }
 
-        [Range(0, 5)]
+        [Range(1, 5)]
         public int Star { get; set; }
 
         public string Comment { get; set; }

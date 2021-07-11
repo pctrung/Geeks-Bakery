@@ -32,6 +32,7 @@ namespace GeeksBakery.Application.Services
             rate.DateCreated = DateTime.Now;
 
             await _context.Rates.AddAsync(rate);
+            await _context.SaveChangesAsync();
             return rate.Id;
         }
 
@@ -51,7 +52,7 @@ namespace GeeksBakery.Application.Services
 
         public async Task<List<RateViewModel>> GetByCakeIdAsync(int cakeId)
         {
-            var rates = await _context.Rates.Where(x => x.CakeId == cakeId).ToListAsync();
+            var rates = await _context.Rates.Where(x => x.CakeId == cakeId).Include(x => x.User).ToListAsync();
 
             var result = _mapper.Map<List<RateViewModel>>(rates);
 
@@ -60,7 +61,7 @@ namespace GeeksBakery.Application.Services
 
         public async Task<RateViewModel> GetByIdAsync(int rateId)
         {
-            var rates = await _context.Rates.FindAsync(rateId);
+            var rates = await _context.Rates.Where(x => x.Id == rateId).Include(x => x.User).FirstOrDefaultAsync();
 
             var result = _mapper.Map<RateViewModel>(rates);
 

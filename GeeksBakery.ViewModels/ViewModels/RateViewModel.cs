@@ -15,7 +15,7 @@ namespace GeeksBakery.ViewModels.ViewModels
         public string UserAvatar { get; set; }
         public int CakeId { get; set; }
 
-        [Range(0, 5)]
+        [Range(1, 5)]
         public int Star { get; set; }
 
         public string Comment { get; set; }

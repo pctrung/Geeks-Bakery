@@ -1,11 +1,8 @@
 ﻿using GeeksBakery.Application.Interfaces;
 using GeeksBakery.ViewModels.Requests.Cake;
-using GeeksBakery.ViewModels.Requests.CakeImage;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GeeksBakery.BackendApi.Controllers
@@ -15,10 +12,12 @@ namespace GeeksBakery.BackendApi.Controllers
     public class CakesController : ControllerBase
     {
         private readonly ICakeService _cakeService;
+        public readonly IRateService _rateService;
 
-        public CakesController(ICakeService cakeService)
+        public CakesController(ICakeService cakeService, IRateService rateService)
         {
             _cakeService = cakeService;
+            _rateService = rateService;
         }
 
         [HttpGet]
@@ -46,6 +45,21 @@ namespace GeeksBakery.BackendApi.Controllers
                     return NotFound($"Cannot find a cake with Id: {cakeId}");
                 }
                 return Ok(JsonConvert.SerializeObject(data));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{cakeId}/reviews")]
+        public async Task<IActionResult> GetReviews(int cakeId)
+        {
+            try
+            {
+                var rates = await _rateService.GetByCakeIdAsync(cakeId);
+
+                return Ok(JsonConvert.SerializeObject(rates));
             }
             catch (Exception e)
             {

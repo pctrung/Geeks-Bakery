@@ -12,7 +12,7 @@ namespace GeeksBakery.ViewModels.Requests.Rate
         public Guid UserId { get; set; }
         public int CakeId { get; set; }
 
-        [Range(0, 5)]
+        [Range(1, 5)]
         public int Star { get; set; }
 
         public string Comment { get; set; }

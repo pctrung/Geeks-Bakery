@@ -19,14 +19,14 @@ namespace GeeksBakery.BackendApi.Controllers
             _rateService = rateService;
         }
 
-        [HttpGet("{cakeId}")]
-        public async Task<IActionResult> Get(int cakeId)
+        [HttpGet("{rateId}")]
+        public async Task<IActionResult> Get(int rateId)
         {
             try
             {
-                var rates = await _rateService.GetByCakeIdAsync(cakeId);
+                var rate = await _rateService.GetByIdAsync(rateId);
 
-                return Ok(JsonConvert.SerializeObject(rates));
+                return Ok(JsonConvert.SerializeObject(rate));
             }
             catch (Exception e)
             {
