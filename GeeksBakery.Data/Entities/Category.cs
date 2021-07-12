@@ -1,10 +1,4 @@
-﻿using GeeksBakery.Data.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GeeksBakery.Data.Entities
 {
@@ -13,6 +7,7 @@ namespace GeeksBakery.Data.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public int? ParentId { get; set; }
-        public ICollection<Cake> Products { get; set; }
+        public string Description { get; set; }
+        public List<Cake> Cakes { get; set; }
     }
 }

@@ -5,11 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeeksBakery.Data.EF
 {
@@ -18,19 +13,20 @@ namespace GeeksBakery.Data.EF
         public GeeksBakeryDbContext(DbContextOptions options) : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // This project will use some Annotation and some Fluent API in config file
+            // Fluent API in config file
             modelBuilder
                 .ApplyConfiguration(new OrderConfiguration())
                 .ApplyConfiguration(new CartConfiguration())
                 .ApplyConfiguration(new OrderDetailConfiguration())
-                .ApplyConfiguration(new AppUserConfiguration());
-            //    .ApplyConfiguration(new CakeConfiguration())
-            //    .ApplyConfiguration(new AppRoleConfiguration())
-            //    .ApplyConfiguration(new CategoryConfiguration())
-            //    .ApplyConfiguration(new CakeImageConfiguration())
-
+                .ApplyConfiguration(new AppUserConfiguration())
+                .ApplyConfiguration(new CakeConfiguration())
+                .ApplyConfiguration(new AppRoleConfiguration())
+                .ApplyConfiguration(new CategoryConfiguration())
+                .ApplyConfiguration(new ReviewConfiguration())
+                .ApplyConfiguration(new CakeImageConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -41,10 +37,12 @@ namespace GeeksBakery.Data.EF
             // Data seeding in ModelBuilderExtenions
             modelBuilder.Seed();
         }
+
         public DbSet<Cake> Cakes { get; set; }
         public DbSet<CakeImage> CakeImages { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
 

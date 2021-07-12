@@ -1,11 +1,6 @@
 ﻿using GeeksBakery.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeeksBakery.Data.Configurations
 {
@@ -13,7 +8,16 @@ namespace GeeksBakery.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Cake> builder)
         {
-           
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(60);
+            builder.Property(x => x.Price).IsRequired();
+            builder.Property(x => x.OriginalPrice).IsRequired();
+            builder.Property(x => x.Description).IsRequired();
+            builder.Property(x => x.DateDeleted).IsRequired(false);
+            builder.Property(x => x.DateModified).IsRequired(false);
+
+            builder.Property(x => x.Slug).IsRequired(false).HasMaxLength(50);
+
+            builder.Property(x => x.Stock).HasDefaultValue(0);
         }
     }
 }

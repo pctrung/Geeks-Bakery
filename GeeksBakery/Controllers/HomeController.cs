@@ -1,13 +1,9 @@
-﻿using GeeksBakery.Models;
+﻿using GeeksBakery.ClientSite.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace GeeksBakery.Controllers
+namespace GeeksBakery.ClientSite.Controllers
 {
     public class HomeController : Controller
     {
