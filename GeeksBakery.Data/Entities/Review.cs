@@ -17,6 +17,6 @@ namespace GeeksBakery.Data.Entities
         public string Comment { get; set; }
         public DateTime? DateModified { get; set; }
         public DateTime? DateDeleted { get; set; }
-        public DateTime DateCreated;
+        public DateTime DateCreated { get; set; }
     }
 }
