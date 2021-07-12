@@ -34,14 +34,14 @@ namespace GeeksBakery.Application.Services
             var cake = _mapper.Map<Cake>(request);
             cake.DateCreated = DateTime.Now;
 
-            if (request.CakeImages != null)
-            {
-                foreach (var cakeImage in request.CakeImages)
-                {
-                    await _cakeImageService.CreateAsync(cakeImage);
-                }
-            }
             await _context.Cakes.AddAsync(cake);
+
+            // not available now
+            //if (request.CakeImageIds?.Count > 0)
+            //{
+            //    await _context.CakeImages.Where(x => request.CakeImageIds.Contains(x.Id)).ForEachAsync(x => x.CakeId = cake.Id);
+            //}
+
             await _context.SaveChangesAsync();
             return cake.Id;
         }
@@ -65,14 +65,6 @@ namespace GeeksBakery.Application.Services
             cake.CategoryId = request.CategoryId;
             cake.DateModified = DateTime.Now;
 
-            if (request.CakeImages != null)
-            {
-                foreach (var cakeImage in request.CakeImages)
-                {
-                    await _cakeImageService.UpdateAsync(cakeImage);
-                }
-            }
-
             return await _context.SaveChangesAsync();
         }
 
@@ -85,7 +77,10 @@ namespace GeeksBakery.Application.Services
                 throw new GeeksBakeryException($"Cannot find cake with Id: {cakeId}");
             }
 
-            cake.CakeImages.ForEach(async image => await _cakeImageService.DeleteAsync(image.Id));
+            foreach (var image in cake.CakeImages.ToList())
+            {
+                await _cakeImageService.DeleteAsync(image.Id, cakeId);
+            }
 
             _context.Cakes.Remove(cake);
 

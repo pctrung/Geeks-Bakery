@@ -9,12 +9,12 @@ namespace GeeksBakery.Application.Interfaces
     {
         Task<int> CreateAsync(CakeImageCreateRequest request);
 
-        Task<int> UpdateAsync(CakeImageUpdateRequest request);
+        Task<int> UpdateAsync(CakeImageUpdateRequest request, int cakeId);
 
-        Task<int> DeleteAsync(int cakeImageId);
+        Task<int> DeleteAsync(int cakeImageId, int cakeId);
 
-        Task<List<CakeImageViewModel>> GetAllAsync(int cakeImageId);
+        Task<List<CakeImageViewModel>> GetByCakeIdAsync(int cakeId);
 
-        Task<CakeImageViewModel> GetByIdAsync(int cakeImageId);
+        Task<CakeImageViewModel> GetByIdAsync(int cakeImageId, int cakeId);
     }
 }

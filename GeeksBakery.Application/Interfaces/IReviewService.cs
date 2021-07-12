@@ -12,10 +12,10 @@ namespace GeeksBakery.Application.Interfaces
     {
         Task<int> CreateAsync(ReviewCreateRequest request);
 
-        Task<int> DeleteAsync(int reviewId);
+        Task<int> DeleteAsync(int reviewId, int cakeId);
 
         Task<List<ReviewViewModel>> GetByCakeIdAsync(int cakeId);
 
-        Task<ReviewViewModel> GetByIdAsync(int reviewId);
+        Task<ReviewViewModel> GetByIdAsync(int reviewId, int cakeId);
     }
 }

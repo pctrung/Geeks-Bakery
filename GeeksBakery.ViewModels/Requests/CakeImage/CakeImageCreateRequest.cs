@@ -14,6 +14,5 @@ namespace GeeksBakery.ViewModels.Requests.CakeImage
         public string Caption { get; set; }
         public bool IsDefault { get; set; }
         public int SortOrder { get; set; }
-        public long FileSize { get; set; }
     }
 }

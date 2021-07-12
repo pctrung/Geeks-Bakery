@@ -1,4 +1,5 @@
-﻿using GeeksBakery.Application.Interfaces;
+﻿using AutoMapper;
+using GeeksBakery.Application.Interfaces;
 using GeeksBakery.Data.EF;
 using GeeksBakery.Data.Entities;
 using GeeksBakery.Utilities.Exceptions;
@@ -19,15 +20,22 @@ namespace GeeksBakery.Application.Services
     {
         private readonly GeeksBakeryDbContext _context;
         private readonly IStorageService _storageService;
+        private readonly IMapper _mapper;
 
-        public CakeImageService(GeeksBakeryDbContext context, IStorageService storageService)
+        public CakeImageService(GeeksBakeryDbContext context, IStorageService storageService, IMapper mapper)
         {
             _context = context;
             _storageService = storageService;
+            _mapper = mapper;
         }
 
         public async Task<int> CreateAsync(CakeImageCreateRequest request)
         {
+            var cake = await _context.Cakes.FindAsync(request.CakeId);
+            if (cake == null)
+            {
+                throw new GeeksBakeryException("Cannot find cake with Id: " + request.CakeId);
+            }
             if (request.ImageFile != null)
             {
                 var cakeImage = new CakeImage()
@@ -38,7 +46,7 @@ namespace GeeksBakery.Application.Services
                     IsDefault = request.IsDefault,
                     DateCreated = DateTime.Now,
                     SortOrder = request.SortOrder,
-                    FileSize = request.FileSize
+                    FileSize = request.ImageFile.Length
                 };
 
                 _context.CakeImages.Add(cakeImage);
@@ -48,75 +56,87 @@ namespace GeeksBakery.Application.Services
             return -1;
         }
 
-        public async Task<int> UpdateAsync(CakeImageUpdateRequest request)
+        public async Task<int> UpdateAsync(CakeImageUpdateRequest request, int cakeId)
         {
             var cakeImage = await _context.CakeImages.FindAsync(request.Id);
 
             if (cakeImage == null)
             {
-                throw new GeeksBakeryException($"Cannot find cake with Id = {request.Id}");
+                throw new GeeksBakeryException($"Cannot find image with Id = {request.Id}");
+            }
+            else if (cakeId != 0 && cakeId != cakeImage.CakeId)
+            {
+                throw new GeeksBakeryException($"Cannot find image with Id = {request.Id} in cake Id = {cakeId}");
+            }
+            if (request.ImageFile != null)
+            {
+                await _storageService.DeleteFileAsync(cakeImage.FileName);
+                cakeImage.FileName = await SaveFileAsync(request.ImageFile);
+                cakeImage.FileSize = request.ImageFile.Length;
             }
 
-            cakeImage.CakeId = request.CakeId;
-            cakeImage.FileName = await SaveFileAsync(request.ImageFile);
             cakeImage.Caption = request.Caption;
             cakeImage.IsDefault = request.IsDefault;
-            cakeImage.DateCreated = DateTime.Now;
             cakeImage.SortOrder = request.SortOrder;
-            cakeImage.FileSize = request.FileSize;
 
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteAsync(int cakeImageId)
+        public async Task<int> DeleteAsync(int cakeImageId, int cakeId = 0)
         {
             var cakeImage = await _context.CakeImages.Where(x => x.Id == cakeImageId).FirstOrDefaultAsync();
 
             if (cakeImage == null)
             {
-                throw new GeeksBakeryException($"Cannot find cake with Id: {cakeImageId}");
+                throw new GeeksBakeryException($"Cannot find image with Id: {cakeImageId}");
             }
+            else if (cakeId != 0 && cakeId != cakeImage.CakeId)
+            {
+                throw new GeeksBakeryException($"Cannot find image with Id = {cakeImageId} in cake Id = {cakeId}");
+            }
+
+            await _storageService.DeleteFileAsync(cakeImage.FileName);
 
             _context.CakeImages.Remove(cakeImage);
 
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<CakeImageViewModel> GetByIdAsync(int cakeImageId)
+        public async Task<CakeImageViewModel> GetByIdAsync(int cakeImageId, int cakeId = 0)
         {
             //get all
-            var result = await _context.CakeImages.Where(x => x.Id == cakeImageId).Select(
-                cakeImage => new CakeImageViewModel()
-                {
-                    Id = cakeImage.Id,
-                    CakeId = cakeImage.CakeId,
-                    FileName = cakeImage.FileName,
-                    Caption = cakeImage.Caption,
-                    IsDefault = cakeImage.IsDefault,
-                    SortOrder = cakeImage.SortOrder
-                }).FirstOrDefaultAsync();
+            var result = _mapper.Map<CakeImageViewModel>(await _context.CakeImages.Where(x => x.Id == cakeImageId).FirstOrDefaultAsync());
+
+            if (result != null && cakeId != 0 && cakeId != result.CakeId)
+            {
+                result = null;
+            }
 
             return result;
         }
 
-        public async Task<List<CakeImageViewModel>> GetAllAsync(int cakeId)
+        public async Task<List<CakeImageViewModel>> GetByCakeIdAsync(int cakeId)
         {
-            //get all
-            var result = await _context.CakeImages.Where(x => x.CakeId == cakeId).Select(cakeImage => new CakeImageViewModel()
+            List<CakeImageViewModel> result;
+            //get all if cake id = 0
+            if (cakeId == 0)
             {
-                Id = cakeImage.Id,
-                CakeId = cakeImage.CakeId,
-                FileName = cakeImage.FileName,
-                Caption = cakeImage.Caption,
-                IsDefault = cakeImage.IsDefault,
-                SortOrder = cakeImage.SortOrder
-            }).ToListAsync();
+                result = _mapper.Map<List<CakeImageViewModel>>(await _context.CakeImages.ToListAsync());
+            }
+            else //else get by cake Id
+            {
+                result = _mapper.Map<List<CakeImageViewModel>>(await _context.CakeImages.Where(x => x.CakeId == cakeId).ToListAsync());
+            }
 
             return result;
         }
 
         private async Task<string> SaveFileAsync(IFormFile file)
         {
+            if (file == null)
+            {
+                throw new GeeksBakeryException("Cannot add null file");
+            }
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);

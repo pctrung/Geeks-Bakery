@@ -34,13 +34,16 @@ namespace GeeksBakery.Application.Services
             return review.Id;
         }
 
-        public async Task<int> DeleteAsync(int reviewId)
+        public async Task<int> DeleteAsync(int reviewId, int cakeId)
         {
             var review = await _context.Reviews.FindAsync(reviewId);
-
             if (review == null)
             {
-                throw new GeeksBakeryException($"Cannot find review with Id: {review}");
+                throw new GeeksBakeryException($"Cannot find review with Id: {reviewId}");
+            }
+            if (cakeId != review.CakeId)
+            {
+                throw new GeeksBakeryException($"Cannot find review with Id: {reviewId} in cake Id: {cakeId}");
             }
 
             _context.Reviews.Remove(review);
@@ -57,9 +60,9 @@ namespace GeeksBakery.Application.Services
             return result;
         }
 
-        public async Task<ReviewViewModel> GetByIdAsync(int reviewId)
+        public async Task<ReviewViewModel> GetByIdAsync(int reviewId, int cakeId)
         {
-            var review = await _context.Reviews.Where(x => x.Id == reviewId).Include(x => x.User).FirstOrDefaultAsync();
+            var review = await _context.Reviews.Where(x => x.Id == reviewId && x.CakeId == cakeId).Include(x => x.User).FirstOrDefaultAsync();
 
             var result = _mapper.Map<ReviewViewModel>(review);
 

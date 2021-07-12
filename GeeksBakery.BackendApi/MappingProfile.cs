@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GeeksBakery.Data.Entities;
 using GeeksBakery.ViewModels.Catalog.CakeImage;
-using GeeksBakery.ViewModels.Requests;
 using GeeksBakery.ViewModels.Requests.Cake;
 using GeeksBakery.ViewModels.Requests.CakeImage;
 using GeeksBakery.ViewModels.Requests.Category;

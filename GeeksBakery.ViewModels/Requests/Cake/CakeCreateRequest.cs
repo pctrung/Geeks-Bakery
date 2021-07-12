@@ -33,6 +33,7 @@ namespace GeeksBakery.ViewModels.Requests.Cake
         [Display(Name = "Cake Price Description")]
         public string Description { get; set; }
 
-        public List<CakeImageCreateRequest> CakeImages { get; set; }
+        // not available now
+        //public List<int> CakeImageIds { get; set; }
     }
 }

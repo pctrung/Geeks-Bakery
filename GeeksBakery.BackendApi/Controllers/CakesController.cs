@@ -1,5 +1,6 @@
 ﻿using GeeksBakery.Application.Interfaces;
 using GeeksBakery.ViewModels.Requests.Cake;
+using GeeksBakery.ViewModels.Requests.CakeImage;
 using GeeksBakery.ViewModels.Requests.Review;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,13 @@ namespace GeeksBakery.BackendApi.Controllers
     {
         private readonly ICakeService _cakeService;
         public readonly IReviewService _reviewService;
+        private readonly ICakeImageService _cakeImageService;
 
-        public CakesController(ICakeService cakeService, IReviewService reviewService)
+        public CakesController(ICakeService cakeService, IReviewService reviewService, ICakeImageService cakeImageService)
         {
             _cakeService = cakeService;
             _reviewService = reviewService;
+            _cakeImageService = cakeImageService;
         }
 
         [HttpGet]
@@ -150,11 +153,11 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpGet("{cakeId}/reviews/{reviewId}")]
-        public async Task<IActionResult> GetReviewById(int reviewId)
+        public async Task<IActionResult> GetReviewById(int reviewId, int cakeId)
         {
             try
             {
-                var review = await _reviewService.GetByIdAsync(reviewId);
+                var review = await _reviewService.GetByIdAsync(reviewId, cakeId);
 
                 return Ok(JsonConvert.SerializeObject(review));
             }
@@ -165,10 +168,14 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost("{cakeId}/reviews")]
-        public async Task<IActionResult> CreateReview([FromForm] ReviewCreateRequest request)
+        public async Task<IActionResult> CreateReview([FromForm] ReviewCreateRequest request, int cakeId)
         {
             try
             {
+                if (request.CakeId != cakeId)
+                {
+                    return BadRequest("Cake Id in both request and query must be the same");
+                }
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
@@ -180,7 +187,7 @@ namespace GeeksBakery.BackendApi.Controllers
                     return BadRequest();
                 }
 
-                var data = await _reviewService.GetByIdAsync(reviewId);
+                var data = await _reviewService.GetByIdAsync(reviewId, cakeId);
                 if (data == null)
                 {
                     return NotFound($"Cannot find a review with Id: {reviewId}");
@@ -194,14 +201,130 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpDelete("{cakeId}/reviews/{reviewId}")]
-        public async Task<IActionResult> DeleteReview(int reviewId)
+        public async Task<IActionResult> DeleteReview(int reviewId, int cakeId)
         {
             try
             {
-                var result = await _reviewService.DeleteAsync(reviewId);
+                var result = await _reviewService.DeleteAsync(reviewId, cakeId);
                 if (result == 0)
                 {
                     return NotFound($"Cannot find a review with Id: {reviewId}");
+                }
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{cakeId}/images")]
+        public async Task<IActionResult> GetImagesByCakeId(int cakeId)
+        {
+            try
+            {
+                var images = await _cakeImageService.GetByCakeIdAsync(cakeId);
+
+                return Ok(JsonConvert.SerializeObject(images));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{cakeId}/images/{imageId}")]
+        public async Task<IActionResult> GetImageById(int imageId, int cakeId)
+        {
+            try
+            {
+                var image = await _cakeImageService.GetByIdAsync(imageId, cakeId);
+
+                if (image == null)
+                {
+                    return NotFound($"Cannot find image with Id: {imageId}");
+                }
+
+                return Ok(JsonConvert.SerializeObject(image));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("{cakeId}/images")]
+        public async Task<IActionResult> CreateImage([FromForm] CakeImageCreateRequest request, int cakeId)
+        {
+            try
+            {
+                if (request.CakeId != cakeId)
+                {
+                    return BadRequest("Cake Id in request and query must be the same");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var imageId = await _cakeImageService.CreateAsync(request);
+
+                if (imageId == 0)
+                {
+                    return BadRequest();
+                }
+
+                var data = await _cakeImageService.GetByIdAsync(imageId, cakeId);
+                if (data == null)
+                {
+                    return NotFound($"Cannot find image with Id: {imageId}");
+                }
+                return Ok(JsonConvert.SerializeObject(data));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("{cakeId}/images")]
+        public async Task<IActionResult> UpdateImage([FromForm] CakeImageUpdateRequest request, int cakeId = 0)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var result = await _cakeImageService.UpdateAsync(request, cakeId);
+
+                if (result == 0)
+                {
+                    return BadRequest();
+                }
+
+                var data = await _cakeImageService.GetByIdAsync(request.Id, cakeId);
+                if (data == null)
+                {
+                    return NotFound($"Cannot find image with Id: {request.Id}");
+                }
+                return Ok(JsonConvert.SerializeObject(data));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{cakeId}/images/{imageId}")]
+        public async Task<IActionResult> DeleteImage(int imageId, int cakeId)
+        {
+            try
+            {
+                var result = await _cakeImageService.DeleteAsync(imageId, cakeId);
+                if (result == 0)
+                {
+                    return NotFound($"Cannot find image with Id: {imageId}");
                 }
 
                 return Ok(result);
