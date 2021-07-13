@@ -9,8 +9,8 @@ namespace GeeksBakery.Data.Configurations
         public void Configure(EntityTypeBuilder<Cake> builder)
         {
             builder.Property(x => x.Name).IsRequired().HasMaxLength(60);
-            builder.Property(x => x.Price).IsRequired();
-            builder.Property(x => x.OriginalPrice).IsRequired();
+            builder.Property(x => x.Price).IsRequired().HasColumnType("decimal(10, 2)");
+            builder.Property(x => x.OriginalPrice).IsRequired().HasColumnType("decimal(10, 2)");
             builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.DateDeleted).IsRequired(false);
             builder.Property(x => x.DateModified).IsRequired(false);

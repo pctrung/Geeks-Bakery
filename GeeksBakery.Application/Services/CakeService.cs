@@ -141,19 +141,19 @@ namespace GeeksBakery.Application.Services
 
             int totalRow = await result.CountAsync();
 
-            if (request.PageSize > 0)
+            if (request.Limit > 0)
             {
-                request.PageIndex = request.PageIndex > 0 ? request.PageIndex : 1;
+                request.Page = request.Page > 0 ? request.Page : 1;
 
-                //result = result.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
-                result = result.Paged(request.PageIndex, request.PageSize);
+                // extention method paged
+                result = result.Paged(request.Page, request.Limit);
             }
 
             var data = await result.ToListAsync();
 
             var pagedResult = new PagedResult<CakeViewModel>()
             {
-                TotalRecord = totalRow,
+                TotalRecords = totalRow,
                 Items = data
             };
 

@@ -1,5 +1,6 @@
 using GeeksBakery.Application.Interfaces;
 using GeeksBakery.Application.Services;
+using GeeksBakery.Application.System.Roles;
 using GeeksBakery.Application.System.Users;
 using GeeksBakery.Data.EF;
 using GeeksBakery.Data.Entities;
@@ -31,7 +32,7 @@ namespace GeeksBakery.BackendApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<GeeksBakeryDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString(SystemConstant.MAIN_CONNECTION_STRING)));
+                options => options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MAIN_CONNECTION_STRING)));
             services.AddControllers();
 
             // automapper
@@ -83,6 +84,7 @@ namespace GeeksBakery.BackendApi
             services.AddTransient<IStorageService, StorageService>();
             services.AddTransient<ICakeImageService, CakeImageService>();
             services.AddTransient<IReviewService, ReviewService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             // DI for identity
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();

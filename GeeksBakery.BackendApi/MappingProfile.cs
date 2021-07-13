@@ -24,6 +24,8 @@ namespace GeeksBakery.BackendApi
             CreateMap<CategoryCreateRequest, Category>();
 
             CreateMap<CakeCreateRequest, Cake>();
+
+            CreateMap<AppUser, UserViewModel>();
         }
     }
 }

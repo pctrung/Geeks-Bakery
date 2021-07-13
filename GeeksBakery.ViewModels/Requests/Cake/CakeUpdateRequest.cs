@@ -19,9 +19,11 @@ namespace GeeksBakery.ViewModels.Requests.Cake
 
         [Required(ErrorMessage = "Cake price is required.")]
         [Display(Name = "Price")]
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
         [Display(Name = "Original Price")]
+        [DataType(DataType.Currency)]
         public decimal OriginalPrice { get; set; }
 
         [Display(Name = "Size")]
