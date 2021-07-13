@@ -165,19 +165,11 @@ namespace GeeksBakery.Application.System.Users
             {
                 Name = request.Name,
                 Email = request.Email,
-                Address = request.Address,
-                PhoneNumber = request.PhoneNumber,
-                DoB = request.DoB,
                 UserName = request.Username,
-                Avatar = await SaveFileAsync(request.Avatar)
+                Avatar = "default.png"
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
-
-            if (!result.Succeeded)
-            {
-                await _storageService.DeleteFileAsync(user.Avatar);
-            }
 
             return result;
         }
@@ -248,7 +240,7 @@ namespace GeeksBakery.Application.System.Users
         {
             if (file == null)
             {
-                return null;
+                return string.Empty;
             }
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
