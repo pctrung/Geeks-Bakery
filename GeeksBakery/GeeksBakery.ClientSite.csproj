@@ -20,4 +20,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GeeksBakery.ViewModels\GeeksBakery.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

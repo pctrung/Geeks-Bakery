@@ -83,7 +83,7 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 999;
+  z-index: 5;
 }
 .best-seller__next-arrow {
   position: absolute;
@@ -92,7 +92,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 999;
+  z-index: 5;
 }
 .best-seller__item {
   width: 100%;

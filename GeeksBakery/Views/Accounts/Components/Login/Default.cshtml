@@ -1,0 +1,18 @@
+﻿@model GeeksBakery.ViewModels.Requests.System.Users.LoginRequest
+
+<form asp-controller="Accounts" asp-action="Login" class="form">
+    <h1 class="form-title">Login</h1>
+    <div class="form__input-group">
+        <label asp-for="@Model.Username"></label>
+        <input asp-for="Username" class="form__input" type="text" />
+        <span class="form__input-message" asp-validation-for="@Model.Username"></span>
+        <label asp-for="@Model.Password"></label>
+        <input asp-for="Password" class="form__input" type="password" />
+        <span class="form__input-message" asp-validation-for="@Model.Password"></span>
+        <div class="form__input__remember-me">
+            <input asp-for="RememberMe" id="rememberMe" type="checkbox" name="" />
+            <label asp-for="@Model.RememberMe" for="rememberMe">Remember me</label>
+        </div>
+        <button class="btn btn--primary">Login</button>
+    </div>
+</form>

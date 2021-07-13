@@ -1,0 +1,20 @@
+﻿@model GeeksBakery.ViewModels.Requests.System.Users.RegisterRequest
+
+<form asp-controller="Accounts" asp-action="Register" class="form">
+    <h1 class="form-title">Register</h1>
+    <div class="form__input-group">
+        <label asp-for="@Model.Username">Username:</label>
+        <input id="registerUsername" asp-for="Username" class="form__input" type="text" />
+        <span class="form__input-message" asp-validation-for="@Model.Username"></span>
+        <label asp-for="@Model.Email" for=""></label>
+        <input asp-for="Email" class="form__input" type="email" />
+        <span class="form__input-message" asp-validation-for="@Model.Email"></span>
+        <label asp-for="@Model.Password"></label>
+        <input id="registerPassword" asp-for="Password" class="form__input" type="password" />
+        <span class="form__input-message" asp-validation-for="@Model.Password"></span>
+        <label asp-for="@Model.ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" class="form__input" type="password" />
+        <span class="form__input-message" asp-validation-for="@Model.ConfirmPassword"></span>
+        <button class="btn btn--primary">Register</button>
+    </div>
+</form>
