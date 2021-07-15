@@ -31,7 +31,7 @@ namespace GeeksBakery.BackendApi.Controllers
         {
             try
             {
-                var data = await _cakeService.GetAllPagingAsync(request);
+                var data = await _cakeService.GetAllPagingAsync(request); 
                 return Ok(JsonConvert.SerializeObject(data));
             }
             catch (Exception e)

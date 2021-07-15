@@ -14,6 +14,12 @@ namespace GeeksBakery.ViewModels.Common
         {
         }
 
+        public ApiErrorResult(T resultObj)
+        {
+            IsSuccessed = false;
+            ResultObj = resultObj;
+        }
+
         public ApiErrorResult(string message)
         {
             IsSuccessed = false;

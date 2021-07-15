@@ -22,6 +22,9 @@ namespace GeeksBakery.Application.Services
         private readonly IMapper _mapper;
         private readonly ICakeImageService _cakeImageService;
 
+        private const int DEFAULT_LIMIT = 999;
+        private const int DEFAULT_PAGE_INDEX = 1;
+
         public CakeService(GeeksBakeryDbContext context, ICakeImageService cakeImageService, IMapper mapper)
         {
             _mapper = mapper;
@@ -141,20 +144,23 @@ namespace GeeksBakery.Application.Services
 
             int totalRow = await result.CountAsync();
 
-            if (request.Limit > 0)
-            {
-                request.Page = request.Page > 0 ? request.Page : 1;
+            // set limit, page index default = 999
+            request.Limit = request.Limit > 0 ? request.Limit : DEFAULT_LIMIT;
 
-                // extention method paged
-                result = result.Paged(request.Page, request.Limit);
-            }
+            request.Page = request.Page > 0 ? request.Page : 1;
+
+            // extention method paged
+            result = result.Paged(request.Page, request.Limit);
 
             var data = await result.ToListAsync();
 
             var pagedResult = new PagedResult<CakeViewModel>()
             {
                 TotalRecords = totalRow,
-                Items = data
+                Items = data,
+                Keyword = request.Keyword,
+                Page = request.Page,
+                Limit = request.Limit
             };
 
             return pagedResult;
