@@ -12,6 +12,8 @@ namespace GeeksBakery.ViewModels.Common
 
         public int TotalRecords { get; set; }
 
+        public string Keyword { get; set; }
+
         public int PageCount
         {
             get

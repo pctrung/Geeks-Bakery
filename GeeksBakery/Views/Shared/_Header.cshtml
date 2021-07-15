@@ -6,19 +6,19 @@
                 <img src="~/img/logo.png" alt="Geek's Bakery Logo" />
             </a>
             <nav class="header__menu noselect">
-                <a class="header__menu__item" href="#">Home</a>
-                <a class="header__menu__item" href="#">Cakes</a>
-                <a class="header__menu__item" href="#">About</a>
+                <a class="header__menu__item" asp-controller="Home" asp-action="Index">Home</a>
+                <a class="header__menu__item" asp-controller="Cakes" asp-action="Index">Cakes</a>
+                <a class="header__menu__item" asp-controller="About" asp-action="Index">About</a>
             </nav>
-            <div class="header__search">
+            <form asp-controller="Cakes" asp-action="Index" method="get" class="header__search">
                 <button class="header__search__button noselect">
                     <img src="~/icons/search.png" alt="search icon" />
                 </button>
                 <input placeholder="Search..."
                        type="text"
-                       name="search"
+                       name="keyword"
                        id="search" />
-            </div>
+            </form>
             <div class="header__info">
                 <div class="header__cart noselect">
                     <img src="~/icons/cart.svg" alt="cart icon" />
@@ -29,9 +29,9 @@
                         <img src="~/img/user.png" alt="User Avatar" />
                         <div class="header__user__dropdown">
                             <ul>
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Cart</a></li>
-                                <li><a href="#">Sign out</a></li>
+                                <li><a asp-controller="Accounts" asp-action="Details">Profile</a></li>
+                                <li><a asp-controller="Carts" asp-action="Index">Cart</a></li>
+                                <li><a asp-controller="Accounts" asp-action="Logout">Sign out</a></li>
                             </ul>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
             </svg>
             </label>
 
-            <div class="nav-mobile__items__search">
+            <form asp-controller="Cakes" asp-action="Index" method="get" class="nav-mobile__items__search">
                 <button class="nav-mobile__items__search__button noselect">
                     <img src="~/icons/search.png" alt="search icon" />
                 </button>
@@ -97,15 +97,15 @@
                        type="text"
                        name="search"
                        id="search-mobile" />
-            </div>
+            </form>
             <nav class="nav-mobile__items">
                 <ul>
-                    <li><a href="#\">Home</a></li>
-                    <li><a href="#\">Cakes</a></li>
-                    <li><a href="#\">About</a></li>
-                    <li><a href="#\">Profile</a></li>
-                    <li><a href="#\">Cart</a></li>
-                    <li><a href="#\">Sign out</a></li>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Cakes" asp-action="Index">Cakes</a></li>
+                    <li><a asp-controller="About" asp-action="Index">About</a></li>
+                    <li><a asp-controller="Account" asp-action="Details">Profile</a></li>
+                    <li><a asp-controller="Carts" asp-action="Index">Cart</a></li>
+                    <li><a asp-controller="Account" asp-action="Logout">Sign out</a></li>
                 </ul>
             </nav>
         </nav>

@@ -1,6 +1,6 @@
 ﻿@model GeeksBakery.ViewModels.Requests.System.Users.RegisterRequest
 
-<form asp-controller="Accounts" asp-action="Register" class="form">
+<form enctype="multipart/form-data" asp-controller="Accounts" asp-action="Register" class="form">
     <h1 class="form-title">Register</h1>
     <div class="form__input-group">
         <label asp-for="@Model.Username">Username:</label>
