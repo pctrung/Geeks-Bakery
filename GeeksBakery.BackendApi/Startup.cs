@@ -4,7 +4,7 @@ using GeeksBakery.Application.System.Roles;
 using GeeksBakery.Application.System.Users;
 using GeeksBakery.Data.EF;
 using GeeksBakery.Data.Entities;
-using GeeksBakery.Utilities.Constants;
+using GeeksBakery.Utilities.SystemConstants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

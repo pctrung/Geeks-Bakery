@@ -59,7 +59,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CakeCreateRequest request)
+        public async Task<IActionResult> Create(CakeCreateRequest request)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] CakeUpdateRequest request)
+        public async Task<IActionResult> Update(CakeUpdateRequest request)
         {
             try
             {
@@ -168,7 +168,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost("{cakeId}/reviews")]
-        public async Task<IActionResult> CreateReview([FromForm] ReviewCreateRequest request, int cakeId)
+        public async Task<IActionResult> CreateReview([FromBody] ReviewCreateRequest request, [FromRoute] int cakeId)
         {
             try
             {

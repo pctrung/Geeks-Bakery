@@ -20,7 +20,7 @@ namespace GeeksBakery.BackendApi.Controllers
 
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromForm] LoginRequest request)
+        public async Task<IActionResult> Authenticate(LoginRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -37,7 +37,7 @@ namespace GeeksBakery.BackendApi.Controllers
 
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromForm] RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPut("{id}/roles")]
-        public async Task<IActionResult> RoleAssign(Guid id, [FromBody] RoleAssignRequest request)
+        public async Task<IActionResult> RoleAssign(Guid id, RoleAssignRequest request)
         {
             if (!ModelState.IsValid)
             {
