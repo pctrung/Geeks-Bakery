@@ -109,7 +109,10 @@ namespace GeeksBakery.Application.System.Users
                 return new ApiErrorResult<bool>("Not exists user id: " + id);
             }
             // delete avatar file
-            await _storageService.DeleteFileAsync(user.Avatar);
+            if (user.Avatar != "default.png" && user.Avatar != "default-avatar.png")
+            {
+                await _storageService.DeleteFileAsync(user.Avatar);
+            }
 
             var reult = await _userManager.DeleteAsync(user);
             if (reult.Succeeded)

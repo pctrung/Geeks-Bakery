@@ -69,7 +69,7 @@ namespace GeeksBakery.ClientSite.Controllers
 
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1440),
                 IsPersistent = false
             };
             HttpContext.Session.SetString(SystemConstants.AppSettings.Token, response.ResultObj);

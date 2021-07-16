@@ -26,7 +26,7 @@ namespace GeeksBakery.BackendApi
 
             CreateMap<CakeCreateRequest, Cake>();
 
-            CreateMap<AppUser, UserViewModel>();
+            CreateMap<AppUser, UserViewModel>().ForMember(des => des.AvatarUrl, act => act.MapFrom(src => $"{GeeksBakery.Utilities.SystemConstants.SystemConstants.AppSettings.ImageUrl}/{src.Avatar}"));
         }
     }
 }
