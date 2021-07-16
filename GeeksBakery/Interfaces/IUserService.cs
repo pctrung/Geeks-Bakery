@@ -13,14 +13,12 @@ namespace GeeksBakery.ClientSite.Interfaces
     {
         Task<ApiResult<string>> AuthenticateAsync(LoginRequest request);
 
-        Task<ApiResult<bool>> RegisterAsync(RegisterRequest request);
+        Task<ApiResult<string>> RegisterAsync(RegisterRequest request);
 
         Task<ApiResult<bool>> UpdateAsync(Guid id, UserUpdateRequest request);
 
         Task<ApiResult<UserViewModel>> GetByIdAsync(Guid id);
 
         UserViewModel ClaimsToViewModelAsync(IEnumerable<Claim> claims);
-
-        Task<ApiResult<bool>> RoleAssignAsync(Guid id, RoleAssignRequest request);
     }
 }

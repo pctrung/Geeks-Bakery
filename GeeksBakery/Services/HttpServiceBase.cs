@@ -32,32 +32,37 @@ namespace GeeksBakery.ClientSite.Services
             {
                 throw new Exception("Uri request cannot null");
             }
+            var sessions = GetToken();
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.ApiAddress]);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
 
             return await client.PostAsync(uri, content);
         }
 
-        protected async Task<HttpResponseMessage> HttpGetAsync(string url)
+        protected async Task<HttpResponseMessage> HttpGetAsync(string uri)
         {
+            if (string.IsNullOrEmpty(uri))
+            {
+                throw new Exception("Uri request cannot null");
+            }
             var sessions = GetToken();
 
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.ApiAddress]);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
 
-            return await client.GetAsync(url);
+            return await client.GetAsync(uri);
         }
 
-        public async Task<HttpResponseMessage> HttpDeleteAsync(string url)
+        public async Task<HttpResponseMessage> HttpDeleteAsync(string uri)
         {
             var sessions = GetToken();
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(_configuration[SystemConstants.AppSettings.ApiAddress]);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
 
-            return await client.DeleteAsync(url);
+            return await client.DeleteAsync(uri);
         }
 
         private string GetToken()

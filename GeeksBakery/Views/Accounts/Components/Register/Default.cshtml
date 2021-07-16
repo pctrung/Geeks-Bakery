@@ -2,10 +2,17 @@
 
 <form enctype="multipart/form-data" asp-controller="Accounts" asp-action="Register" class="form">
     <h1 class="form-title">Register</h1>
+    @if (ViewBag.IsLogin == false)
+    {
+        <div class="form-message" asp-validation-summary="ModelOnly"></div>
+    }
     <div class="form__input-group">
         <label asp-for="@Model.Username">Username:</label>
         <input id="registerUsername" asp-for="Username" class="form__input" type="text" />
         <span class="form__input-message" asp-validation-for="@Model.Username"></span>
+        <label asp-for="@Model.Name" for=""></label>
+        <input asp-for="Name" class="form__input" type="text" />
+        <span class="form__input-message" asp-validation-for="@Model.Name"></span>
         <label asp-for="@Model.Email" for=""></label>
         <input asp-for="Email" class="form__input" type="email" />
         <span class="form__input-message" asp-validation-for="@Model.Email"></span>

@@ -3,6 +3,7 @@ using GeeksBakery.ViewModels.Requests.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GeeksBakery.BackendApi.Controllers
@@ -48,7 +49,7 @@ namespace GeeksBakery.BackendApi.Controllers
 
             if (!result.Succeeded)
             {
-                return BadRequest(result.Errors);
+                return BadRequest(result.Errors.ToList()[0].Description);
             }
             return Ok(result);
         }

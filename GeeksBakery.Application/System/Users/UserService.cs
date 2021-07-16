@@ -176,8 +176,7 @@ namespace GeeksBakery.Application.System.Users
             {
                 Name = request.Name,
                 Email = request.Email,
-                UserName = request.Username,
-                Avatar = "default.png"
+                UserName = request.Username
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);

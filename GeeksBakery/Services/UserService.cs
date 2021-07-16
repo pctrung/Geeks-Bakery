@@ -21,6 +21,7 @@ namespace GeeksBakery.ClientSite.Services
     public class UserService : HttpServiceBase, IUserService
     {
         private readonly string _authenticateUri = "/api/users/authenticate";
+        private readonly string _registereUri = "/api/users/register";
         private readonly string _getUserUri = "/api/users/authenticate";
 
         public UserService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
@@ -78,17 +79,22 @@ namespace GeeksBakery.ClientSite.Services
             return new ApiErrorResult<UserViewModel>(await response.Content.ReadAsStringAsync());
         }
 
-        public async Task<ApiResult<bool>> RegisterAsync(RegisterRequest request)
+        public async Task<ApiResult<string>> RegisterAsync(RegisterRequest request)
         {
-            throw new NotImplementedException();
+            var json = JsonConvert.SerializeObject(request);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await HttpPostAsync(_registereUri, httpContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return new ApiSuccessResult<string>(await response.Content.ReadAsStringAsync());
+            }
+
+            return new ApiErrorResult<string>(await response.Content.ReadAsStringAsync());
         }
 
-        public async Task<ApiResult<bool>> RoleAssignAsync(Guid id, RoleAssignRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ApiResult<bool>> UpdateAsync(Guid id, UserUpdateRequest request)
+        public Task<ApiResult<bool>> UpdateAsync(Guid id, UserUpdateRequest request)
         {
             throw new NotImplementedException();
         }

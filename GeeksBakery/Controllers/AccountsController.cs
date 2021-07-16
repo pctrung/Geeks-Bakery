@@ -35,12 +35,18 @@ namespace GeeksBakery.ClientSite.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            if (TempData["IsRegisterSuccess"] != null)
+            {
+                ViewBag.IsRegisterSuccess = true;
+                TempData["IsRegisterSuccess"] = null;
+            }
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequest request)
         {
+            ViewBag.IsLogin = true;
             if (!ModelState.IsValid)
             {
                 ViewData["LoginRequest"] = request;
@@ -54,12 +60,12 @@ namespace GeeksBakery.ClientSite.Controllers
             {
                 ModelState.AddModelError("", "Username or password is incorrect");
                 ViewData["LoginRequest"] = request;
+
                 return View("Index");
             }
 
             //Add token and session
             var userPrincipal = this.ValidateToken(response.ResultObj);
-            var token = new JwtSecurityToken(response.ResultObj);
 
             var authProperties = new AuthenticationProperties
             {
@@ -69,20 +75,29 @@ namespace GeeksBakery.ClientSite.Controllers
             HttpContext.Session.SetString(SystemConstants.AppSettings.Token, response.ResultObj);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
 
-            var user = User.Identity;
-
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
+            ViewBag.IsLogin = false;
+
             if (!ModelState.IsValid)
             {
                 ViewData["RegisterRequest"] = request;
                 return View("Index");
             }
-            return Ok();
+            var result = await _userService.RegisterAsync(request);
+            if (!result.IsSuccessed)
+            {
+                ModelState.AddModelError("", result.Message);
+                ViewData["RegisterRequest"] = request;
+                return View("Index");
+            }
+            TempData["IsRegisterSuccess"] = true;
+
+            return RedirectToAction("Index", "Accounts");
         }
 
         public async Task<IActionResult> Logout()

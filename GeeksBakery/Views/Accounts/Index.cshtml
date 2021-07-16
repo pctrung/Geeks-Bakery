@@ -33,6 +33,10 @@
                 Register
             </button>
         </div>
+        @if (ViewBag.IsRegisterSuccess == true)
+        {
+            <p style="  margin-top: 30px; text-align: center; color: #009200;">Register successful! Please log in.</p>
+        }
         <div id="formInputGroup" class="form-group">
             @await Component.InvokeAsync("Login", ViewData["LoginRequest"])
             @await Component.InvokeAsync("Register", ViewData["RegisterRequest"])
