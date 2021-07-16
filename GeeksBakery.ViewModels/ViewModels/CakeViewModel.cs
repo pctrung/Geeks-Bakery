@@ -17,5 +17,6 @@ namespace GeeksBakery.ViewModels.ViewModels
         public int CategoryId { get; set; }
         public List<CakeImageViewModel> CakeImages { get; set; }
         public List<ReviewViewModel> Reviews { get; set; }
+        public double AvgStar { get; set; }
     }
 }

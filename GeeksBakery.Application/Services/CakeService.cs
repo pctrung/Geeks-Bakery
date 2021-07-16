@@ -110,13 +110,18 @@ namespace GeeksBakery.Application.Services
                     Reviews = _mapper.Map<List<ReviewViewModel>>(cake.Reviews)
                 }).FirstOrDefaultAsync();
 
+            if (result!= null && result.Reviews != null && result.Reviews.Count > 0)
+            {
+                result.AvgStar = result.Reviews.Average(x => x.Star);
+            }
+
             return result;
         }
 
         public async Task<PagedResult<CakeViewModel>> GetAllPagingAsync(GetCakePagingRequest request)
         {
             //get all
-            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Select(cake => new CakeViewModel()
+            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).Select(cake => new CakeViewModel()
             {
                 CategoryId = cake.Category.Id,
                 CategoryName = cake.Category.Name,
@@ -168,25 +173,36 @@ namespace GeeksBakery.Application.Services
 
         public async Task<List<CakeViewModel>> GetBestSellerCakesAsync(int take)
         {
-            var query = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Select(cake => new CakeViewModel()
-            {
-                CategoryId = cake.Category.Id,
-                CategoryName = cake.Category.Name,
-                Id = cake.Id,
-                Name = cake.Name,
-                Description = cake.Description,
-                Price = cake.Price,
-                OriginalPrice = cake.OriginalPrice,
-                SEOAlias = cake.Slug,
-                Size = cake.Size,
-                Stock = cake.Stock,
-                CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
-                Reviews = cake.Reviews.Select(review => _mapper.Map<ReviewViewModel>(review)).ToList()
-            });
+            var query = from cake in _context.Cakes
+                        join review in _context.Reviews on cake.Id equals review.CakeId
+                        group new { cake, review } by new { cake.Id, cake.Name, cake.OriginalPrice, cake.Price } into g
+                        select new
+                        {
+                            g.Key.Id,
+                            g.Key.Name,
+                            g.Key.Price,
+                            g.Key.OriginalPrice,
+                            avgStart = g.Average(x => x.review.Star)
+                        };
 
-            //var query2 = _context.Cakes.Join(_context.Reviews, cake => cake.Id, review => review.CakeId, new { Cake = cake, })
-            return new List<CakeViewModel>();
-            //return result;
+            var data = query.OrderByDescending(x => x.avgStart).Take(take).ToList();
+
+            var result = new List<CakeViewModel>();
+            foreach (var cake in data)
+            {
+                var temp = new CakeViewModel()
+                {
+                    Id = cake.Id,
+                    Name = cake.Name,
+                    CakeImages = await _cakeImageService.GetByCakeIdAsync(cake.Id),
+                    Price = cake.Price,
+                    OriginalPrice = cake.OriginalPrice,
+                    AvgStar = cake.avgStart
+                };
+                result.Add(temp);
+            }
+
+            return result;
         }
 
         private class StarResult

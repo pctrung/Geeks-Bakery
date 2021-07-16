@@ -18,15 +18,16 @@ namespace GeeksBakery.ClientSite.Services
     public class CakeService : HttpServiceBase, ICakeService
     {
         private readonly string _allCakeUri = "/api/cakes";
+        private readonly string _bestSellerUri = "/api/cakes/bestseller";
 
         public CakeService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
             : base(httpClientFactory, httpContextAccessor, configuration)
         {
         }
 
-        public async Task<List<CakeViewModel>> GetBestSellerCakesAsync()
+        public async Task<List<CakeViewModel>> GetBestSellerCakesAsync(int take = 5)
         {
-            var url = _allCakeUri;
+            var url = _bestSellerUri + "/" + take;
 
             HttpResponseMessage response = await this.HttpGetAsync(url);
 

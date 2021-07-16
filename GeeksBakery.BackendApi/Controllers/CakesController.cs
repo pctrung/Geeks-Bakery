@@ -58,8 +58,8 @@ namespace GeeksBakery.BackendApi.Controllers
             }
         }
 
-        [HttpGet("bestSeller/{take}")]
-        public async Task<IActionResult> GetBestSellerCakes(int take)
+        [HttpGet("bestSeller/{take?}")]
+        public async Task<IActionResult> GetBestSellerCakes(int take = 5)
         {
             try
             {

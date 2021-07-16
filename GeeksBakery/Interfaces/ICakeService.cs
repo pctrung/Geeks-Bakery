@@ -12,6 +12,6 @@ namespace GeeksBakery.ClientSite.Interfaces
     {
         Task<PagedResult<CakeViewModel>> GetPagingsAsync(GetCakePagingRequest request);
 
-        Task<List<CakeViewModel>> GetBestSellerCakesAsync();
+        Task<List<CakeViewModel>> GetBestSellerCakesAsync(int take);
     }
 }

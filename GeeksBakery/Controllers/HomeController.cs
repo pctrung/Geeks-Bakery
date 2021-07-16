@@ -34,12 +34,14 @@ namespace GeeksBakery.ClientSite.Controllers
             request.Keyword = "";
 
             var cakes = await _cakeService.GetPagingsAsync(request);
+            var bestseller = await _cakeService.GetBestSellerCakesAsync(5);
             var categories = await _categoryService.GetAllAsync();
 
             var viewModel = new HomeViewModel()
             {
                 Cakes = cakes,
                 Categories = categories,
+                FeaturedCakes = bestseller
             };
 
             if (User.Identity.IsAuthenticated)

@@ -78,36 +78,32 @@
 
             <h3 class="title">Best Seller</h3>
             <div class="slider">
-                @if (Model.Cakes == null)
+                @if (Model.FeaturedCakes == null)
                 {
                     <p>Not found any cakes</p>
                 }
                 else
                 {
 
-                    @for (var i = 0; i < Model.Cakes.Items.Count; i++)
+                    @foreach (var cake in Model.FeaturedCakes)
                     {
                         <div class="best-seller__item slider__item">
                             <img class="best-seller__item-image"
-                                 src="@Model.Cakes.Items[i].CakeImages.First().FileUrl"
-                                 alt="cake image" />
+                                 src="@cake.CakeImages.First().FileUrl"
+                                 alt="@cake.CakeImages.First().Caption" />
                             <div class="best-seller__item-info">
                                 <div>
                                     <h6 class="best-seller__item-info__name">
-                                        <a asp-controller="Cakes" asp-action="Details" asp-route-id="1">Snicker Fuse Chocolate Cake</a>
+                                        <a asp-controller="Cakes" asp-action="Details" asp-route-id="@cake.Id">@cake.Name</a>
                                     </h6>
                                     <p class="best-seller__item-info__description line-clamp-5">
-                                        Award yourself with this rich chocolate cake wonderfully
-                                        crammed with Cadbury Fuse and white chocolate chunks and
-                                        draped lusciously with molten chocolate. This perfect work
-                                        of art hides in every bite of chocolate that is a little
-                                        nutty and a lot of tasty!
+                                        @cake.Description
                                     </p>
                                 </div>
                                 <div>
-                                    <div class="best-seller__item-info__price">350.000đ</div>
+                                    <div class="best-seller__item-info__price">@cake.Price.ToVND()</div>
                                     <div class="best-seller__item-info__original-price">
-                                        400.000đ
+                                        @cake.OriginalPrice.ToVND()
                                     </div>
                                 </div>
                                 <button class="btn btn--primary">Add to cart +</button>
