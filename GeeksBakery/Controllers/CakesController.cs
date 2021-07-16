@@ -1,52 +1,49 @@
 ﻿using GeeksBakery.ClientSite.Interfaces;
 using GeeksBakery.ClientSite.Models;
 using GeeksBakery.ViewModels.Requests.Cake;
-using GeeksBakery.ViewModels.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Security.Claims;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GeeksBakery.ClientSite.Controllers
 {
-    public class HomeController : Controller
+    public class CakesController : Controller
     {
         private readonly ICakeService _cakeService;
         private readonly ICategoryService _categoryService;
 
-        public HomeController(ICakeService cakeService, ICategoryService categoryService)
+        public CakesController(ICakeService cakeService, ICategoryService categoryService)
         {
             _cakeService = cakeService;
             _categoryService = categoryService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index([FromQuery] GetCakePagingRequest request)
         {
             request.Limit = 12;
             request.Page = request.Page > 0 ? request.Page : 1;
-            request.Keyword = "";
 
             var cakes = await _cakeService.GetPagingsAsync(request);
-            var bestseller = await _cakeService.GetBestSellerCakesAsync(5);
             var categories = await _categoryService.GetAllAsync();
 
-            var viewModel = new HomeViewModel()
+            var viewModel = new CakesViewModel()
             {
                 Cakes = cakes,
-                Categories = categories,
-                FeaturedCakes = bestseller
+                Categories = categories
             };
 
             return View(viewModel);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var cakes = await _cakeService.GetByIdAsync(id);
+
+            return View(cakes);
         }
     }
 }

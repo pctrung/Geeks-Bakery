@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    @await RenderSectionAsync("Header", required: true)
+    @await Component.InvokeAsync("Header")
 
     <main>
         @RenderBody()

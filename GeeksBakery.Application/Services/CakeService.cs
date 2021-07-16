@@ -110,7 +110,7 @@ namespace GeeksBakery.Application.Services
                     Reviews = _mapper.Map<List<ReviewViewModel>>(cake.Reviews)
                 }).FirstOrDefaultAsync();
 
-            if (result!= null && result.Reviews != null && result.Reviews.Count > 0)
+            if (result != null && result.Reviews != null && result.Reviews.Count > 0)
             {
                 result.AvgStar = result.Reviews.Average(x => x.Star);
             }
@@ -159,13 +159,28 @@ namespace GeeksBakery.Application.Services
 
             var data = result.ToList();
 
+            // select category name from request category
+
+            List<string> categoryNames = new List<string>();
+
+            if (request.CategoryIds != null)
+            {
+                foreach (var id in request.CategoryIds)
+                {
+                    var category = _context.Categories.First(x => x.Id == id);
+                    categoryNames.Add(category.Name);
+                }
+            }
+
             var pagedResult = new PagedResult<CakeViewModel>()
             {
                 TotalRecords = totalRow,
                 Items = data,
                 Keyword = request.Keyword,
                 Page = request.Page,
-                Limit = request.Limit
+                Limit = request.Limit,
+                CategoryNames = categoryNames,
+                CategoryIds = request.CategoryIds
             };
 
             return pagedResult;

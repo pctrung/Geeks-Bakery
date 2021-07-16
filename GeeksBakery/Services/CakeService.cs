@@ -39,13 +39,27 @@ namespace GeeksBakery.ClientSite.Services
             return JsonConvert.DeserializeObject<List<CakeViewModel>>(await response.Content.ReadAsStringAsync());
         }
 
+        public async Task<CakeViewModel> GetByIdAsync(int id)
+        {
+            var url = _allCakeUri + "/" + id;
+
+            HttpResponseMessage response = await this.HttpGetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<CakeViewModel>(await response.Content.ReadAsStringAsync());
+        }
+
         public async Task<PagedResult<CakeViewModel>> GetPagingsAsync(GetCakePagingRequest request)
         {
             var json = JsonConvert.SerializeObject(request);
             var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             var url = _allCakeUri + $"?page={request.Page}&limit={request.Limit}&keyword={request.Keyword}&";
-            url += request.CategoryIds != null ? $"{request.CategoryIds.Select(id => $"categoryids={id}&")}" : "";
+            url += request.CategoryIds != null ? String.Join(", ", request.CategoryIds.Select(id => $"categoryids={id}&").ToArray()) : "";
 
             HttpResponseMessage response = await this.HttpGetAsync(url);
 

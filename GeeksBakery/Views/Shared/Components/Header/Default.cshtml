@@ -3,7 +3,7 @@
 <div class="wrapper">
     <div class="container">
         <header class="header">
-            <a asp-controller="Home" asp-action="Index" class="header__logo" >
+            <a asp-controller="Home" asp-action="Index" class="header__logo">
                 <img src="~/img/logo.png" alt="Geek's Bakery Logo" />
             </a>
             <nav class="header__menu noselect">
@@ -25,7 +25,7 @@
                     <img src="~/icons/cart.svg" alt="cart icon" />
                     <span class="header__cart__amount">2</span>
                 </div>
-                @if (User.Identity.IsAuthenticated)
+                @if (@Model != null)
                 {
                     <div class="header__user noselect">
                         <div class="header__user__avatar">
@@ -105,7 +105,7 @@
                 </button>
                 <input placeholder="Search..."
                        type="text"
-                       name="search"
+                       name="keyword"
                        id="search-mobile" />
             </form>
             <nav class="nav-mobile__items">
