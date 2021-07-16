@@ -12,5 +12,6 @@ namespace GeeksBakery.ClientSite.Models
         public PagedResult<CakeViewModel> Cakes { get; set; }
         public List<CakeViewModel> FeaturedCakes { get; set; }
         public List<CategoryViewModel> Categories { get; set; }
+        public UserViewModel User { get; set; }
     }
 }

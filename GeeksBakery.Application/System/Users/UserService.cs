@@ -75,9 +75,15 @@ namespace GeeksBakery.Application.System.Users
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.Name),
-                new Claim("AvatarUrl", $"{GeeksBakery.Utilities.SystemConstants.SystemConstants.AppSettings.ImageUrl}/${user.Avatar}"),
                 new Claim(ClaimTypes.Role, string.Join(";", roles)),
-                new Claim("Id", user.Id.ToString())
+                new Claim("AvatarUrl", $"{GeeksBakery.Utilities.SystemConstants.SystemConstants.AppSettings.ImageUrl}/{user.Avatar}"),
+                new Claim("Id", user.Id.ToString()),
+                new Claim("UserName", user.UserName.ToString()),
+                new Claim("Name", user.Name != null ? user.Name.ToString() : ""),
+                new Claim("Address", user.Address != null ? user.Address.ToString(): ""),
+                new Claim("DoB", user.DoB.ToString()),
+                new Claim("PhoneNumber", user.PhoneNumber != null ? user.PhoneNumber.ToString() : ""),
+                new Claim("Email", user.Email != null ? user.Email.ToString() : "")
             };
 
             string issuer = _configuration.GetValue<string>("Tokens:Issuer");

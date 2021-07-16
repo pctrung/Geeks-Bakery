@@ -24,14 +24,18 @@ namespace GeeksBakery.ClientSite.Services
         {
         }
 
-        public Task<List<CakeViewModel>> GetFeaturedProductsAsync()
+        public async Task<List<CakeViewModel>> GetBestSellerCakesAsync()
         {
-            throw new NotImplementedException();
-        }
+            var url = _allCakeUri;
 
-        public Task<List<CakeViewModel>> GetLatestProductsAsync()
-        {
-            throw new NotImplementedException();
+            HttpResponseMessage response = await this.HttpGetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<List<CakeViewModel>>(await response.Content.ReadAsStringAsync());
         }
 
         public async Task<PagedResult<CakeViewModel>> GetPagingsAsync(GetCakePagingRequest request)

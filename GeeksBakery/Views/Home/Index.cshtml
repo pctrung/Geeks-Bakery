@@ -8,7 +8,9 @@
 @section Styles{
     <link rel="stylesheet" href="~/css/home.css" />
 }
-
+@section Header{
+    <partial name="_Header" model="@Model.User" />
+}
 <div class="container-fuild banner">
     <img src="~/img/banner.png" alt="Banner" />
 </div>
@@ -19,7 +21,7 @@
         <h3 class="title">Experience Flavours</h3>
         @if (Model.Categories == null)
         {
-            <p>Not found any category</p>
+            <p>Not found any categories</p>
         }
         else
         {
@@ -76,34 +78,42 @@
 
             <h3 class="title">Best Seller</h3>
             <div class="slider">
-                @for (var i = 1; i <= 4; i++)
+                @if (Model.Cakes == null)
                 {
-                    <div class="best-seller__item slider__item">
-                        <img class="best-seller__item-image"
-                             src="{@Model.Cakes.Items[i].CakeImages[0].FileUrl}"
-                             alt="cake image" />
-                        <div class="best-seller__item-info">
-                            <div>
-                                <h6 class="best-seller__item-info__name">
-                                    <a asp-controller="Cakes" asp-action="Details" asp-route-id="1">Snicker Fuse Chocolate Cake</a>
-                                </h6>
-                                <p class="best-seller__item-info__description line-clamp-5">
-                                    Award yourself with this rich chocolate cake wonderfully
-                                    crammed with Cadbury Fuse and white chocolate chunks and
-                                    draped lusciously with molten chocolate. This perfect work
-                                    of art hides in every bite of chocolate that is a little
-                                    nutty and a lot of tasty!
-                                </p>
-                            </div>
-                            <div>
-                                <div class="best-seller__item-info__price">350.000đ</div>
-                                <div class="best-seller__item-info__original-price">
-                                    400.000đ
+                    <p>Not found any cakes</p>
+                }
+                else
+                {
+
+                    @for (var i = 0; i < Model.Cakes.Items.Count; i++)
+                    {
+                        <div class="best-seller__item slider__item">
+                            <img class="best-seller__item-image"
+                                 src="@Model.Cakes.Items[i].CakeImages.First().FileUrl"
+                                 alt="cake image" />
+                            <div class="best-seller__item-info">
+                                <div>
+                                    <h6 class="best-seller__item-info__name">
+                                        <a asp-controller="Cakes" asp-action="Details" asp-route-id="1">Snicker Fuse Chocolate Cake</a>
+                                    </h6>
+                                    <p class="best-seller__item-info__description line-clamp-5">
+                                        Award yourself with this rich chocolate cake wonderfully
+                                        crammed with Cadbury Fuse and white chocolate chunks and
+                                        draped lusciously with molten chocolate. This perfect work
+                                        of art hides in every bite of chocolate that is a little
+                                        nutty and a lot of tasty!
+                                    </p>
                                 </div>
+                                <div>
+                                    <div class="best-seller__item-info__price">350.000đ</div>
+                                    <div class="best-seller__item-info__original-price">
+                                        400.000đ
+                                    </div>
+                                </div>
+                                <button class="btn btn--primary">Add to cart +</button>
                             </div>
-                            <button class="btn btn--primary">Add to cart +</button>
                         </div>
-                    </div>
+                    }
                 }
             </div>
             <ul class="paging"></ul>
@@ -117,29 +127,37 @@
         <h3 class="title">Sweeties</h3>
 
         <div class="sweeties__items">
-            @foreach (var cake in Model.Cakes.Items)
+            @if (Model.Cakes == null)
             {
-                <div class="sweeties__item">
-                    <img src="@cake.CakeImages[0].FileUrl"
-                         alt="@cake.CakeImages[0].Caption"
-                         class="sweeties__item__img" />
-                    <div class="sweeties__item__name line-clamp-2">
-                        <a asp-controller="Cakes" asp-action="Details" asp-route-id="@cake.Id">@cake.Name</a>
+                <p>Not found any cakes</p>
+            }
+            else
+            {
+                @foreach (var cake in Model.Cakes.Items)
+                {
+                    <div class="sweeties__item">
+                        <img src="@cake.CakeImages.First().FileUrl"
+                             alt="@cake.CakeImages.First().Caption"
+                             class="sweeties__item__img" />
+                        <div class="sweeties__item__name line-clamp-2">
+                            <a asp-controller="Cakes" asp-action="Details" asp-route-id="@cake.Id">@cake.Name</a>
+                        </div>
+                        <div class="sweeties__item__prices">
+                            <div class="sweeties__item__price">@cake.Price.ToVND()</div>
+                            @if (cake.Price < cake.OriginalPrice)
+                            {
+                                <div class="sweeties__item__original-price">@cake.OriginalPrice.ToVND()</div>
+                            }
+                        </div>
+                        <button class="btn btn--secondary">Add to cart +</button>
                     </div>
-                    <div class="sweeties__item__prices">
-                        <div class="sweeties__item__price">@cake.Price.ToVND()</div>
-                        @if (cake.Price < cake.OriginalPrice)
-                        {
-                            <div class="sweeties__item__original-price">@cake.OriginalPrice.ToVND()</div>
-                        }
-                    </div>
-                    <button class="btn btn--secondary">Add to cart +</button>
-                </div>
+                }
             }
         </div>
 
         <!-- Page number -->
-        @{
+        @if (Model.Cakes != null)
+        {
             PageNumberModel pageModel = new PageNumberModel
             {
                 Page = Model.Cakes.Page,
@@ -148,8 +166,8 @@
                 Controller = "Home",
                 Keyword = Model.Cakes.Keyword
             };
+            <partial name="_PageNumber" model="@pageModel" />
         }
-        <partial name="_PageNumber" model="@pageModel" />
     </section>
 </div>
 <!-- end wrapper sweeties -->

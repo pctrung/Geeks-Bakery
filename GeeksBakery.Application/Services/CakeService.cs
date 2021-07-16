@@ -116,7 +116,7 @@ namespace GeeksBakery.Application.Services
         public async Task<PagedResult<CakeViewModel>> GetAllPagingAsync(GetCakePagingRequest request)
         {
             //get all
-            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).ThenInclude(review => review.User).Select(cake => new CakeViewModel()
+            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Select(cake => new CakeViewModel()
             {
                 CategoryId = cake.Category.Id,
                 CategoryName = cake.Category.Name,
@@ -152,7 +152,7 @@ namespace GeeksBakery.Application.Services
             // extention method paged
             result = result.Paged(request.Page, request.Limit);
 
-            var data = await result.ToListAsync();
+            var data = result.ToList();
 
             var pagedResult = new PagedResult<CakeViewModel>()
             {
@@ -168,7 +168,7 @@ namespace GeeksBakery.Application.Services
 
         public async Task<List<CakeViewModel>> GetBestSellerCakesAsync(int take)
         {
-            var query = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).Select(cake => new CakeViewModel()
+            var query = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Select(cake => new CakeViewModel()
             {
                 CategoryId = cake.Category.Id,
                 CategoryName = cake.Category.Name,

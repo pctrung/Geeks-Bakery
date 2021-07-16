@@ -2,7 +2,9 @@
 using GeeksBakery.ViewModels.Requests.System.Users;
 using GeeksBakery.ViewModels.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GeeksBakery.ClientSite.Interfaces
@@ -16,6 +18,8 @@ namespace GeeksBakery.ClientSite.Interfaces
         Task<ApiResult<bool>> UpdateAsync(Guid id, UserUpdateRequest request);
 
         Task<ApiResult<UserViewModel>> GetByIdAsync(Guid id);
+
+        UserViewModel ClaimsToViewModelAsync(IEnumerable<Claim> claims);
 
         Task<ApiResult<bool>> RoleAssignAsync(Guid id, RoleAssignRequest request);
     }

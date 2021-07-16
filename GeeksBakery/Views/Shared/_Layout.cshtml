@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <partial name="_Header" />
+    @await RenderSectionAsync("Header", required: true)
 
     <main>
         @RenderBody()

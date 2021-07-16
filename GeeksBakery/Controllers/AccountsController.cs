@@ -1,30 +1,45 @@
-﻿using GeeksBakery.ViewModels.Requests.System.Users;
+﻿using GeeksBakery.ClientSite.Interfaces;
+using GeeksBakery.Utilities.SystemConstants;
+using GeeksBakery.ViewModels.Requests.System.Users;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GeeksBakery.ClientSite.Controllers
 {
     public class AccountsController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IUserService _userService;
+        private readonly IConfiguration _configuration;
 
-        public AccountsController(ILogger<HomeController> logger)
+        public AccountsController(IUserService userService, IConfiguration configuration)
         {
-            _logger = logger;
+            _userService = userService;
+            _configuration = configuration;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            var b = ViewData["LoginRequest"];
-            var a = ViewData["RegisterRequest"];
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
-        public IActionResult Login([FromForm] LoginRequest request)
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -32,10 +47,35 @@ namespace GeeksBakery.ClientSite.Controllers
                 return View("Index");
             }
 
-            return Ok();
+            var response = await _userService.AuthenticateAsync(request);
+
+            // return error to login view if login unsuccessul
+            if (!response.IsSuccessed)
+            {
+                ModelState.AddModelError("", "Username or password is incorrect");
+                ViewData["LoginRequest"] = request;
+                return View("Index");
+            }
+
+            //Add token and session
+            var userPrincipal = this.ValidateToken(response.ResultObj);
+            var token = new JwtSecurityToken(response.ResultObj);
+
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                IsPersistent = false
+            };
+            HttpContext.Session.SetString(SystemConstants.AppSettings.Token, response.ResultObj);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
+
+            var user = User.Identity;
+
+            return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Register([FromForm] RegisterRequest request)
+        [HttpPost]
+        public IActionResult Register(RegisterRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -43,6 +83,30 @@ namespace GeeksBakery.ClientSite.Controllers
                 return View("Index");
             }
             return Ok();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
+
+        private ClaimsPrincipal ValidateToken(string jwtToken)
+        {
+            IdentityModelEventSource.ShowPII = true;
+
+            SecurityToken validatedToken;
+            TokenValidationParameters validationParameters = new TokenValidationParameters();
+
+            validationParameters.ValidateLifetime = true;
+
+            validationParameters.ValidAudience = _configuration["Tokens:Issuer"];
+            validationParameters.ValidIssuer = _configuration["Tokens:Issuer"];
+            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
+
+            ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
+
+            return principal;
         }
     }
 }

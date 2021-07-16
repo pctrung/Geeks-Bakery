@@ -1,9 +1,13 @@
 ﻿using GeeksBakery.ClientSite.Interfaces;
 using GeeksBakery.ClientSite.Models;
 using GeeksBakery.ViewModels.Requests.Cake;
+using GeeksBakery.ViewModels.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GeeksBakery.ClientSite.Controllers
@@ -13,12 +17,14 @@ namespace GeeksBakery.ClientSite.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ICakeService _cakeService;
         private readonly ICategoryService _categoryService;
+        private readonly IUserService _userService;
 
-        public HomeController(ILogger<HomeController> logger, ICakeService cakeService, ICategoryService categoryService)
+        public HomeController(ILogger<HomeController> logger, ICakeService cakeService, ICategoryService categoryService, IUserService userService)
         {
             _logger = logger;
             _cakeService = cakeService;
             _categoryService = categoryService;
+            _userService = userService;
         }
 
         public async Task<IActionResult> Index([FromQuery] GetCakePagingRequest request)
@@ -35,6 +41,16 @@ namespace GeeksBakery.ClientSite.Controllers
                 Cakes = cakes,
                 Categories = categories,
             };
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                IEnumerable<Claim> claims = identity.Claims;
+
+                UserViewModel user = _userService.ClaimsToViewModelAsync(claims);
+
+                viewModel.User = user;
+            }
 
             return View(viewModel);
         }

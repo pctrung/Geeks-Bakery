@@ -1,8 +1,9 @@
-﻿<!-- wrapper header -->
+﻿@model UserViewModel
+<!-- wrapper header -->
 <div class="wrapper">
     <div class="container">
         <header class="header">
-            <a class="header__logo" href="#">
+            <a asp-controller="Home" asp-action="Index" class="header__logo" >
                 <img src="~/img/logo.png" alt="Geek's Bakery Logo" />
             </a>
             <nav class="header__menu noselect">
@@ -24,18 +25,27 @@
                     <img src="~/icons/cart.svg" alt="cart icon" />
                     <span class="header__cart__amount">2</span>
                 </div>
-                <div class="header__user noselect">
-                    <div class="header__user__avatar">
-                        <img src="~/img/user.png" alt="User Avatar" />
-                        <div class="header__user__dropdown">
-                            <ul>
-                                <li><a asp-controller="Accounts" asp-action="Details">Profile</a></li>
-                                <li><a asp-controller="Carts" asp-action="Index">Cart</a></li>
-                                <li><a asp-controller="Accounts" asp-action="Logout">Sign out</a></li>
-                            </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="header__user noselect">
+                        <div class="header__user__avatar">
+
+                            <img src="@Model.AvatarUrl" alt="@Model.Name" />
+
+                            <div class="header__user__dropdown">
+                                <ul>
+                                    <li><a asp-controller="Accounts" asp-action="Details" asp-route-id="@Model.Id">Profile</a></li>
+                                    <li><a asp-controller="Carts" asp-action="Index" asp-route-id="@Model.Id">Cart</a></li>
+                                    <li><a asp-controller="Accounts" asp-action="Logout">Sign out</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <a asp-controller="Accounts" asp-action="Index" class="btn btn--primary">Login</a>
+                }
                 <label for="nav-mobile__button">
                     <img class="nav-mobile__icon"
                          src="~/icons/menu-mobile.svg"
@@ -102,9 +112,13 @@
                 <ul>
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-controller="Cakes" asp-action="Index">Cakes</a></li>
+                    <li><a asp-controller="Account" asp-action="Index">Sign in</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Account" asp-action="Details" asp-route-id="@Model.Id">Profile</a></li>
+                        <li><a asp-controller="Carts" asp-action="Index" asp-route-id="@Model.Id">Cart</a></li>
+                    }
                     <li><a asp-controller="About" asp-action="Index">About</a></li>
-                    <li><a asp-controller="Account" asp-action="Details">Profile</a></li>
-                    <li><a asp-controller="Carts" asp-action="Index">Cart</a></li>
                     <li><a asp-controller="Account" asp-action="Logout">Sign out</a></li>
                 </ul>
             </nav>
