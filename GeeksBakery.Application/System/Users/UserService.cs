@@ -75,14 +75,19 @@ namespace GeeksBakery.Application.System.Users
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Role, string.Join(";", roles))
+                new Claim("AvatarUrl", $"{GeeksBakery.Utilities.SystemConstants.SystemConstants.AppSettings.ImageUrl}/${user.Avatar}"),
+                new Claim(ClaimTypes.Role, string.Join(";", roles)),
+                new Claim("Id", user.Id.ToString())
             };
+
+            string issuer = _configuration.GetValue<string>("Tokens:Issuer");
+            string signingKey = _configuration.GetValue<string>("Tokens:Key");
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(_configuration["Tokens: Issuer"],
-                _configuration["Tokens:Issuer"],
+            var token = new JwtSecurityToken(issuer,
+                issuer,
                 claims,
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds);

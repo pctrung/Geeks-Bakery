@@ -31,7 +31,7 @@ namespace GeeksBakery.BackendApi.Controllers
         {
             try
             {
-                var data = await _cakeService.GetAllPagingAsync(request); 
+                var data = await _cakeService.GetAllPagingAsync(request);
                 return Ok(JsonConvert.SerializeObject(data));
             }
             catch (Exception e)
@@ -50,6 +50,21 @@ namespace GeeksBakery.BackendApi.Controllers
                 {
                     return NotFound($"Cannot find a cake with Id: {cakeId}");
                 }
+                return Ok(JsonConvert.SerializeObject(data));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("bestSeller/{take}")]
+        public async Task<IActionResult> GetBestSellerCakes(int take)
+        {
+            try
+            {
+                var data = await _cakeService.GetBestSellerCakesAsync(take);
+
                 return Ok(JsonConvert.SerializeObject(data));
             }
             catch (Exception e)

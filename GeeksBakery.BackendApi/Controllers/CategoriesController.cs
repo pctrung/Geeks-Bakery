@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace GeeksBakery.BackendApi.Controllers
 {
     [Route("api/[controller]")]
-    //    [Authorize]
     public class CategoriesController : ControllerBase
     {
         public readonly ICategoryService _categoryService;

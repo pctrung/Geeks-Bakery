@@ -165,5 +165,34 @@ namespace GeeksBakery.Application.Services
 
             return pagedResult;
         }
+
+        public async Task<List<CakeViewModel>> GetBestSellerCakesAsync(int take)
+        {
+            var query = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).Select(cake => new CakeViewModel()
+            {
+                CategoryId = cake.Category.Id,
+                CategoryName = cake.Category.Name,
+                Id = cake.Id,
+                Name = cake.Name,
+                Description = cake.Description,
+                Price = cake.Price,
+                OriginalPrice = cake.OriginalPrice,
+                SEOAlias = cake.Slug,
+                Size = cake.Size,
+                Stock = cake.Stock,
+                CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
+                Reviews = cake.Reviews.Select(review => _mapper.Map<ReviewViewModel>(review)).ToList()
+            });
+
+            //var query2 = _context.Cakes.Join(_context.Reviews, cake => cake.Id, review => review.CakeId, new { Cake = cake, })
+            return new List<CakeViewModel>();
+            //return result;
+        }
+
+        private class StarResult
+        {
+            public int StarAvg { get; set; }
+            public int cakeId { get; set; }
+        }
     }
 }

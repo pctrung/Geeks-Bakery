@@ -32,7 +32,7 @@ namespace GeeksBakery.BackendApi.Controllers
             {
                 return BadRequest("Username or password is incorrect");
             }
-            return Ok(new { token = resultToken });
+            return Ok(resultToken);
         }
 
         [HttpPost("register")]
@@ -54,6 +54,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         //PUT: http://localhost/api/users/id
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> Update([FromForm] UserUpdateRequest request)
         {
@@ -70,6 +71,7 @@ namespace GeeksBakery.BackendApi.Controllers
             return Ok(result);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}/roles")]
         public async Task<IActionResult> RoleAssign(Guid id, RoleAssignRequest request)
         {
@@ -88,6 +90,7 @@ namespace GeeksBakery.BackendApi.Controllers
 
         //http://localhost/api/users?pageIndex=1&pageSize=10&keyword=
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
         {
             var products = await _userService.GetUsersPagingAsync(request);
@@ -95,6 +98,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(Guid id)
         {
             var user = await _userService.GetByIdAsync(id);
@@ -102,6 +106,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _userService.DeleteAsync(id);

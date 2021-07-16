@@ -114,8 +114,8 @@ namespace GeeksBakery.BackendApi
                     ValidAudience = issuer,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ClockSkew = System.TimeSpan.Zero,
-                    IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+                    IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes),
+                    ClockSkew = System.TimeSpan.Zero
                 };
             });
         }
