@@ -214,14 +214,14 @@ namespace GeeksBakery.Data.Extensions
                 );
 
             modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Chocolate" },
-                new Category { Id = 2, Name = "Fruits" },
-                new Category { Id = 3, Name = "Exotic" },
-                new Category { Id = 4, Name = "Backforest" },
-                new Category { Id = 5, Name = "Butterscotch" },
-                new Category { Id = 6, Name = "Vanilla" },
-                new Category { Id = 7, Name = "Coffee" },
-                new Category { Id = 8, Name = "Strawberry" }
+                new Category { Id = 1, Name = "Chocolate", Description = "For Choco Addicts" },
+                new Category { Id = 2, Name = "Fruits", Description = "A taste of tropics" },
+                new Category { Id = 3, Name = "Exotic", Description = "Oreo, Rochers & more" },
+                new Category { Id = 4, Name = "Blackforest", Description = "The all time Favourite" },
+                new Category { Id = 5, Name = "Butterscotch", Description = "For Candy Fans" },
+                new Category { Id = 6, Name = "Vanilla", Description = "The Evergreen" },
+                new Category { Id = 7, Name = "Coffee", Description = "For Expresso Lover" },
+                new Category { Id = 8, Name = "Strawberry", Description = "An ideal Complement" }
                 );
             modelBuilder.Entity<Review>().HasData(
                 new Review() { Id = 1, CakeId = 1, UserId = new Guid("BFF91064-DC92-421E-A233-D1080F630928"), Comment = "Bánh ngon", Star = 5, DateCreated = DateTime.Now },

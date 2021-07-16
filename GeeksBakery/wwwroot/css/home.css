@@ -83,7 +83,7 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 999;
+  z-index: 5;
 }
 .best-seller__next-arrow {
   position: absolute;
@@ -92,7 +92,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 999;
+  z-index: 5;
 }
 .best-seller__item {
   width: 100%;
@@ -167,7 +167,7 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   font-family: var(--font-poppins);
@@ -207,6 +207,32 @@
   text-align: center;
   text-decoration-line: line-through;
 }
+
+/* For cakes page */
+.cakes__category {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+.cakes__category li {
+  margin-bottom: 20px;
+}
+.cakes__category a {
+  margin: 0 25px;
+  font-weight: 500;
+  color: var(--color-title);
+  transition: all 0.2s ease;
+}
+.cakes__category a:hover {
+  transition: all 0.2s ease;
+  color: var(--color-primary);
+}
+.cakes__category a:active {
+  transition: all 0.2s ease;
+  color: var(--color-active);
+}
+
 @media only screen and (max-width: 768px) {
   .banner {
     margin-top: 20px;

@@ -2,9 +2,16 @@
 
 namespace GeeksBakery.ViewModels.Common
 {
-    public class PagedResult<T>
+    public class PagedResult<T> : PagedResultBase
     {
         public List<T> Items { get; set; }
-        public int TotalRecord { get; set; }
+#nullable enable
+
+        // for paged cakes
+        public List<string>? CategoryNames { get; set; }
+
+        public List<int>? CategoryIds { get; set; }
+
+#nullable disable
     }
 }

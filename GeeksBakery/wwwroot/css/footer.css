@@ -15,18 +15,18 @@
 .footer__list {
   margin-left: 100px;
 }
-.footer__list > h6 {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 2.2rem;
-  line-height: 3.3rem;
-  margin-bottom: 5px;
-  color: var(--color-title);
+.footer__list__title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2.2rem;
+    line-height: 3.3rem;
+    margin-bottom: 5px;
+    color: var(--color-title);
 }
 .footer__list li {
   font-style: normal;
   font-weight: normal;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   line-height: 3rem;
   margin: 2px 0;
   color: var(--color-content);
@@ -58,6 +58,7 @@
   line-height: 2.6rem;
   color: var(--color-content);
 }
+
 @media only screen and (max-width: 768px) {
   .footer {
     margin-top: 10px;

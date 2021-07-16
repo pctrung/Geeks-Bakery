@@ -13,6 +13,12 @@ $(document).ready(function () {
     }
 
     function showSlide(nextSlideIndex) {
+      if (currentSlideIndex == numOfItem && nextSlideIndex > numOfItem) {
+        nextSlideIndex = 1;
+      }
+      if (currentSlideIndex == 1 && nextSlideIndex <= 1) {
+        nextSlideIndex = numOfItem;
+      }
       if (
         nextSlideIndex > 0 &&
         nextSlideIndex <= numOfItem &&

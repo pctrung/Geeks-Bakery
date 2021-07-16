@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace GeeksBakery.BackendApi.Controllers
 {
     [Route("api/[controller]")]
-    //    [Authorize]
     public class CategoriesController : ControllerBase
     {
         public readonly ICategoryService _categoryService;
@@ -49,7 +48,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CategoryCreateRequest request)
+        public async Task<IActionResult> Create(CategoryCreateRequest request)
         {
             try
             {
@@ -78,7 +77,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] CategoryUpdateRequest request)
+        public async Task<IActionResult> Update(CategoryUpdateRequest request)
         {
             try
             {

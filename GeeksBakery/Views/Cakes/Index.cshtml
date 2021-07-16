@@ -1,0 +1,97 @@
+﻿@model CakesViewModel
+@{
+    ViewData["Title"] = "Cakes";
+}
+
+@section Styles {
+<link rel="stylesheet" href="~/css/home.css">
+}
+
+<div class="separate"></div>
+<!-- wrapper sweeties -->
+<div class="wrapper  ">
+    <section class="container sweeties">
+        <h3 class="title">Cakes</h3>
+        @if (Model.Categories != null)
+        {
+            <ul class="cakes__category">
+                @foreach (var category in Model.Categories)
+                {
+                    <li>
+                        <a asp-controller="Cakes" asp-action="Index" asp-route-categoryids="@category.Id">@category.Name</a>
+                    </li>
+                }
+            </ul>
+        }
+
+        @if (Model.Cakes != null)
+        {
+            @if (!String.IsNullOrEmpty(Model.Cakes?.Keyword))
+            {
+                <div style="align-self: flex-start; margin-bottom:20px; text-align:left;">
+                    Search results for:
+                    <b>@Model.Cakes.Keyword</b>
+                </div>
+            }
+            @if (Model.Cakes.CategoryNames.Any(x => x.Contains("")))
+            {
+                <div style="align-self: flex-start; margin-bottom: 20px;">
+                    Category:
+                    @for (var i = 0; i < Model.Cakes.CategoryNames.Count; i++)
+                    {
+                        <b>@(Model.Cakes.CategoryNames[i])</b>
+                        @if (i < Model.Cakes.CategoryNames.Count - 1)
+                        {
+                            <span>, </span>
+                        }
+                    }
+                </div>
+            }
+
+            <div class="sweeties__items">
+                @if (Model != null && Model.Cakes.Items == null)
+                {
+                    <p>Not found any cakes</p>
+                }
+                else
+                {
+                    @foreach (var cake in Model.Cakes.Items)
+                    {
+                        <div class="sweeties__item">
+                            <img src="@cake.CakeImages.First().FileUrl" alt="@cake.CakeImages.First().Caption"
+                    class="sweeties__item__img" />
+                            <div class="sweeties__item__name line-clamp-2">
+                                <a asp-controller="Cakes" asp-action="Details" asp-route-id="@cake.Id">@cake.Name</a>
+                            </div>
+                            <div class="sweeties__item__prices">
+                                <div class="sweeties__item__price">@cake.Price.ToVND()</div>
+                                @if (cake.Price < cake.OriginalPrice)
+                                {
+                                    <div class="sweeties__item__original-price">@cake.OriginalPrice.ToVND()</div>
+                                }
+                            </div>
+                            <button class="btn btn--secondary">Add to cart +</button>
+                        </div>
+                    }
+                }
+            </div>
+
+            <!-- Page number -->
+
+            PageNumberModel pageModel = new PageNumberModel
+            {
+                Page = Model.Cakes.Page,
+                PageCount = Model.Cakes.PageCount,
+                Action = "Index",
+                Controller = "Cakes",
+                Keyword = Model.Cakes.Keyword
+            };
+            <partial name="_PageNumber" model="@pageModel" />
+        }
+        else
+        {
+            <p>Not found any cakes</p>
+        }
+    </section>
+</div>
+<!-- end wrapper sweeties -->

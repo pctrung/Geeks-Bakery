@@ -1,15 +1,15 @@
 $(document).ready(function () {
-  screenLoaded(2000);
+  var image = document.querySelector("img");
+  var isLoaded = image.complete && image.naturalHeight !== 0;
+  if (isLoaded) {
+    screenLoaded();
+  }
 });
 
-// function loadingScreen(){
-//   var loadingScreen = document.createElement("div").id("loading-screen");
-//   document.body.appendChild(loadingScreen);
-// }
-
-function screenLoaded(timeOut) {
+function screenLoaded() {
   var loadingScreen = $("#loading-screen");
   loadingScreen.addClass("animation-loaded");
-  setTimeout(() => loadingScreen.remove(), timeOut);
+
   document.body.classList += " fade-in";
+  loadingScreen.remove();
 }

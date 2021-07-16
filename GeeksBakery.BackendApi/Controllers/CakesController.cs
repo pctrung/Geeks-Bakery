@@ -58,8 +58,23 @@ namespace GeeksBakery.BackendApi.Controllers
             }
         }
 
+        [HttpGet("bestSeller/{take?}")]
+        public async Task<IActionResult> GetBestSellerCakes(int take = 5)
+        {
+            try
+            {
+                var data = await _cakeService.GetBestSellerCakesAsync(take);
+
+                return Ok(JsonConvert.SerializeObject(data));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CakeCreateRequest request)
+        public async Task<IActionResult> Create(CakeCreateRequest request)
         {
             try
             {
@@ -89,7 +104,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] CakeUpdateRequest request)
+        public async Task<IActionResult> Update(CakeUpdateRequest request)
         {
             try
             {
@@ -168,7 +183,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost("{cakeId}/reviews")]
-        public async Task<IActionResult> CreateReview([FromForm] ReviewCreateRequest request, int cakeId)
+        public async Task<IActionResult> CreateReview([FromBody] ReviewCreateRequest request, [FromRoute] int cakeId)
         {
             try
             {

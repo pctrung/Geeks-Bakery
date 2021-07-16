@@ -9,6 +9,7 @@ using GeeksBakery.ViewModels.Common;
 using GeeksBakery.ViewModels.Requests.Cake;
 using GeeksBakery.ViewModels.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,17 @@ namespace GeeksBakery.Application.Services
         private readonly GeeksBakeryDbContext _context;
         private readonly IMapper _mapper;
         private readonly ICakeImageService _cakeImageService;
+        private readonly IConfiguration _configuration;
 
-        public CakeService(GeeksBakeryDbContext context, ICakeImageService cakeImageService, IMapper mapper)
+        private const int DEFAULT_LIMIT = 999;
+        private const int DEFAULT_PAGE_INDEX = 1;
+
+        public CakeService(GeeksBakeryDbContext context, ICakeImageService cakeImageService, IMapper mapper, IConfiguration configuration)
         {
             _mapper = mapper;
             _context = context;
             _cakeImageService = cakeImageService;
+            _configuration = configuration;
         }
 
         public async Task<int> CreateAsync(CakeCreateRequest request)
@@ -107,13 +113,26 @@ namespace GeeksBakery.Application.Services
                     Reviews = _mapper.Map<List<ReviewViewModel>>(cake.Reviews)
                 }).FirstOrDefaultAsync();
 
+            if (result != null && result.Reviews != null)
+            {
+                for (var i = 0; i < result.Reviews.Count; i++)
+                {
+                    result.Reviews[i].UserAvatar = _configuration.GetValue<string>("Url:ImagesUrl") + "/" + result.Reviews[i].UserAvatar;
+                }
+            }
+
+            if (result != null && result.Reviews != null && result.Reviews.Count > 0)
+            {
+                result.AvgStar = result.Reviews.Average(x => x.Star);
+            }
+
             return result;
         }
 
         public async Task<PagedResult<CakeViewModel>> GetAllPagingAsync(GetCakePagingRequest request)
         {
             //get all
-            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).ThenInclude(review => review.User).Select(cake => new CakeViewModel()
+            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).Select(cake => new CakeViewModel()
             {
                 CategoryId = cake.Category.Id,
                 CategoryName = cake.Category.Name,
@@ -141,23 +160,81 @@ namespace GeeksBakery.Application.Services
 
             int totalRow = await result.CountAsync();
 
-            if (request.PageSize > 0)
+            // set limit, page index default = 999
+            request.Limit = request.Limit > 0 ? request.Limit : DEFAULT_LIMIT;
+
+            request.Page = request.Page > 0 ? request.Page : 1;
+
+            // extention method paged
+            result = result.Paged(request.Page, request.Limit);
+
+            var data = result.ToList();
+
+            // select category name from request category
+
+            List<string> categoryNames = new List<string>();
+
+            if (request.CategoryIds != null)
             {
-                request.PageIndex = request.PageIndex > 0 ? request.PageIndex : 1;
-
-                //result = result.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
-                result = result.Paged(request.PageIndex, request.PageSize);
+                foreach (var id in request.CategoryIds)
+                {
+                    var category = _context.Categories.First(x => x.Id == id);
+                    categoryNames.Add(category.Name);
+                }
             }
-
-            var data = await result.ToListAsync();
 
             var pagedResult = new PagedResult<CakeViewModel>()
             {
-                TotalRecord = totalRow,
-                Items = data
+                TotalRecords = totalRow,
+                Items = data,
+                Keyword = request.Keyword,
+                Page = request.Page,
+                Limit = request.Limit,
+                CategoryNames = categoryNames,
+                CategoryIds = request.CategoryIds
             };
 
             return pagedResult;
+        }
+
+        public async Task<List<CakeViewModel>> GetBestSellerCakesAsync(int take)
+        {
+            var query = from cake in _context.Cakes
+                        join review in _context.Reviews on cake.Id equals review.CakeId
+                        group new { cake, review } by new { cake.Id, cake.Name, cake.OriginalPrice, cake.Price } into g
+                        select new
+                        {
+                            g.Key.Id,
+                            g.Key.Name,
+                            g.Key.Price,
+                            g.Key.OriginalPrice,
+                            avgStart = g.Average(x => x.review.Star)
+                        };
+
+            var data = query.OrderByDescending(x => x.avgStart).Take(take).ToList();
+
+            var result = new List<CakeViewModel>();
+            foreach (var cake in data)
+            {
+                var temp = new CakeViewModel()
+                {
+                    Id = cake.Id,
+                    Name = cake.Name,
+                    CakeImages = await _cakeImageService.GetByCakeIdAsync(cake.Id),
+                    Price = cake.Price,
+                    OriginalPrice = cake.OriginalPrice,
+                    AvgStar = cake.avgStart
+                };
+                result.Add(temp);
+            }
+
+            return result;
+        }
+
+        private class StarResult
+        {
+            public int StarAvg { get; set; }
+            public int cakeId { get; set; }
         }
     }
 }

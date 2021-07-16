@@ -2,6 +2,8 @@
 using GeeksBakery.ViewModels.Requests.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GeeksBakery.BackendApi.Controllers
@@ -19,7 +21,7 @@ namespace GeeksBakery.BackendApi.Controllers
 
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromForm] LoginRequest request)
+        public async Task<IActionResult> Authenticate(LoginRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -31,12 +33,12 @@ namespace GeeksBakery.BackendApi.Controllers
             {
                 return BadRequest("Username or password is incorrect");
             }
-            return Ok(new { token = resultToken });
+            return Ok(resultToken);
         }
 
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromForm] RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -47,9 +49,69 @@ namespace GeeksBakery.BackendApi.Controllers
 
             if (!result.Succeeded)
             {
-                return BadRequest(result.Errors);
+                return BadRequest(result.Errors.ToList()[0].Description);
             }
-            return Ok();
+            return Ok(result);
+        }
+
+        //PUT: http://localhost/api/users/id
+        [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> Update([FromForm] UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _userService.UpdateAsync(request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPut("{id}/roles")]
+        public async Task<IActionResult> RoleAssign(Guid id, RoleAssignRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _userService.RoleAssignAsync(id, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        //http://localhost/api/users?pageIndex=1&pageSize=10&keyword=
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
+        {
+            var products = await _userService.GetUsersPagingAsync(request);
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            var user = await _userService.GetByIdAsync(id);
+            return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _userService.DeleteAsync(id);
+            return Ok(result);
         }
     }
 }

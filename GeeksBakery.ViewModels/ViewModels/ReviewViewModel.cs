@@ -10,7 +10,6 @@ namespace GeeksBakery.ViewModels.ViewModels
     public class ReviewViewModel
     {
         public int Id { get; set; }
-        public Guid UserId { get; set; }
         public string Username { get; set; }
         public string UserAvatar { get; set; }
         public int CakeId { get; set; }

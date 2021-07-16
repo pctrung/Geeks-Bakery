@@ -1,0 +1,128 @@
+﻿@model UserViewModel
+<!-- wrapper header -->
+<div class="wrapper">
+    <div class="container">
+        <header class="header">
+            <a asp-controller="Home" asp-action="Index" class="header__logo">
+                <img src="~/img/logo.png" alt="Geek's Bakery Logo" />
+            </a>
+            <nav class="header__menu noselect">
+                <a class="header__menu__item" asp-controller="Home" asp-action="Index">Home</a>
+                <a class="header__menu__item" asp-controller="Cakes" asp-action="Index">Cakes</a>
+                <a class="header__menu__item" asp-controller="About" asp-action="Index">About</a>
+            </nav>
+            <form asp-controller="Cakes" asp-action="Index" method="get" class="header__search">
+                <button class="header__search__button noselect">
+                    <img src="~/icons/search.png" alt="search icon" />
+                </button>
+                <input placeholder="Search..."
+                       type="text"
+                       name="keyword"
+                       id="search" />
+            </form>
+            <div class="header__info">
+                <div class="header__cart noselect">
+                    <img src="~/icons/cart.svg" alt="cart icon" />
+                    <span class="header__cart__amount">2</span>
+                </div>
+                @if (@Model != null)
+                {
+                    <div class="header__user noselect">
+                        <div class="header__user__avatar">
+
+                            <img src="@Model.AvatarUrl" alt="@Model.Name" />
+
+                            <div class="header__user__dropdown">
+                                <ul>
+                                    <li><a asp-controller="Accounts" asp-action="Details" asp-route-id="@Model.Id">Profile</a></li>
+                                    <li><a asp-controller="Carts" asp-action="Index" asp-route-id="@Model.Id">Cart</a></li>
+                                    <li><a asp-controller="Accounts" asp-action="Logout">Sign out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <a asp-controller="Accounts" asp-action="Index" class="btn btn--primary">Login</a>
+                }
+                <label for="nav-mobile__button">
+                    <img class="nav-mobile__icon"
+                         src="~/icons/menu-mobile.svg"
+                         alt="menu bar" />
+                </label>
+            </div>
+        </header>
+        <input hidden
+               type="checkbox"
+               name="nav"
+               class="nav-mobile__button"
+               id="nav-mobile__button" />
+        <nav class="nav-mobile noselect">
+            <label for="nav-mobile__button" class="nav-mobile__close">
+                <svg version="1.1"
+                     id="Capa_1"
+                     xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     x="0px"
+                     y="0px"
+                     width="92.132px"
+                     height="92.132px"
+                     viewBox="0 0 92.132 92.132"
+                     style="enable-background: new 0 0 92 92"
+                     xml:space="preserve">
+                <g>
+                <g>
+                <path fill="#f3455a"
+                      d="M2.141,89.13c1.425,1.429,3.299,2.142,5.167,2.142c1.869,0,3.742-0.713,5.167-2.142l33.591-33.592L79.657,89.13
+    c1.426,1.429,3.299,2.142,5.167,2.142c1.867,0,3.74-0.713,5.167-2.142c2.854-2.854,2.854-7.48,0-10.334L56.398,45.205
+    l31.869-31.869c2.855-2.853,2.855-7.481,0-10.334c-2.853-2.855-7.479-2.855-10.334,0L46.065,34.87L14.198,3.001
+    c-2.854-2.855-7.481-2.855-10.333,0c-2.855,2.853-2.855,7.481,0,10.334l31.868,31.869L2.143,78.795
+    C-0.714,81.648-0.714,86.274,2.141,89.13z" />
+                </g>
+              </g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+                <g></g>
+            </svg>
+            </label>
+
+            <form asp-controller="Cakes" asp-action="Index" method="get" class="nav-mobile__items__search">
+                <button class="nav-mobile__items__search__button noselect">
+                    <img src="~/icons/search.png" alt="search icon" />
+                </button>
+                <input placeholder="Search..."
+                       type="text"
+                       name="keyword"
+                       id="search-mobile" />
+            </form>
+            <nav class="nav-mobile__items">
+                <ul>
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-controller="Cakes" asp-action="Index">Cakes</a></li>
+                    <li><a asp-controller="Account" asp-action="Index">Sign in</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Account" asp-action="Details" asp-route-id="@Model.Id">Profile</a></li>
+                        <li><a asp-controller="Carts" asp-action="Index" asp-route-id="@Model.Id">Cart</a></li>
+                    }
+                    <li><a asp-controller="About" asp-action="Index">About</a></li>
+                    <li><a asp-controller="Account" asp-action="Logout">Sign out</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </div>
+</div>
+<!-- end wrapper header-->

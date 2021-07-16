@@ -26,6 +26,7 @@ namespace GeeksBakery.Application.Services
 
         public async Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
         {
+            fileName = fileName != null ? fileName : string.Empty;
             if (!Directory.Exists(_userContentFolder))
             {
                 var createdPath = Directory.CreateDirectory(_userContentFolder);

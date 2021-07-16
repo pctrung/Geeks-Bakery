@@ -1,9 +1,10 @@
 using GeeksBakery.Application.Interfaces;
 using GeeksBakery.Application.Services;
+using GeeksBakery.Application.System.Roles;
 using GeeksBakery.Application.System.Users;
 using GeeksBakery.Data.EF;
 using GeeksBakery.Data.Entities;
-using GeeksBakery.Utilities.Constants;
+using GeeksBakery.Utilities.SystemConstants;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +32,7 @@ namespace GeeksBakery.BackendApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<GeeksBakeryDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString(SystemConstant.MAIN_CONNECTION_STRING)));
+                options => options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MAIN_CONNECTION_STRING)));
             services.AddControllers();
 
             // automapper
@@ -83,6 +84,7 @@ namespace GeeksBakery.BackendApi
             services.AddTransient<IStorageService, StorageService>();
             services.AddTransient<ICakeImageService, CakeImageService>();
             services.AddTransient<IReviewService, ReviewService>();
+            services.AddTransient<IRoleService, RoleService>();
 
             // DI for identity
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
@@ -112,8 +114,8 @@ namespace GeeksBakery.BackendApi
                     ValidAudience = issuer,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ClockSkew = System.TimeSpan.Zero,
-                    IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+                    IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes),
+                    ClockSkew = System.TimeSpan.Zero
                 };
             });
         }
