@@ -9,6 +9,7 @@ using GeeksBakery.ViewModels.Common;
 using GeeksBakery.ViewModels.Requests.Cake;
 using GeeksBakery.ViewModels.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,17 @@ namespace GeeksBakery.Application.Services
         private readonly GeeksBakeryDbContext _context;
         private readonly IMapper _mapper;
         private readonly ICakeImageService _cakeImageService;
+        private readonly IConfiguration _configuration;
 
         private const int DEFAULT_LIMIT = 999;
         private const int DEFAULT_PAGE_INDEX = 1;
 
-        public CakeService(GeeksBakeryDbContext context, ICakeImageService cakeImageService, IMapper mapper)
+        public CakeService(GeeksBakeryDbContext context, ICakeImageService cakeImageService, IMapper mapper, IConfiguration configuration)
         {
             _mapper = mapper;
             _context = context;
             _cakeImageService = cakeImageService;
+            _configuration = configuration;
         }
 
         public async Task<int> CreateAsync(CakeCreateRequest request)
@@ -109,6 +112,14 @@ namespace GeeksBakery.Application.Services
                     CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
                     Reviews = _mapper.Map<List<ReviewViewModel>>(cake.Reviews)
                 }).FirstOrDefaultAsync();
+
+            if (result != null && result.Reviews != null)
+            {
+                for (var i = 0; i < result.Reviews.Count; i++)
+                {
+                    result.Reviews[i].UserAvatar = _configuration.GetValue<string>("Url:ImagesUrl") + "/" + result.Reviews[i].UserAvatar;
+                }
+            }
 
             if (result != null && result.Reviews != null && result.Reviews.Count > 0)
             {

@@ -1,15 +1,208 @@
-﻿@Model CakeViewModel
+﻿@model CakeViewModel
 @{
     ViewData["Title"] = "Detail";
+}
+@section Styles{
+<link rel="stylesheet" href="~/css/details.css">
 }
 
 @if (Model == null)
 {
-
     <h1>Not found cakes</h1>
-
 }
 else
 {
+    <div class="separate"></div>
 
+    <!-- wrapper detail seller -->
+    <div class="container">
+        <h3 class="details__title">
+            <a asp-controller="Cakes" asp-action="Index">Cakes</a>>
+            <a asp-controller="Cakes" asp-action="Index" asp-route-categoryids="@Model.CategoryId">@Model.CategoryName</a>
+        </h3>
+    </div>
+    <section class="container-fluid details-background">
+        <div class="wrapper">
+            <section class="container details noselect">
+                <div class="details__item">
+                    <div class="details__item-images">
+                        <img class="details__item-image" src="@Model.CakeImages.First().FileUrl"
+                        alt="@Model.CakeImages.First().Caption" />
+                        <div class="details__items-small-images">
+                            @foreach (var image in Model.CakeImages)
+                            {
+                                <img class="details__item-image" src="@image.FileUrl" alt="@image.Caption" />
+                            }
+                        </div>
+                    </div>
+                    <div class="details__item-info">
+                        <div>
+                            <h6 class="details__item-info__name">
+                                @Model.Name
+                            </h6>
+                            <p class="details__item-info__category">Category: @Model.CategoryName</p>
+                            <p class="details__item-info__description line-clamp-5">
+                                @Model.Description
+                            </p>
+                        </div>
+                        <div>
+                            <div class="details__item-info__price">@Model.Price.ToVND()</div>
+                            <div class="details__item-info__original-price">@Model.OriginalPrice.ToVND()</div>
+                        </div>
+                        <button class="btn btn--primary">Add to cart +</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+    <!-- end wrapper detail seller-->
+
+    <section class="wrapper">
+        <h3 class="container details__title">Reviews</h3>
+        <div class="container reviews">
+            <div class="reviews__item reviews__stars">
+                <div class="reviews__stars-total">
+                    <div class="reviews__stars-total__title">@Math.Round(Model.AvgStar, 1)</div>
+                    <div class="stars-row">
+                        <img src="~/icons/star.svg" alt="star icon" />
+                        <img src="~/icons/star.svg" alt="star icon" />
+                        <img src="~/icons/star.svg" alt="star icon" />
+                        <img src="~/icons/star.svg" alt="star icon" />
+                        <img src="~/icons/star.svg" alt="star icon" />
+                    </div>
+                    <div class="reviews__stars-total__quantity">@Model.Reviews.Count @(Model.Reviews.Count>1? "reviews" :
+                    "review")</div>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form method="post" asp-controller="Reviews" asp-action="Add" asp-route-cakeId="@Model.Id"
+                asp-route-returnurl="/cakes/details/@Model.Id" class="reviews__stars__comment">
+                        <textarea required id="comment" name="comment" cols="30" rows="5" style="resize: none"
+                    placeholder="Write your comment..."></textarea>
+                        <div class="reviews__stars__comment__rating">
+                            <div class="stars-row">
+                                <input required hidden type="radio" name="star" value="1" id="star1" />
+                                <input required hidden type="radio" name="star" value="2" id="star2" />
+                                <input required hidden type="radio" name="star" value="3" id="star3" />
+                                <input required hidden type="radio" name="star" value="4" id="star4" />
+                                <input required hidden type="radio" name="star" value="5" id="star5" />
+                                <label for="star1"><img id="starImage1" src="~/icons/empty-star.svg" alt="star icon" /></label>
+                                <label for="star2"><img id="starImage2" src="~/icons/empty-star.svg" alt="star icon" /></label>
+                                <label for="star3"><img id="starImage3" src="~/icons/empty-star.svg" alt="star icon" /></label>
+                                <label for="star4"><img id="starImage4" src="~/icons/empty-star.svg" alt="star icon" /></label>
+                                <label for="star5"><img id="starImage5" src="~/icons/empty-star.svg" alt="star icon" /></label>
+                            </div>
+                            <div class="reviews__stars__comment__rating-stars">
+                                <button id="submitReview" class="btn btn--primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <p>
+                        Please
+                        <a style="text-align:center; font-weight:bold" asp-controller="Accounts" asp-action="Index">
+                            login
+                        </a>
+                        to review this cake!
+                    </p>
+                }
+            </div>
+            <div class="reviews__item reviews__comments">
+                @foreach (var review in Model.Reviews)
+                {
+                    <div class="reviews__comment">
+                        <div class="reviews__comment__avatar">
+                            <img src="@review.UserAvatar" alt="User Avatar" />
+                        </div>
+                        <div class="reviews__comment__content">
+                            <div class="reviews__comment__content__info">
+                                <div class="reviews__comment__content__info-name">
+                                    @review.Username
+                                </div>
+                                <div class="reviews__comment__content__info-star-time">
+                                    <div class="stars-row-small">
+                                        @for (var i = 1; i <= review.Star; i++)
+                                        {
+                                            <img src="~/icons/star.svg" alt="star icon" />
+                                        }
+                                        @for (var i = review.Star + 1; i <= 5; i++)
+                                        {
+                                            <img src="~/icons/empty-star.svg" alt="star icon" />
+                                        }
+                                    </div>
+                                    <div class="reviews__comment__content__info-time">
+                                        @review.DateCreated.ToString()
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reviews__comment__content__content">
+                                @review.Comment
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    @section Scripts{
+<script>
+    $(document).ready(function () {
+        $(stars[1]).on("click", () => { selectStar(1); });
+        $(stars[2]).on("click", () => { selectStar(2); });
+        $(stars[3]).on("click", () => { selectStar(3); });
+        $(stars[4]).on("click", () => { selectStar(4); });
+        $(stars[5]).on("click", () => { selectStar(5); });
+
+        $('#submitReview').prop('disabled', true);
+        $('#submitReview').addClass("btn--disabled");
+        $('#comment').keyup(function () {
+            checkSubmitState();
+        });
+    })
+
+    var stars = ["", "#star1", "#star2", "#star3", "#star4", "#star5"];
+    var starImages = ["", "#starImage1", "#starImage2", "#starImage3", "#starImage4", "#starImage5"];
+    var isChecked = false;
+    var isCommented = false;
+
+    function selectStar(index) {
+        isChecked = true;
+        if (index < 1) {
+            index = 1;
+        }
+        if (index > 5) {
+            index = 5;
+        }
+
+        for (var i = 1; i <= index; i++) {
+            $(starImages[i]).attr("src", "/icons/star.svg");
+        }
+        for (var i = index + 1; i <= 5; i++) {
+            $(starImages[i]).attr("src", "/icons/empty-star.svg");
+        }
+        checkSubmitState();
+    }
+
+    function checkSubmitState() {
+        if ($('#comment').val() === "") {
+            isCommented = false
+        } else {
+            isCommented = true;
+        }
+
+        if (isCommented == true && isChecked == true) {
+            $('#submitReview').prop('disabled', false);
+            $('#submitReview').removeClass("btn--disabled");
+        } else if (isCommented == false || isChecked == false) {
+            $('#submitReview').prop('disabled', true);
+            $('#submitReview').addClass("btn--disabled");
+        }
+    }
+
+
+</script>
+}
 }

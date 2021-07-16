@@ -10,7 +10,7 @@ namespace GeeksBakery.ViewModels.Requests.Review
     public class ReviewCreateRequest
     {
         [Required(ErrorMessage = "User Id is required.")]
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         [Required(ErrorMessage = "Cake Id is required.")]
         public int CakeId { get; set; }

@@ -46,6 +46,7 @@ namespace GeeksBakery.ClientSite
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICakeService, CakeService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IReviewService, ReviewService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
