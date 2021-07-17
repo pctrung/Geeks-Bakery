@@ -132,7 +132,7 @@ namespace GeeksBakery.Application.Services
         public async Task<PagedResult<CakeViewModel>> GetAllPagingAsync(GetCakePagingRequest request)
         {
             //get all
-            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).Select(cake => new CakeViewModel()
+            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Select(cake => new CakeViewModel()
             {
                 CategoryId = cake.Category.Id,
                 CategoryName = cake.Category.Name,
@@ -144,8 +144,7 @@ namespace GeeksBakery.Application.Services
                 SEOAlias = cake.Slug,
                 Size = cake.Size,
                 Stock = cake.Stock,
-                CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
-                Reviews = cake.Reviews.Select(review => _mapper.Map<ReviewViewModel>(review)).ToList()
+                CakeImages = cake.CakeImages == null ? null : _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages)
             });
 
             // filter

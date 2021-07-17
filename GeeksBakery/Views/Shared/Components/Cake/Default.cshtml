@@ -1,0 +1,18 @@
+﻿@model CakeViewModel
+
+<div class="sweeties__item">
+    <img src="@(Model.CakeImages.IsSafe() ? Model.CakeImages?.FirstOrDefault()?.FileUrl : SystemConstants.DEFAULT_CAKE_IMAGE_URL)"
+         alt="@(Model.CakeImages.IsSafe() ? Model.CakeImages?.FirstOrDefault()?.Caption : SystemConstants.DEFAULT_CAKE_IMAGE_CAPTION)"
+         class="sweeties__item__img" />
+    <div class="sweeties__item__name line-clamp-2">
+        <a asp-controller="Cakes" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+    </div>
+    <div class="sweeties__item__prices">
+        <div class="sweeties__item__price">@Model.Price.ToVND()</div>
+        @if (Model.Price < Model.OriginalPrice)
+        {
+            <div class="sweeties__item__original-price">@Model.OriginalPrice.ToVND()</div>
+        }
+    </div>
+    <button class="btn btn--secondary">Add to cart +</button>
+</div>

@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-<link rel="stylesheet" href="~/css/home.css">
+    <link rel="stylesheet" href="~/css/home.css">
 }
 
 <div class="separate"></div>
@@ -26,7 +26,7 @@
 
         @if (Model.Cakes != null)
         {
-            @if (!String.IsNullOrEmpty(Model.Cakes?.Keyword))
+            @if (!String.IsNullOrEmpty(Model.Cakes.Keyword))
             {
                 <div style="align-self: flex-start; margin-bottom:20px; text-align:left;">
                     Search results for:
@@ -49,30 +49,17 @@
             }
 
             <div class="sweeties__items">
-                @if (Model != null && Model.Cakes.Items == null)
-                {
-                    <p>Not found any cakes</p>
-                }
-                else
+                @if (Model.Cakes.Items.IsSafe())
                 {
                     @foreach (var cake in Model.Cakes.Items)
                     {
-                        <div class="sweeties__item">
-                            <img src="@cake.CakeImages.First().FileUrl" alt="@cake.CakeImages.First().Caption"
-                    class="sweeties__item__img" />
-                            <div class="sweeties__item__name line-clamp-2">
-                                <a asp-controller="Cakes" asp-action="Details" asp-route-id="@cake.Id">@cake.Name</a>
-                            </div>
-                            <div class="sweeties__item__prices">
-                                <div class="sweeties__item__price">@cake.Price.ToVND()</div>
-                                @if (cake.Price < cake.OriginalPrice)
-                                {
-                                    <div class="sweeties__item__original-price">@cake.OriginalPrice.ToVND()</div>
-                                }
-                            </div>
-                            <button class="btn btn--secondary">Add to cart +</button>
-                        </div>
+                        @await Component.InvokeAsync("Cake", cake);
                     }
+
+                }
+                else
+                {
+                    <p>Not found any cakes</p>
                 }
             </div>
 

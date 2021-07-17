@@ -9,6 +9,10 @@ namespace GeeksBakery.Utilities.SystemConstants
     public class SystemConstants
     {
         public const string MAIN_CONNECTION_STRING = "GeeksBakeryDb";
+        public const string DEFAULT_AVATAR_URL = "/user-content/default-avatar.png";
+        public const string DEFAULT_CAKE_IMAGE_URL = "/user-content/default-cake.png";
+        public const string DEFAULT_CAKE_IMAGE_CAPTION = "Cake Image";
+        public const string DEFAULT_AVATAR_CAPTION = "Avatar image";
 
         public class AppSettings
         {

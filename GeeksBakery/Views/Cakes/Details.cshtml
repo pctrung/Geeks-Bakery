@@ -3,7 +3,7 @@
     ViewData["Title"] = "Detail";
 }
 @section Styles{
-<link rel="stylesheet" href="~/css/details.css">
+    <link rel="stylesheet" href="~/css/details.css">
 }
 
 @if (Model == null)
@@ -26,8 +26,9 @@ else
             <section class="container details noselect">
                 <div class="details__item">
                     <div class="details__item-images">
-                        <img class="details__item-image" src="@Model.CakeImages.First().FileUrl"
-                        alt="@Model.CakeImages.First().Caption" />
+                        <img class="details__item-image"
+                             src="@(Model.CakeImages.IsSafe() ? Model.CakeImages.FirstOrDefault().FileUrl : SystemConstants.DEFAULT_CAKE_IMAGE_URL)"
+                             alt="@(Model.CakeImages.IsSafe() ? Model.CakeImages.FirstOrDefault().Caption : SystemConstants.DEFAULT_CAKE_IMAGE_CAPTION)" />
                         <div class="details__items-small-images">
                             @foreach (var image in Model.CakeImages)
                             {
@@ -70,15 +71,16 @@ else
                         <img src="~/icons/star.svg" alt="star icon" />
                         <img src="~/icons/star.svg" alt="star icon" />
                     </div>
-                    <div class="reviews__stars-total__quantity">@Model.Reviews.Count @(Model.Reviews.Count>1? "reviews" :
-                    "review")</div>
+                    <div class="reviews__stars-total__quantity">
+                        @Model.Reviews.Count @(Model.Reviews.Count>1? "reviews" : "review")
+                    </div>
                 </div>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <form method="post" asp-controller="Reviews" asp-action="Add" asp-route-cakeId="@Model.Id"
-                asp-route-returnurl="/cakes/details/@Model.Id" class="reviews__stars__comment">
+                          asp-route-returnurl="/cakes/details/@Model.Id" class="reviews__stars__comment">
                         <textarea required id="comment" name="comment" cols="30" rows="5" style="resize: none"
-                    placeholder="Write your comment..."></textarea>
+                                  placeholder="Write your comment..."></textarea>
                         <div class="reviews__stars__comment__rating">
                             <div class="stars-row">
                                 <input required hidden type="radio" name="star" value="1" id="star1" />
@@ -110,99 +112,104 @@ else
                 }
             </div>
             <div class="reviews__item reviews__comments">
-                @foreach (var review in Model.Reviews)
+                @if (Model.Reviews.IsSafe())
                 {
-                    <div class="reviews__comment">
-                        <div class="reviews__comment__avatar">
-                            <img src="@review.UserAvatar" alt="User Avatar" />
-                        </div>
-                        <div class="reviews__comment__content">
-                            <div class="reviews__comment__content__info">
-                                <div class="reviews__comment__content__info-name">
-                                    @review.Username
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <div class="reviews__comment">
+                            <div class="reviews__comment__avatar">
+                                <img src="@review.UserAvatar" alt="User Avatar" />
+                            </div>
+                            <div class="reviews__comment__content">
+                                <div class="reviews__comment__content__info">
+                                    <div class="reviews__comment__content__info-name">
+                                        @review.UserName
+                                    </div>
+                                    <div class="reviews__comment__content__info-star-time">
+                                        <div class="stars-row-small">
+                                            @for (var i = 1; i <= review.Star; i++)
+                                            {
+                                                <img src="~/icons/star.svg" alt="star icon" />
+                                            }
+                                            @for (var i = review.Star + 1; i <= 5; i++)
+                                            {
+                                                <img src="~/icons/empty-star.svg" alt="star icon" />
+                                            }
+                                        </div>
+                                        <div class="reviews__comment__content__info-time">
+                                            @review.DateCreated.ToString()
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="reviews__comment__content__info-star-time">
-                                    <div class="stars-row-small">
-                                        @for (var i = 1; i <= review.Star; i++)
-                                        {
-                                            <img src="~/icons/star.svg" alt="star icon" />
-                                        }
-                                        @for (var i = review.Star + 1; i <= 5; i++)
-                                        {
-                                            <img src="~/icons/empty-star.svg" alt="star icon" />
-                                        }
-                                    </div>
-                                    <div class="reviews__comment__content__info-time">
-                                        @review.DateCreated.ToString()
-                                    </div>
+                                <div class="reviews__comment__content__content">
+                                    @review.Comment
                                 </div>
                             </div>
-                            <div class="reviews__comment__content__content">
-                                @review.Comment
-                            </div>
                         </div>
-                    </div>
+                    }
+                }
+                else
+                {
+                    <p style="text-align:center">There are no comments yet</p>
                 }
             </div>
         </div>
     </section>
 
     @section Scripts{
-<script>
-    $(document).ready(function () {
-        $(stars[1]).on("click", () => { selectStar(1); });
-        $(stars[2]).on("click", () => { selectStar(2); });
-        $(stars[3]).on("click", () => { selectStar(3); });
-        $(stars[4]).on("click", () => { selectStar(4); });
-        $(stars[5]).on("click", () => { selectStar(5); });
+        <script>
+            $(document).ready(function () {
+                $(stars[1]).on("click", () => { selectStar(1); });
+                $(stars[2]).on("click", () => { selectStar(2); });
+                $(stars[3]).on("click", () => { selectStar(3); });
+                $(stars[4]).on("click", () => { selectStar(4); });
+                $(stars[5]).on("click", () => { selectStar(5); });
 
-        $('#submitReview').prop('disabled', true);
-        $('#submitReview').addClass("btn--disabled");
-        $('#comment').keyup(function () {
-            checkSubmitState();
-        });
-    })
+                $('#submitReview').prop('disabled', true);
+                $('#submitReview').addClass("btn--disabled");
+                $('#comment').keyup(function () {
+                    checkSubmitState();
+                });
+            })
 
-    var stars = ["", "#star1", "#star2", "#star3", "#star4", "#star5"];
-    var starImages = ["", "#starImage1", "#starImage2", "#starImage3", "#starImage4", "#starImage5"];
-    var isChecked = false;
-    var isCommented = false;
+            var stars = ["", "#star1", "#star2", "#star3", "#star4", "#star5"];
+            var starImages = ["", "#starImage1", "#starImage2", "#starImage3", "#starImage4", "#starImage5"];
+            var isChecked = false;
+            var isCommented = false;
 
-    function selectStar(index) {
-        isChecked = true;
-        if (index < 1) {
-            index = 1;
-        }
-        if (index > 5) {
-            index = 5;
-        }
+            function selectStar(index) {
+                isChecked = true;
+                if (index < 1) {
+                    index = 1;
+                }
+                if (index > 5) {
+                    index = 5;
+                }
 
-        for (var i = 1; i <= index; i++) {
-            $(starImages[i]).attr("src", "/icons/star.svg");
-        }
-        for (var i = index + 1; i <= 5; i++) {
-            $(starImages[i]).attr("src", "/icons/empty-star.svg");
-        }
-        checkSubmitState();
+                for (var i = 1; i <= index; i++) {
+                    $(starImages[i]).attr("src", "/icons/star.svg");
+                }
+                for (var i = index + 1; i <= 5; i++) {
+                    $(starImages[i]).attr("src", "/icons/empty-star.svg");
+                }
+                checkSubmitState();
+            }
+
+            function checkSubmitState() {
+                if ($('#comment').val() === "") {
+                    isCommented = false
+                } else {
+                    isCommented = true;
+                }
+
+                if (isCommented == true && isChecked == true) {
+                    $('#submitReview').prop('disabled', false);
+                    $('#submitReview').removeClass("btn--disabled");
+                } else if (isCommented == false || isChecked == false) {
+                    $('#submitReview').prop('disabled', true);
+                    $('#submitReview').addClass("btn--disabled");
+                }
+            }
+        </script>
     }
-
-    function checkSubmitState() {
-        if ($('#comment').val() === "") {
-            isCommented = false
-        } else {
-            isCommented = true;
-        }
-
-        if (isCommented == true && isChecked == true) {
-            $('#submitReview').prop('disabled', false);
-            $('#submitReview').removeClass("btn--disabled");
-        } else if (isCommented == false || isChecked == false) {
-            $('#submitReview').prop('disabled', true);
-            $('#submitReview').addClass("btn--disabled");
-        }
-    }
-
-
-</script>
-}
 }

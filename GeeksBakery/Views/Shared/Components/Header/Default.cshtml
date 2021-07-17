@@ -30,7 +30,7 @@
                     <div class="header__user noselect">
                         <div class="header__user__avatar">
 
-                            <img src="@Model.AvatarUrl" alt="@Model.Name" />
+                            <img src="@(Model.AvatarUrl != null ? Model.AvatarUrl :SystemConstants.DEFAULT_AVATAR_URL)" alt="@Model.Name" />
 
                             <div class="header__user__dropdown">
                                 <ul>

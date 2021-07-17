@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GeeksBakery.Data\GeeksBakery.Data.csproj" />
+    <ProjectReference Include="..\GeeksBakery.Utilities\GeeksBakery.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
