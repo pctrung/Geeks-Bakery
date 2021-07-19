@@ -96,7 +96,11 @@ namespace GeeksBakery.Application.Services
         public async Task<CakeViewModel> GetByIdAsync(int cakeId)
         {
             //get all
-            var result = await _context.Cakes.Where(x => x.Id == cakeId).Include(x => x.Category).Include(x => x.CakeImages).Include(x => x.Reviews).ThenInclude(review => review.User).Select(
+            var result = await _context.Cakes.Where(x => x.Id == cakeId)
+                .Include(x => x.Category)
+                .Include(x => x.CakeImages)
+                .Include(x => x.Reviews)
+                .ThenInclude(review => review.User).Select(
                 cake => new CakeViewModel()
                 {
                     CategoryId = cake.Category.Id,
@@ -111,7 +115,7 @@ namespace GeeksBakery.Application.Services
                     Stock = cake.Stock,
                     CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
                     Reviews = _mapper.Map<List<ReviewViewModel>>(cake.Reviews)
-                }).FirstOrDefaultAsync();
+                }).AsSplitQuery().OrderBy(x=>x.Id).FirstOrDefaultAsync();
 
             if (result != null && result.Reviews != null)
             {
@@ -132,7 +136,9 @@ namespace GeeksBakery.Application.Services
         public async Task<PagedResult<CakeViewModel>> GetAllPagingAsync(GetCakePagingRequest request)
         {
             //get all
-            var result = _context.Cakes.Include(x => x.Category).Include(x => x.CakeImages).Select(cake => new CakeViewModel()
+            var result = _context.Cakes.Include(x => x.Category)
+                .Include(x => x.CakeImages)
+                .Select(cake => new CakeViewModel()
             {
                 CategoryId = cake.Category.Id,
                 CategoryName = cake.Category.Name,
@@ -145,7 +151,7 @@ namespace GeeksBakery.Application.Services
                 Size = cake.Size,
                 Stock = cake.Stock,
                 CakeImages = cake.CakeImages == null ? null : _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages)
-            });
+            }).AsSplitQuery();
 
             // filter
             if (!string.IsNullOrEmpty(request.Keyword))
@@ -165,7 +171,7 @@ namespace GeeksBakery.Application.Services
             request.Page = request.Page > 0 ? request.Page : 1;
 
             // extention method paged
-            result = result.Paged(request.Page, request.Limit);
+            result = result.OrderBy(x=>x.Id).Paged(request.Page, request.Limit);
 
             var data = result.ToList();
 

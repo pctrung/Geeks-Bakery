@@ -156,7 +156,7 @@ namespace GeeksBakery.Application.System.Users
             request.Page = request.Page > 0 ? request.Page : 1;
 
             // extention method paged
-            query = query.Paged(request.Page, request.Limit);
+            query = query.OrderBy(x=>x.Id).Paged(request.Page, request.Limit);
 
             var users = await query.ToListAsync();
 
