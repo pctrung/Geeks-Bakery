@@ -78,6 +78,7 @@ namespace GeeksBakery.Application.System.Users
                 new Claim(ClaimTypes.Role, string.Join(";", roles)),
                 new Claim("AvatarUrl", $"{GeeksBakery.Utilities.SystemConstants.SystemConstants.AppSettings.ImageUrl}/{user.Avatar}"),
                 new Claim("Id", user.Id.ToString()),
+                new Claim("Role", string.Join(";", roles)),
                 new Claim("UserName", user.UserName.ToString()),
                 new Claim("Name", user.Name != null ? user.Name.ToString() : ""),
                 new Claim("Address", user.Address != null ? user.Address.ToString(): ""),

@@ -172,7 +172,10 @@
   text-align: center;
   font-family: var(--font-poppins);
 }
-.sweeties__item img {
+.sweeties__item__img {
+  overflow: hidden;
+  width: 250px;
+  height: 188px;
   border-radius: 12px;
 }
 .sweeties__item:hover {

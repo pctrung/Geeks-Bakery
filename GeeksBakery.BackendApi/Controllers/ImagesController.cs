@@ -1,5 +1,6 @@
 ﻿using GeeksBakery.Application.Interfaces;
 using GeeksBakery.ViewModels.Requests.CakeImage;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -49,6 +50,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([FromForm] CakeImageCreateRequest request)
         {
             try
@@ -78,11 +80,11 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update([FromForm] CakeImageUpdateRequest request, [FromQuery] int cakeId = 0)
         {
             try
             {
-
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
@@ -108,6 +110,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpDelete("{imageId}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int imageId, [FromQuery] int cakeId = 0)
         {
             try

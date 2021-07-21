@@ -2,6 +2,7 @@
 using GeeksBakery.ViewModels.Requests.Cake;
 using GeeksBakery.ViewModels.Requests.CakeImage;
 using GeeksBakery.ViewModels.Requests.Review;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -74,7 +75,8 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CakeCreateRequest request)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Create([FromBody] CakeCreateRequest request)
         {
             try
             {
@@ -104,7 +106,8 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(CakeUpdateRequest request)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Update([FromBody] CakeUpdateRequest request)
         {
             try
             {
@@ -134,6 +137,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpDelete("{cakeId}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int cakeId)
         {
             try
@@ -183,6 +187,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost("{cakeId}/reviews")]
+        [Authorize]
         public async Task<IActionResult> CreateReview([FromBody] ReviewCreateRequest request, [FromRoute] int cakeId)
         {
             try
@@ -216,6 +221,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpDelete("{cakeId}/reviews/{reviewId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteReview(int reviewId, int cakeId)
         {
             try
@@ -270,6 +276,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost("{cakeId}/images")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateImage([FromForm] CakeImageCreateRequest request, int cakeId)
         {
             try
@@ -303,6 +310,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPut("{cakeId}/images")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateImage([FromForm] CakeImageUpdateRequest request, int cakeId = 0)
         {
             try
@@ -332,6 +340,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpDelete("{cakeId}/images/{imageId}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteImage(int imageId, int cakeId)
         {
             try

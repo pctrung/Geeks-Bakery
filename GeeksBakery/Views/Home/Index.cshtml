@@ -24,16 +24,17 @@
         else
         {
             <ul class="category__items  ">
-                @foreach (var category in Model.Categories)
-                {
+                @* @foreach (var category in Model.Categories) *@
+                @for (var i = 0; i < 8; i++)
+				{
                     <li>
                         <a class="category__item" asp-controller="Cakes" asp-action="Index"
-                           asp-route-categoryids="@category.Id">
+                           asp-route-categoryids="@Model.Categories[i].Id">
                             <img class="category__item-image"
-                                 src="~/img/categories/@string.Concat(category.Name.Trim().ToLower(), ".jfif")"
-                                 alt="@category.Name" />
-                            <h6 class="category__item-name">@category.Name</h6>
-                            <p class="category__item-description">@category.Description</p>
+                                 src="~/img/categories/@string.Concat(Model.Categories[i].Name.Trim().ToLower(), ".jfif")"
+                                 alt="@Model.Categories[i].Name" />
+                            <h6 class="category__item-name">@Model.Categories[i].Name</h6>
+                            <p class="category__item-description">@Model.Categories[i].Description</p>
                         </a>
                     </li>
                 }

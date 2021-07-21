@@ -1,5 +1,6 @@
 ﻿using GeeksBakery.Application.Interfaces;
 using GeeksBakery.ViewModels.Requests.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -48,7 +49,8 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CategoryCreateRequest request)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Create([FromBody] CategoryCreateRequest request)
         {
             try
             {
@@ -77,7 +79,8 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(CategoryUpdateRequest request)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Update([FromBody] CategoryUpdateRequest request)
         {
             try
             {
@@ -106,6 +109,7 @@ namespace GeeksBakery.BackendApi.Controllers
         }
 
         [HttpDelete("{categoryId}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int categoryId)
         {
             try

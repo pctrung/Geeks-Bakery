@@ -25,6 +25,10 @@ namespace GeeksBakery.Application.Services
 
         public async Task<int> CreateAsync(CategoryCreateRequest request)
         {
+            if (string.IsNullOrEmpty(request.Name))
+            {
+                return 0;
+            }
             var category = _mapper.Map<Category>(request);
 
             await _context.Categories.AddAsync(category);

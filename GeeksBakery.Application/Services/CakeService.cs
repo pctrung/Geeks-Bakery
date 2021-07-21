@@ -110,12 +110,12 @@ namespace GeeksBakery.Application.Services
                     Description = cake.Description,
                     Price = cake.Price,
                     OriginalPrice = cake.OriginalPrice,
-                    SEOAlias = cake.Slug,
+                    Slug = cake.Slug,
                     Size = cake.Size,
                     Stock = cake.Stock,
                     CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
                     Reviews = _mapper.Map<List<ReviewViewModel>>(cake.Reviews)
-                }).AsSplitQuery().OrderBy(x=>x.Id).FirstOrDefaultAsync();
+                }).AsSplitQuery().OrderBy(x => x.Id).FirstOrDefaultAsync();
 
             if (result != null && result.Reviews != null)
             {
@@ -139,19 +139,19 @@ namespace GeeksBakery.Application.Services
             var result = _context.Cakes.Include(x => x.Category)
                 .Include(x => x.CakeImages)
                 .Select(cake => new CakeViewModel()
-            {
-                CategoryId = cake.Category.Id,
-                CategoryName = cake.Category.Name,
-                Id = cake.Id,
-                Name = cake.Name,
-                Description = cake.Description,
-                Price = cake.Price,
-                OriginalPrice = cake.OriginalPrice,
-                SEOAlias = cake.Slug,
-                Size = cake.Size,
-                Stock = cake.Stock,
-                CakeImages = cake.CakeImages == null ? null : _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages)
-            }).AsSplitQuery();
+                {
+                    CategoryId = cake.Category.Id,
+                    CategoryName = cake.Category.Name,
+                    Id = cake.Id,
+                    Name = cake.Name,
+                    Description = cake.Description,
+                    Price = cake.Price,
+                    OriginalPrice = cake.OriginalPrice,
+                    Slug = cake.Slug,
+                    Size = cake.Size,
+                    Stock = cake.Stock,
+                    CakeImages = cake.CakeImages == null ? null : _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages)
+                }).AsSplitQuery();
 
             // filter
             if (!string.IsNullOrEmpty(request.Keyword))
@@ -171,7 +171,7 @@ namespace GeeksBakery.Application.Services
             request.Page = request.Page > 0 ? request.Page : 1;
 
             // extention method paged
-            result = result.OrderBy(x=>x.Id).Paged(request.Page, request.Limit);
+            result = result.OrderBy(x => x.Id).Paged(request.Page, request.Limit);
 
             var data = result.ToList();
 
