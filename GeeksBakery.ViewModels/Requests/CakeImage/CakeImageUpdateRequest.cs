@@ -8,6 +8,9 @@ namespace GeeksBakery.ViewModels.Requests.CakeImage
         [Required(ErrorMessage = "Cake image Id is required.")]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Cake Id is required.")]
+        public int CakeId { get; set; }
+
         public string Caption { get; set; }
         public bool IsDefault { get; set; }
         public int SortOrder { get; set; }

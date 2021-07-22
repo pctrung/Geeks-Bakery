@@ -81,7 +81,7 @@ namespace GeeksBakery.BackendApi.Controllers
 
         [HttpPut]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Update([FromForm] CakeImageUpdateRequest request, [FromQuery] int cakeId = 0)
+        public async Task<IActionResult> Update([FromForm] CakeImageUpdateRequest request)
         {
             try
             {
@@ -89,14 +89,10 @@ namespace GeeksBakery.BackendApi.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                var result = await _cakeImageService.UpdateAsync(request, cakeId);
-
-                if (result == 0)
-                {
-                    return BadRequest();
-                }
+                var result = await _cakeImageService.UpdateAsync(request, request.CakeId);
+                 
                 // pass parameter cakeId = 0 to don't check cake Id
-                var data = await _cakeImageService.GetByIdAsync(request.Id, cakeId);
+                var data = await _cakeImageService.GetByIdAsync(request.Id, request.CakeId);
                 if (data == null)
                 {
                     return NotFound($"Cannot find image with Id: {request.Id}");

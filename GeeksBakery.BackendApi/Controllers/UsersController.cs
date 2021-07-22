@@ -94,16 +94,30 @@ namespace GeeksBakery.BackendApi.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
         {
-            var products = await _userService.GetUsersPagingAsync(request);
-            return Ok(products);
+            var result = await _userService.GetUsersPagingAsync(request);
+            if (result.IsSuccessed)
+            {
+                return Ok(result.ResultObj);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
         }
 
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var user = await _userService.GetByIdAsync(id);
-            return Ok(user);
+            var result = await _userService.GetByIdAsync(id);
+            if (result.IsSuccessed)
+            {
+                return Ok(result.ResultObj);
+            }
+            else
+            {
+                return BadRequest(result.Message);
+            }
         }
 
         [HttpDelete("{id}")]
