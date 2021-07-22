@@ -16,11 +16,13 @@ namespace GeeksBakery.Application.Services
     {
         private readonly GeeksBakeryDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ICakeService _cakeService;
 
-        public CategoryService(GeeksBakeryDbContext context, IMapper mapper)
+        public CategoryService(GeeksBakeryDbContext context, IMapper mapper, ICakeService cakeService)
         {
             _mapper = mapper;
             _context = context;
+            _cakeService = cakeService;
         }
 
         public async Task<int> CreateAsync(CategoryCreateRequest request)
@@ -54,14 +56,32 @@ namespace GeeksBakery.Application.Services
 
         public async Task<int> DeleteAsync(int categoryId)
         {
-            var category = await _context.Categories.FindAsync(categoryId);
+            // code not remove image when remove category
+            //var category = await _context.Categories.FindAsync(categoryId);
+
+            //if (category == null)
+            //{
+            //    throw new GeeksBakeryException($"Cannot find category with Id = {categoryId}");
+            //}
+
+            //_context.Remove(category);
+
+            //return await _context.SaveChangesAsync();
+
+            // fix: remove image when remove category
+            var category = await _context.Categories.Where(x => x.Id == categoryId).Include(x => x.Cakes).FirstOrDefaultAsync();
 
             if (category == null)
             {
                 throw new GeeksBakeryException($"Cannot find category with Id = {categoryId}");
             }
 
-            _context.Remove(category);
+            foreach (var cake in category.Cakes.ToList())
+            {
+                await _cakeService.DeleteAsync(cake.Id);
+            }
+
+            _context.Categories.Remove(category);
 
             return await _context.SaveChangesAsync();
         }
