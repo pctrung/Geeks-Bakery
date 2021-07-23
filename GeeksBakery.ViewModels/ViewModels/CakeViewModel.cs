@@ -1,4 +1,5 @@
 ﻿using GeeksBakery.ViewModels.Catalog.CakeImage;
+using System;
 using System.Collections.Generic;
 
 namespace GeeksBakery.ViewModels.ViewModels
@@ -34,5 +35,8 @@ namespace GeeksBakery.ViewModels.ViewModels
         public string CategoryName { get; set; }
         public int CategoryId { get; set; }
         public double AvgStar { get; set; }
+        public DateTime? DateModified { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }

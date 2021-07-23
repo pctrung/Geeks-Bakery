@@ -113,6 +113,8 @@ namespace GeeksBakery.Application.Services
                     Slug = cake.Slug,
                     Size = cake.Size,
                     Stock = cake.Stock,
+                    DateModified = cake.DateModified,
+                    DateCreated = cake.DateCreated,
                     CakeImages = _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages),
                     Reviews = _mapper.Map<List<ReviewViewModel>>(cake.Reviews)
                 }).AsSplitQuery().OrderBy(x => x.Id).FirstOrDefaultAsync();
@@ -150,6 +152,8 @@ namespace GeeksBakery.Application.Services
                     Slug = cake.Slug,
                     Size = cake.Size,
                     Stock = cake.Stock,
+                    DateModified = cake.DateModified,
+                    DateCreated = cake.DateCreated,
                     CakeImages = cake.CakeImages == null ? null : _mapper.Map<List<CakeImageViewModel>>(cake.CakeImages)
                 }).AsSplitQuery();
 

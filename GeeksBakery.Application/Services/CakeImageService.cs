@@ -49,6 +49,8 @@ namespace GeeksBakery.Application.Services
                     FileSize = request.ImageFile.Length
                 };
 
+                cake.DateModified = DateTime.Now;
+
                 _context.CakeImages.Add(cakeImage);
                 await _context.SaveChangesAsync();
                 return cakeImage.Id;
@@ -58,8 +60,14 @@ namespace GeeksBakery.Application.Services
 
         public async Task<int> UpdateAsync(CakeImageUpdateRequest request, int cakeId)
         {
+            var cake = await _context.Cakes.FindAsync(cakeId);
+
             var cakeImage = await _context.CakeImages.FindAsync(request.Id);
 
+            if (cake == null)
+            {
+                throw new GeeksBakeryException($"Cannot find cake with Id = {cakeId}");
+            }
             if (cakeImage == null)
             {
                 throw new GeeksBakeryException($"Cannot find image with Id = {request.Id}");
@@ -79,12 +87,21 @@ namespace GeeksBakery.Application.Services
             cakeImage.IsDefault = request.IsDefault;
             cakeImage.SortOrder = request.SortOrder;
 
+            cake.DateModified = DateTime.Now;
+
             return await _context.SaveChangesAsync();
         }
 
         public async Task<int> DeleteAsync(int cakeImageId, int cakeId = 0)
         {
             var cakeImage = await _context.CakeImages.Where(x => x.Id == cakeImageId).FirstOrDefaultAsync();
+
+            var cake = await _context.Cakes.FindAsync(cakeId);
+
+            if (cake == null)
+            {
+                throw new GeeksBakeryException($"Cannot find cake with Id = {cakeId}");
+            }
 
             if (cakeImage == null)
             {
@@ -96,6 +113,8 @@ namespace GeeksBakery.Application.Services
             }
 
             await _storageService.DeleteFileAsync(cakeImage.FileName);
+
+            cake.DateModified = DateTime.Now;
 
             _context.CakeImages.Remove(cakeImage);
 
