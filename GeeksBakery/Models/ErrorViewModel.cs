@@ -1,6 +1,4 @@
-using System;
-
-namespace GeeksBakery.Models
+namespace GeeksBakery.ClientSite.Models
 {
     public class ErrorViewModel
     {

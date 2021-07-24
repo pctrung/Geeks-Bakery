@@ -4,4 +4,15 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeeksBakery.Data\GeeksBakery.Data.csproj" />
+    <ProjectReference Include="..\GeeksBakery.Utilities\GeeksBakery.Utilities.csproj" />
+    <ProjectReference Include="..\GeeksBakery.ViewModels\GeeksBakery.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,15 +1,17 @@
+using GeeksBakery.ClientSite.Interfaces;
+using GeeksBakery.ClientSite.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace GeeksBakery
+namespace GeeksBakery.ClientSite
 {
     public class Startup
     {
@@ -23,7 +25,28 @@ namespace GeeksBakery
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(options =>
+               {
+                   options.LoginPath = "/Accounts/Index";
+                   options.AccessDeniedPath = "/Accounts/Forbidden/";
+               });
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
             services.AddControllersWithViews();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // DI
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICakeService, CakeService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IReviewService, ReviewService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,11 +63,16 @@ namespace GeeksBakery
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
