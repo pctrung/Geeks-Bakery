@@ -26,13 +26,15 @@ else
             <section class="container details noselect">
                 <div class="details__item">
                     <div class="details__item-images">
-                        <img class="details__item-image"
-                             src="@(Model.CakeImages.IsSafe() ? Model.CakeImages.FirstOrDefault().FileUrl : SystemConstants.DEFAULT_CAKE_IMAGE_URL)"
-                             alt="@(Model.CakeImages.IsSafe() ? Model.CakeImages.FirstOrDefault().Caption : SystemConstants.DEFAULT_CAKE_IMAGE_CAPTION)" />
+                        <div class="details__item-image">
+                        <img id="mainImageId" 
+                         src="@(Model.CakeImages.IsSafe() ? Model.CakeImages.FirstOrDefault().FileUrl : SystemConstants.DEFAULT_CAKE_IMAGE_URL)"
+                         alt="@(Model.CakeImages.IsSafe() ? Model.CakeImages.FirstOrDefault().Caption : SystemConstants.DEFAULT_CAKE_IMAGE_CAPTION)" />
+                        </div>
                         <div class="details__items-small-images">
                             @foreach (var image in Model.CakeImages)
                             {
-                                <img class="details__item-image" src="@image.FileUrl" alt="@image.Caption" />
+                                 <img  class="details__items-small-image" onclick="showImage('@image.FileUrl')" style="cursor: pointer" src="@image.FileUrl" alt="@image.Caption" /> 
                             }
                         </div>
                     </div>
@@ -209,6 +211,10 @@ else
                     $('#submitReview').prop('disabled', true);
                     $('#submitReview').addClass("btn--disabled");
                 }
+            }
+
+            function showImage(url) {
+                $('#mainImageId').attr("src", url);
             }
         </script>
     }
