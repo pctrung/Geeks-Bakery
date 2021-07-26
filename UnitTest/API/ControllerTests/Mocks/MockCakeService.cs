@@ -9,12 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTest.API.ControllerTests
+namespace UnitTest.API.ControllerTests.Mocks
 {
     public class MockCakeService : Mock<ICakeService>
     {
-        private Mock<ICakeService> mockCakeService = new Mock<ICakeService>();
-
         public MockCakeService MockGetAllPagingAsync(PagedResult<CakeViewModel> result)
         {
             Setup(x => x.GetAllPagingAsync(It.IsAny<GetCakePagingRequest>())).ReturnsAsync(result);
