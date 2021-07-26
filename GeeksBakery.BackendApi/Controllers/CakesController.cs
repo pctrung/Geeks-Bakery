@@ -93,6 +93,7 @@ namespace GeeksBakery.BackendApi.Controllers
                 }
 
                 var data = await _cakeService.GetByIdAsync(cakeId);
+
                 if (data == null)
                 {
                     return NotFound($"Cannot find a cake with Id: {cakeId}");
