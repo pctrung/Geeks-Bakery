@@ -15,16 +15,16 @@ namespace UnitTest.API.ControllerTests
 {
     public class CategoriesControllerTest
     {
-        // test for cake image api
+        // test for category api
         [Fact]
         public async void Get_ReturnsOk()
         {
             var mockData = new List<CategoryViewModel>()
             {
-             new CategoryViewModel()
-             {
-                  Id = 1,
-             },
+                 new CategoryViewModel()
+                 {
+                      Id = 1,
+                 },
             };
 
             var mockCategoryService = new MockCategoryService().MockGetAllAsync(mockData);
