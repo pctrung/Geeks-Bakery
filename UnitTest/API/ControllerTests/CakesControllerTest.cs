@@ -2,16 +2,15 @@
 using GeeksBakery.BackendApi.Controllers;
 using GeeksBakery.ViewModels.Common;
 using GeeksBakery.ViewModels.Requests.Cake;
+using GeeksBakery.ViewModels.Requests.Review;
 using GeeksBakery.ViewModels.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
+using UnitTest.API.ControllerTests.Mocks;
 
 namespace UnitTest.API.ControllerTests
 {
@@ -25,6 +24,7 @@ namespace UnitTest.API.ControllerTests
 
         #endregion Property
 
+        // test for cake api
         [Fact]
         public async void Get_ReturnsOk()
         {
@@ -274,6 +274,239 @@ namespace UnitTest.API.ControllerTests
             var controller = new CakesController(mockCakeService.Object, _mockReviewService.Object, _mockCakeImageService.Object);
 
             var result = await controller.Create(new CakeCreateRequest());
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async void Update_WithValidModel_ReturnsOk()
+        {
+            var mockCakeService = new MockCakeService().MockUpdateAsync(1).MockGetByIdAsync(new CakeViewModel());
+            var controller = new CakesController(mockCakeService.Object, _mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.Update(new CakeUpdateRequest()) as OkObjectResult;
+
+            Assert.IsType<OkObjectResult>(result);
+
+            var content = JsonConvert.DeserializeObject<CakeViewModel>(result.Value.ToString());
+            Assert.IsType<CakeViewModel>(content);
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async void Update_WithValidModelAndCakeIdIsZero_ReturnsBadRequest()
+        {
+            var mockCakeService = new MockCakeService().MockUpdateAsync(0);
+            var controller = new CakesController(mockCakeService.Object, _mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.Update(new CakeUpdateRequest());
+
+            Assert.IsType<BadRequestResult>(result);
+        }
+
+        [Fact]
+        public async void Update_WithValidModelAndException_ReturnsBadRequest()
+        {
+            var mockCakeService = new MockCakeService().MockUpdateAsync_ThrowException();
+            var controller = new CakesController(mockCakeService.Object, _mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.Update(new CakeUpdateRequest());
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async void Update_WithInValidModel_ReturnsBadRequest()
+        {
+            var mockCakeService = new MockCakeService().MockUpdateAsync(2);
+            var controller = new CakesController(mockCakeService.Object, _mockReviewService.Object, _mockCakeImageService.Object);
+            controller.ModelState.AddModelError("Test", "Test");
+
+            var result = await controller.Update(new CakeUpdateRequest());
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async void Update_WithGetByIdIsNull_ReturnsNotFound()
+        {
+            var mockCakeService = new MockCakeService().MockUpdateAsync(2).MockGetByIdAsync(null);
+            var controller = new CakesController(mockCakeService.Object, _mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.Update(new CakeUpdateRequest());
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async void Delete_ReturnsOk()
+        {
+            var mockCakeService = new MockCakeService().MockDeleteAsync(1);
+            var controller = new CakesController(mockCakeService.Object, _mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.Delete(1);
+
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async void Delete_ReturnsBadRequest()
+        {
+            var mockCakeService = new MockCakeService().MockDeleteAsync_ThrowException();
+            var controller = new CakesController(mockCakeService.Object, _mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.Delete(1);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async void Delete_ReturnsNotFound()
+        {
+            var mockCakeService = new MockCakeService().MockDeleteAsync(0);
+            var controller = new CakesController(mockCakeService.Object, _mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.Delete(1);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        // test for review api
+        [Fact]
+        public async void GetReviewById_ReturnsOk()
+        {
+            var mockReviewService = new MockReviewService().MockGetByIdAsync(new ReviewViewModel());
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.GetReviewById(1, 1) as OkObjectResult;
+            var content = JsonConvert.DeserializeObject<ReviewViewModel>(result.Value.ToString());
+
+            Assert.IsType<OkObjectResult>(result);
+            Assert.IsType<ReviewViewModel>(content);
+        }
+
+        [Fact]
+        public async void GetReviewById_ReturnsBadRequest()
+        {
+            var mockReviewService = new MockReviewService().MockGetByIdAsync_ThrowException();
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.GetReviewById(1, 1);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async void GetReviewByCakeId_ReturnsOk()
+        {
+            var mockReviewService = new MockReviewService().MockGetByCakeIdAsync(new List<ReviewViewModel>() { new ReviewViewModel() { CakeId = 1 } });
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.GetReviews(1) as OkObjectResult;
+            var content = JsonConvert.DeserializeObject<List<ReviewViewModel>>(result.Value.ToString());
+
+            Assert.IsType<OkObjectResult>(result);
+            Assert.IsType<List<ReviewViewModel>>(content);
+        }
+
+        [Fact]
+        public async void GetReviewByCakeId_ReturnsBadRequest()
+        {
+            var mockReviewService = new MockReviewService().MockGetByCakeIdAsync_ThrowException();
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.GetReviews(1);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async void CreateReview_WithValidModel_ReturnsOk()
+        {
+            var mockReviewService = new MockReviewService().MockCreateAsync(1).MockGetByIdAsync(new ReviewViewModel() { CakeId = 1 });
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.CreateReview(new ReviewCreateRequest() { CakeId = 1 }, 1) as OkObjectResult;
+
+            var content = JsonConvert.DeserializeObject<ReviewViewModel>(result.Value.ToString());
+            Assert.IsType<ReviewViewModel>(content);
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async void CreateReview_WithValidModelAndCakeIdIsZero_ReturnsBadRequest()
+        {
+            var mockReviewService = new MockReviewService().MockCreateAsync(0);
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.CreateReview(new ReviewCreateRequest(), 1);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async void CreateReview_WithValidModelAndException_ReturnsBadRequest()
+        {
+            var mockReviewService = new MockReviewService().MockCreateAsync_ThrowException();
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.CreateReview(new ReviewCreateRequest(), 1);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async void CreateReview_WithInValidModel_ReturnsBadRequest()
+        {
+            var mockReviewService = new MockReviewService().MockCreateAsync(2);
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+            controller.ModelState.AddModelError("Test", "Test");
+
+            var result = await controller.CreateReview(new ReviewCreateRequest(), 1);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async void CreateReview_WithGetByIdIsNull_ReturnsNotFound()
+        {
+            var mockReviewService = new MockReviewService().MockCreateAsync(2).MockGetByIdAsync(null);
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.CreateReview(new ReviewCreateRequest() { CakeId = 1 }, 1);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async void DeleteReview_ReturnsOk()
+        {
+            var mockReviewService = new MockReviewService().MockDeleteAsync(1);
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.DeleteReview(1, 1);
+
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async void DeleteReview_ReturnsBadRequest()
+        {
+            var mockReviewService = new MockReviewService().MockDeleteAsync_ThrowException();
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.DeleteReview(1, 1);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async void DeleteReview_ReturnsNotFound()
+        {
+            var mockReviewService = new MockReviewService().MockDeleteAsync(0);
+            var controller = new CakesController(_mockCakeService.Object, mockReviewService.Object, _mockCakeImageService.Object);
+
+            var result = await controller.DeleteReview(1, 1);
 
             Assert.IsType<NotFoundObjectResult>(result);
         }

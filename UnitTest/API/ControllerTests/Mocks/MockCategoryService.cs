@@ -21,9 +21,23 @@ namespace UnitTest.API.ControllerTests.Mocks
             return this;
         }
 
-        public MockCategoryService MockGetAllPagingAsync_ThrowException()
+        public MockCategoryService MockGetAllAsync_ThrowException()
         {
             Setup(x => x.GetAllAsync()).Throws(new Exception());
+
+            return this;
+        }
+
+        public MockCategoryService MockGetByIdAsync(CategoryViewModel result)
+        {
+            Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(result);
+
+            return this;
+        }
+
+        public MockCategoryService MockGetByIdAsync_ThrowException()
+        {
+            Setup(x => x.GetByIdAsync(It.IsAny<int>())).Throws(new Exception());
 
             return this;
         }
