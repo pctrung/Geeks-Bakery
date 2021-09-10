@@ -1,7 +1,7 @@
 # Geeks-Bakery
  Geek's Bakery - My bakery website for The Rookies Program
 
- ## Technologies
+ ## Tech Stack
  - ASP.NET Core 5.0
  - Entity Framework Core 5.0.7
 
