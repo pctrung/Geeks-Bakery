@@ -4,6 +4,7 @@
  ## Tech Stack
  - ASP.NET Core 5.0
  - Entity Framework Core 5.0.7
+ - SQL Server
 
  ## Install package
  - Entity Framework Core Design 5.0.7
