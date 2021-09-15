@@ -1,5 +1,5 @@
 # Geek's Bakery
- E-commerce website - A project for The Rookies Program
+ E-commerce website for cake business - My project for an internship program at NashTec
 
  ## Tech Stack
  ### ASP .NET Core (Backend - API - Client site (Razor))
