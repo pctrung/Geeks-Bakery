@@ -1,5 +1,5 @@
 # Geek's Bakery
- E-commerce website for The Rookies Program
+ E-commerce website - A project for The Rookies Program
 
  ## Tech Stack
  ### ASP .NET Core (Backend - API - Client site (Razor))
