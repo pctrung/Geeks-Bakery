@@ -1,5 +1,5 @@
-# Geeks-Bakery
- Geek's Bakery - My bakery website for The Rookies Program
+# Geek's Bakery
+ E-commerce website for The Rookies Program
 
  ## Tech Stack
  ### ASP .NET Core (Backend - API - Client site (Razor))
