@@ -1,0 +1,102 @@
+import React from "react";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
+// reactstrap components
+import { Container } from "reactstrap";
+import AdminFooter from "../components/Footers/AdminFooter.js";
+// core components
+import AdminNavbar from "../components/Navbars/AdminNavbar.js";
+import Sidebar from "../components/Sidebar/Sidebar.js";
+import routes from "../routes.js";
+
+import authApi from "../api/authApi.js";
+
+const Admin = (props) => {
+  var history = useHistory();
+  var user = authApi.currentUser();
+  if (!user) {
+    history.push("/auth/login");
+  }
+
+  function logout() {
+    if (authApi.logout()) {
+      history.push("/auth/login");
+    }
+  }
+
+  const mainContent = React.useRef(null);
+  const location = useLocation();
+
+  React.useEffect(() => {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    mainContent.current.scrollTop = 0;
+  }, [location]);
+
+  const getRoutes = (routes) => {
+    return routes.map((prop, key) => {
+      if (prop.layout === "/admin") {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key}
+          />
+        );
+      } else {
+        return null;
+      }
+    });
+  };
+
+  const getBrandText = (path) => {
+    for (let i = 0; i < routes.length; i++) {
+      if (
+        props.location.pathname.indexOf(routes[i].layout + routes[i].path) !==
+          -1 ||
+        props.location.pathname
+          .replace(/[0-9]/g, ":id")
+          .indexOf(routes[i].layout + routes[i].path) !== -1
+      ) {
+        return routes[i].name;
+      }
+    }
+    return "Brand";
+  };
+
+  return (
+    <>
+      <Sidebar
+        {...props}
+        routes={routes}
+        logo={{
+          innerLink: "/admin/index",
+          imgSrc: require("../assets/img/logo.png").default,
+          imgAlt: "...",
+        }}
+      />
+      <div className="main-content" ref={mainContent}>
+        <AdminNavbar
+          {...props}
+          logout={logout}
+          user={user}
+          brandText={getBrandText(props.location.pathname)}
+        />
+        <Switch>
+          {getRoutes(routes)}
+          <Redirect from="*" to="/admin/index" />
+        </Switch>
+        <Container fluid>
+          <AdminFooter />
+        </Container>
+      </div>
+    </>
+  );
+};
+
+export default Admin;

@@ -1,0 +1,67 @@
+:root {
+  --primary: #23adad;
+  --greyLight: #23adad e1;
+  --greyLight-2: #cbe0dd;
+  --greyDark: #2d4848;
+}
+
+.pagination {
+  transition: all 0.2s ease;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.6rem;
+  background: #fff;
+  box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+  margin: 5px 0 5px 0;
+  padding-bottom: 2rem;
+  padding-top: 0.5rem;
+}
+.page-item,
+.page__btn,
+.page__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+  margin: 0 2px 0 2px;
+}
+.page__dots {
+  width: 2rem;
+  height: 2rem;
+  color: var(--greyLight);
+  cursor: initial;
+}
+.page-item {
+  transition: all 0.3s ease;
+  font-size: 14px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  border: 1px solid transparent;
+}
+.page-item:hover {
+  transition: all 0.3s ease;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.page-item.active {
+  color: #fff;
+  background: var(--primary);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid var(--primary);
+}
+.page__btn.disabled {
+  color: var(--greyLight);
+  pointer-events: none;
+}
+.page__btn.active {
+  color: var(--greyDark);
+  pointer-events: initial;
+}
+.page__btn.active:hover {
+  color: var(--primary);
+}

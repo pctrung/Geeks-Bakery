@@ -1,0 +1,68 @@
+{
+  "name": "geeksbakery-adminsite",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.15.3",
+    "@hookform/resolvers": "^2.6.1",
+    "axios": "^0.21.1",
+    "bootstrap": "4.6.0",
+    "classnames": "2.3.1",
+    "dotenv": "^10.0.0",
+    "jwt-decode": "^3.1.2",
+    "moment": "2.29.1",
+    "nouislider": "15.2.0",
+    "prop-types": "^15.7.2",
+    "query-string": "^7.0.1",
+    "react": "^17.0.2",
+    "react-chartjs-2": "2.11.1",
+    "react-copy-to-clipboard": "5.0.3",
+    "react-datetime": "3.0.4",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.11.1",
+    "react-reactstrap-pagination": "^2.0.3",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "4.0.3",
+    "reactstrap": "8.9.0",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "gulp": "4.0.2",
+    "gulp-append-prepend": "1.0.9",
+    "node-sass": "^6.0.1",
+    "node-sass-package-importer": "5.3.2"
+  },
+  "optionalDependencies": {
+    "eslint-plugin-flowtype": "5.8.0",
+    "jquery": "3.6.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "compile:scss": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.css",
+    "minify:scss": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.min.css --output-style compressed",
+    "map:scss": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.css --source-map true",
+    "build:scss": "npm run compile:scss && npm run minify:scss && npm run map:scss"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
