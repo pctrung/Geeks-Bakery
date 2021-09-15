@@ -2,9 +2,16 @@
  Geek's Bakery - My bakery website for The Rookies Program
 
  ## Tech Stack
+ ### ASP .NET Core (/Backend)
+ - MVC - Razor Page (Client site)
+ - REST API
  - ASP.NET Core 5.0
  - Entity Framework Core 5.0.7
  - SQL Server
+ ### ReactJs (/Frontend)
+ - ReactJS (Admin site)
+ - ReactStrap
+ - CSS
 
  ## Install package
  - Entity Framework Core Design 5.0.7
